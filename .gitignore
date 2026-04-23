@@ -1,0 +1,85 @@
+# macOS
+.DS_Store
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Environment files
+.env
+.env.*
+!.env.example
+!.env.*.example
+
+# Node / React / frontend
+node_modules/
+.pnpm-store/
+.npm/
+.yarn/
+.turbo/
+.parcel-cache/
+dist/
+build/
+coverage/
+.vite/
+vite.config.ts.timestamp-*
+*.tsbuildinfo
+.eslintcache
+
+# iOS / Xcode
+DerivedData/
+build/
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+xcuserdata/
+*.xccheckout
+*.moved-aside
+*.xcuserstate
+*.xcscmblueprint
+.swiftpm/
+Packages/
+Package.resolved
+
+# CocoaPods
+Pods/
+
+# Carthage
+Carthage/Build/
+
+# Fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots/
+fastlane/test_output/
+
+# Android / Android Studio / Gradle
+.gradle/
+local.properties
+captures/
+*.apk
+*.aab
+*.ap_
+*.dex
+**/build/
+**/out/
+.idea/
+*.iml
+
+# React Native / Metro (safe to keep if introduced later)
+.metro-health-check*
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.swp
+*.swo
