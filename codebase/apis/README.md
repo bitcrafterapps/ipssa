@@ -23,3 +23,17 @@ Current service stubs:
 Each service directory currently contains a lightweight `README.md` describing its intended responsibility.
 
 This folder is intentionally lightweight for now and serves as the backend container until implementation begins.
+
+## Relevant Architecture Artifacts
+
+- `../../docs/architecture/IPSSA_Data_Schema.md`
+  Canonical logical data model for backend-owned entities and relationships.
+
+- `../../docs/architecture/IPSSA_SQL_First_Schema_Spec.md`
+  PostgreSQL-first table, enum, foreign-key, and index planning.
+
+- `../../docs/architecture/IPSSA_Initial_Postgres_DDL.sql`
+  Consolidated first-pass Postgres DDL.
+
+- `../../docs/architecture/migrations/`
+  Ordered SQL migration files split from the DDL for implementation planning.

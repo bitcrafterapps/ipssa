@@ -58,6 +58,18 @@ This repository contains the planning and implementation artifacts for the IPSSA
 - `docs/architecture/IPSSA_AWS_Architecture.md`
   Target AWS production architecture for redundancy, scalability, and fault tolerance.
 
+- `docs/architecture/IPSSA_Data_Schema.md`
+  Logical data model covering major entities, fields, validation rules, and service ownership boundaries.
+
+- `docs/architecture/IPSSA_SQL_First_Schema_Spec.md`
+  PostgreSQL-oriented schema specification with enum definitions, table names, foreign key strategy, and indexing guidance.
+
+- `docs/architecture/IPSSA_Initial_Postgres_DDL.sql`
+  First-pass Postgres DDL artifact for the platform schemas, tables, constraints, indexes, and triggers.
+
+- `docs/architecture/migrations/`
+  Ordered migration-style SQL files split from the initial DDL for incremental application and future migration-tool adoption.
+
 - `docs/infrastructure/AWS_Environments_and_IaC_Strategy.md`
   AWS environments, account strategy, and infrastructure-as-code approach.
 
@@ -80,3 +92,4 @@ This repository contains the planning and implementation artifacts for the IPSSA
 - The native app projects are expected to be created in Xcode and Android Studio first, then added into `codebase/uis/ios/` and `codebase/uis/android/`.
 - The backend services will be created under `codebase/apis/` as implementation begins.
 - This repository is currently planning-first and code-light. The docs in `docs/` should be treated as the source of truth for initial implementation sequencing.
+- The current backend data source of truth is the architecture set under `docs/architecture/`, especially the logical schema, SQL-first schema spec, initial DDL, and split migration files.

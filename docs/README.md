@@ -33,6 +33,10 @@ For a root-level summary of the platform, see:
 
 ### Architecture
 - `architecture/IPSSA_AWS_Architecture.md`
+- `architecture/IPSSA_Data_Schema.md`
+- `architecture/IPSSA_SQL_First_Schema_Spec.md`
+- `architecture/IPSSA_Initial_Postgres_DDL.sql`
+- `architecture/migrations/`
 
 ### Infrastructure
 - `infrastructure/AWS_Environments_and_IaC_Strategy.md`

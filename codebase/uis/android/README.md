@@ -12,3 +12,8 @@ Intended scope:
 - profile and chapter context screens
 
 The Android Studio project should be created first, then added into this directory.
+
+Relevant references:
+
+- `../../../docs/planning/IPSSA_Implementation_Stories_Backlog.md`
+- `../../../docs/product/IPSSA_Mobile_App_Opportunity.md`

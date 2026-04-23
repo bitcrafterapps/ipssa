@@ -15,3 +15,8 @@ Planned upstream services:
 - `../auth-api/`
 - `../core-api/`
 - `../media-api/`
+
+Relevant references:
+
+- `../../../docs/planning/IPSSA_Implementation_Stories_Backlog.md`
+- `../../../docs/architecture/IPSSA_AWS_Architecture.md`

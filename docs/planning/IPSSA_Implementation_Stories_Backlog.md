@@ -85,10 +85,10 @@ flowchart LR
     Gateway --> AuthApi[AuthApi]
     Gateway --> CoreApi[CoreApi]
     Gateway --> MediaApi[MediaApi]
-    AuthApi --> AuthDb[AuthDatabase]
-    CoreApi --> CoreDb[CoreDatabase]
-    MediaApi --> MediaDb[MediaMetadataStore]
-    MediaApi --> ObjectStore[ObjectStorage]
+    AuthApi --> AuthDb[AuthPostgres]
+    CoreApi --> CoreDb[CorePostgres]
+    MediaApi --> MediaDb[MediaMetadataPostgres]
+    MediaApi --> ObjectStore[ObjectStorageS3]
     CoreApi --> Jobs[BackgroundJobs]
 ```
 
@@ -245,6 +245,24 @@ flowchart TD
   - Ownership boundaries between Core API and Media API async work are defined
 - **Complexity:** `M`
 - **Dependencies:** `PF-01`, `PF-04`
+
+## PF-06 Relational Data Model and Migration Baseline
+- **Primary service owner:** Platform
+- **Title:** Define the relational schema, SQL-first spec, and initial migration pack
+- **Description:** Establish the first implementation-ready backend data foundation by translating product and domain planning into a logical schema, SQL-first table design, and ordered PostgreSQL migrations for Auth, Core, and Media boundaries.
+- **Use cases:**
+  - Backend engineers need a durable source of truth for table ownership and cross-service reference strategy
+  - API contracts need to map cleanly to concrete tables, enums, and constraints
+  - Teams need migration ordering before service implementation begins
+  - Future ORM or migration-tool choices need a reviewed schema baseline rather than a blank slate
+- **Acceptance criteria:**
+  - Logical schema documentation exists for major entities, variants, validation rules, and relationships
+  - SQL-first schema specification exists with table names, enums, index strategy, and foreign-key guidance
+  - Initial PostgreSQL DDL exists for schemas, tables, constraints, indexes, and `updated_at` trigger behavior
+  - Ordered migration files exist for bootstrap, enums, auth, core foundation, media/coverage, community/learning/ops, and triggers
+  - Cross-service UUID references versus same-schema physical foreign keys are explicitly documented
+- **Complexity:** `M`
+- **Dependencies:** `PF-01`, `PF-02`
 
 ---
 
@@ -1090,6 +1108,7 @@ flowchart TD
 - `PF-03` CI, Quality Gates, and Dependency Hygiene
 - `PF-04` Logging, Tracing, and Audit Foundations
 - `PF-05` Background Jobs and Async Processing Baseline
+- `PF-06` Relational Data Model and Migration Baseline
 
 ## Wave 1: Edge and Identity
 - `GW-01` API Gateway Skeleton and Upstream Routing
@@ -1199,3 +1218,4 @@ This MVP aligns to the PRD:
 - Keep notifications as a Core API capability unless the domain clearly outgrows that boundary later.
 - Keep the web experience intentionally constrained; do not let it silently become a second full product client.
 - Treat iOS and Android as first-class implementation tracks; do not assume one platform can trail indefinitely behind the other.
+- Treat the schema set under `docs/architecture/` and the ordered SQL files under `docs/architecture/migrations/` as the starting persistence baseline until implementation repos adopt a concrete migration tool.

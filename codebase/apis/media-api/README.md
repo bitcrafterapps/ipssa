@@ -15,3 +15,9 @@ Primary media classes:
 - Coverage Dossier proof photos
 - profile images and related assets
 - future moderated attachments if needed
+
+Relevant references:
+
+- `../../../docs/architecture/IPSSA_Data_Schema.md`
+- `../../../docs/architecture/IPSSA_SQL_First_Schema_Spec.md`
+- `../../../docs/architecture/migrations/005_media_and_coverage.sql`

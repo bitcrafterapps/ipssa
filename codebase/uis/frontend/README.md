@@ -9,3 +9,8 @@ Intended scope:
 - limited authenticated member portal
 
 This client should remain intentionally narrower than the native mobile apps unless the product strategy changes later.
+
+Relevant references:
+
+- `../../../docs/planning/IPSSA_Implementation_Stories_Backlog.md`
+- `../../../docs/product/IPSSA_Mobile_App_Opportunity.md`
