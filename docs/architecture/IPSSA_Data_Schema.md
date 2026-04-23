@@ -41,12 +41,15 @@ This is a logical schema document, not final SQL DDL. It is intended to guide AP
 - email verification
 - password reset
 - invitations
+- permission catalog
+- global roles and role assignments
 - global auth/authorization primitives
 
 ### Core API owns
 - chapters
 - memberships
 - chapter-scoped roles
+- chapter role-to-permission mapping
 - member profiles
 - service areas
 - coverage requests, candidates, matches, dossiers, execution
@@ -97,6 +100,15 @@ Soft-delete is recommended for user-generated content, ratings disputes, and mod
 - `used`
 - `revoked`
 - `expired`
+
+### GlobalRoleCode
+- `platform_admin`
+- `support_admin`
+- `readonly_auditor`
+
+### PermissionScope
+- `global`
+- `chapter`
 
 ### MembershipStatus
 - `pending`
@@ -455,7 +467,7 @@ Represents chapter/member onboarding invitations.
 - `email: citext not null`
 - `chapter_id: uuid not null`
 - `invited_by_user_id: uuid not null`
-- `suggested_role: ChapterRole not null default 'member'`
+- `suggested_chapter_role_code: text not null default 'member'`
 - `token_hash: text not null unique`
 - `status: TokenStatus not null`
 - `expires_at: timestamptz not null`
@@ -465,6 +477,7 @@ Represents chapter/member onboarding invitations.
 
 ### Validation
 - invite must reference a valid chapter in Core API
+- suggested chapter role code should match a Core-recognized chapter role
 - accepted invite must create or bind to a user account
 - expired invites cannot be accepted
 
@@ -472,6 +485,97 @@ Represents chapter/member onboarding invitations.
 - many-to-one with `User` as inviter
 - optional many-to-one with `User` as accepter
 - logical reference to Core `Chapter`
+
+---
+
+## 7A. Permission
+
+Canonical permission catalog for platform authorization decisions.
+
+### Fields
+- `code: text primary key`
+- `scope: PermissionScope not null`
+- `service_owner: text not null`
+- `description: text not null`
+- `is_system: boolean not null default true`
+- `created_at: timestamptz`
+- `updated_at: timestamptz`
+
+### Validation
+- permission codes should be namespaced, e.g. `chapter.community.moderate`
+- `scope` determines whether permission is evaluated as platform-global or chapter-scoped
+- codes should be immutable once referenced by role mappings or claims
+
+### Relationships
+- one-to-many with `GlobalRolePermission`
+- logical one-to-many with `ChapterRolePermission`
+
+---
+
+## 7B. GlobalRole
+
+Platform-wide RBAC role for non-chapter-scoped administrative access.
+
+### Fields
+- `code: GlobalRoleCode primary key`
+- `name: text not null`
+- `description: text null`
+- `is_system: boolean not null default true`
+- `created_at: timestamptz`
+- `updated_at: timestamptz`
+
+### Validation
+- global roles should be few, stable, and limited to platform-wide operations
+- global roles should not be used to model chapter duties such as president or Tech-4-Tech chair
+
+### Relationships
+- one-to-many with `GlobalRolePermission`
+- one-to-many with `UserGlobalRoleAssignment`
+
+---
+
+## 7C. GlobalRolePermission
+
+Maps global roles to permissions in the auth-owned permission catalog.
+
+### Fields
+- `global_role_code: GlobalRoleCode not null`
+- `permission_code: text not null`
+- `created_at: timestamptz`
+
+### Validation
+- unique active mapping per `(global_role_code, permission_code)`
+- mapped permissions should exist in the auth permission catalog
+- permissions attached to global roles should be evaluated without requiring chapter context
+
+### Relationships
+- many-to-one with `GlobalRole`
+- many-to-one with `Permission`
+
+---
+
+## 7D. UserGlobalRoleAssignment
+
+Assigns a global role to a user for platform-wide administration/support use cases.
+
+### Fields
+- `id: uuid`
+- `user_id: uuid not null`
+- `global_role_code: GlobalRoleCode not null`
+- `assigned_by_user_id: uuid not null`
+- `starts_at: timestamptz not null`
+- `ends_at: timestamptz null`
+- `created_at: timestamptz`
+- `updated_at: timestamptz`
+
+### Validation
+- unique active assignment per `(user_id, global_role_code)`
+- expired assignments must be excluded from token claims and gateway-trusted auth context
+- assignments should be auditable and limited to authorized platform admins/support staff
+
+### Relationships
+- many-to-one with `User`
+- many-to-one with `GlobalRole`
 
 ---
 
@@ -578,11 +682,30 @@ Stores officer/moderation role assignments within a chapter.
 
 ### Validation
 - unique active role assignment per `(membership_id, role)`
-- chapter-scoped roles only; global auth roles should live in Auth API if needed
+- chapter-scoped roles only; platform-global roles and permission claims should live in Auth API
 - expired assignments must be excluded from claim generation
 
 ### Relationships
 - many-to-one with `ChapterMembership`
+
+---
+
+## 11A. ChapterRolePermission
+
+Maps chapter-scoped roles to permission codes used by Core API authorization checks.
+
+### Fields
+- `role: ChapterRole not null`
+- `permission_code: text not null`
+- `created_at: timestamptz`
+
+### Validation
+- unique mapping per `(role, permission_code)`
+- `permission_code` should logically reference the auth-owned permission catalog
+- chapter-sensitive writes should be authorized from active membership plus current role-permission mappings, not from token role labels alone
+
+### Relationships
+- logical many-to-one with `Permission`
 
 ---
 
@@ -1705,6 +1828,10 @@ Optional audit record for private media access.
 
 # Relationship Summary
 
+## Auth internal
+- `User -> UserGlobalRoleAssignment -> GlobalRole`
+- `GlobalRole -> GlobalRolePermission -> Permission`
+
 ## Auth -> Core
 - `User.id` is referenced logically by:
   - `ChapterMembership.user_id`
@@ -1715,9 +1842,11 @@ Optional audit record for private media access.
   - `Rating.reviewee_user_id`
   - `LearnerProgress.user_id`
   - `NotificationIntent.user_id`
+- `Permission.code` is referenced logically by `ChapterRolePermission.permission_code`
 
 ## Core internal
 - `Chapter -> ChapterMembership -> ChapterRoleAssignment`
+- `ChapterRoleAssignment + ChapterRolePermission -> effective chapter authorization`
 - `MemberProfile -> ProfileServiceArea / ProfileSpecialty / ProfileCertification`
 - `CoverageRequest -> CoverageCandidate -> CoverageMatch -> CoverageDossier -> DossierStop`
 - `CoverageMatch -> Rating -> RatingDispute`
@@ -1737,7 +1866,13 @@ Optional audit record for private media access.
 ## Identity and membership
 - no active coverage or community participation for suspended/disabled accounts
 - no chapter-scoped actions without active membership in that chapter
-- role claims should be derived from active memberships and unexpired role assignments
+
+## Authorization / RBAC
+- Auth owns platform-global roles, permissions, and token-friendly global claims
+- Core owns chapter-scoped role assignments and chapter permission resolution
+- chapter-sensitive writes should be authorized from current Core state, not only from token role labels
+- global admin/support claims may bypass chapter context only for explicitly global permissions
+- role and permission mapping changes should be auditable and invalidate cached authorization context promptly
 
 ## Coverage workflow
 - only one active match per coverage request in MVP
@@ -1778,10 +1913,15 @@ Optional audit record for private media access.
 - `email_verification_tokens(token_hash)`
 - `password_reset_tokens(token_hash)`
 - `invites(email, chapter_id)`
+- `permissions(scope)`
+- `user_global_role_assignments(user_id, global_role_code, ends_at)`
+- `global_role_permissions(global_role_code, permission_code)`
 
 ## Core API
 - `chapter_memberships(user_id, status)`
 - `chapter_memberships(chapter_id, status)`
+- `chapter_role_assignments(membership_id, role, ends_at)`
+- `chapter_role_permissions(role, permission_code)`
 - `member_profiles(user_id)`
 - `coverage_requests(chapter_id, status, service_date)`
 - `coverage_candidates(coverage_request_id, status, rank_score desc)`
@@ -1804,7 +1944,9 @@ Optional audit record for private media access.
 
 The following should be finalized before first migrations:
 
-- whether `ChapterRole` lives entirely in Core or partially in Auth for global roles
+- whether permissions should stay as code strings or later become a richer resource/action model
+- whether chapter role codes should remain fixed system roles or later move to table-driven custom chapter roles
+- whether gateway should cache effective chapter permission summaries or require Core lookup for every sensitive route
 - whether cross-chapter coverage is in scope for MVP
 - whether service areas use only radius/postal-code logic initially or PostGIS polygons from day one
 - whether community attachments are in MVP
@@ -1824,12 +1966,17 @@ The following should be finalized before first migrations:
    - `email_verification_tokens`
    - `password_reset_tokens`
    - `invites`
+   - `permissions`
+   - `global_roles`
+   - `global_role_permissions`
+   - `user_global_role_assignments`
 
 2. Core foundation
    - `chapters`
    - `chapter_policies`
    - `chapter_memberships`
    - `chapter_role_assignments`
+   - `chapter_role_permissions`
    - `member_profiles`
    - `profile_service_areas`
    - `profile_specialties`

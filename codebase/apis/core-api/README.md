@@ -4,7 +4,7 @@ This folder is reserved for the primary business domain service.
 
 Intended responsibilities:
 
-- chapters, memberships, and roles
+- chapters, memberships, chapter-scoped roles, and RBAC resolution
 - member business profiles
 - CoverageMatch requests, matching, and dossier workflows
 - ratings, reputation, and gamification
@@ -13,6 +13,11 @@ Intended responsibilities:
 - notification intent orchestration
 
 This is expected to become the largest backend service in the platform.
+
+Authorization note:
+
+- Auth provides trusted identity and platform-global claims
+- Core remains the source of truth for chapter-scoped authorization and sensitive chapter action checks
 
 Relevant references:
 

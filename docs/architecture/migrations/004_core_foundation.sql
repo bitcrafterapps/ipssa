@@ -1,5 +1,5 @@
 -- 004_core_foundation.sql
--- Core platform primitives: chapters, memberships, profiles, and profile metadata.
+-- Core platform primitives: chapters, memberships, chapter-scoped RBAC, profiles, and profile metadata.
 
 create table core.chapters (
   id uuid primary key default gen_random_uuid(),
@@ -91,6 +91,17 @@ create table core.chapter_role_assignments (
 create unique index uq_chapter_role_assignments__active_role
   on core.chapter_role_assignments(membership_id, role)
   where ends_at is null;
+
+create table core.chapter_role_permissions (
+  role core.chapter_role_enum not null,
+  permission_code text not null,
+  created_at timestamptz not null default now(),
+  constraint uq_chapter_role_permissions__role_permission
+    unique (role, permission_code)
+);
+
+create index idx_chapter_role_permissions__permission_code
+  on core.chapter_role_permissions(permission_code);
 
 create table core.member_profiles (
   id uuid primary key default gen_random_uuid(),

@@ -21,6 +21,18 @@ create trigger trg_invites__updated_at
 before update on auth.invites
 for each row execute function public.set_updated_at();
 
+create trigger trg_permissions__updated_at
+before update on auth.permissions
+for each row execute function public.set_updated_at();
+
+create trigger trg_global_roles__updated_at
+before update on auth.global_roles
+for each row execute function public.set_updated_at();
+
+create trigger trg_user_global_role_assignments__updated_at
+before update on auth.user_global_role_assignments
+for each row execute function public.set_updated_at();
+
 create trigger trg_chapters__updated_at
 before update on core.chapters
 for each row execute function public.set_updated_at();

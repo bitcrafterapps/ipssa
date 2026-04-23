@@ -22,6 +22,17 @@ create type auth.token_status_enum as enum (
   'expired'
 );
 
+create type auth.global_role_code_enum as enum (
+  'platform_admin',
+  'support_admin',
+  'readonly_auditor'
+);
+
+create type auth.permission_scope_enum as enum (
+  'global',
+  'chapter'
+);
+
 create type core.membership_status_enum as enum (
   'pending',
   'active',

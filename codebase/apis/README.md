@@ -12,10 +12,10 @@ Current service stubs:
   API gateway / edge routing / auth enforcement
 
 - `auth-api/`
-  Authentication and authorization service
+  Authentication, global RBAC, and authorization service
 
 - `core-api/`
-  Core business domains such as chapters, profiles, CoverageMatch, ratings, community, and Prep Lab
+  Core business domains such as chapters, profiles, CoverageMatch, ratings, community, Prep Lab, and chapter-scoped RBAC
 
 - `media-api/`
   Uploads, proof photos, media metadata, and media lifecycle operations

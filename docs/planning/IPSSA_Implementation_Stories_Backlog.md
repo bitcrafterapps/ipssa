@@ -22,8 +22,8 @@ This document is intentionally code-free. It defines:
 - Backend surfaces:
   - `codebase/apis/`: container directory for all backend services
   - `codebase/apis/gateway/`: API gateway routing, auth enforcement, edge controls
-  - `codebase/apis/auth-api/`: authentication and authorization
-  - `codebase/apis/core-api/`: business domains and product rules
+  - `codebase/apis/auth-api/`: authentication, global RBAC, and trusted identity context
+  - `codebase/apis/core-api/`: business domains, product rules, and chapter-scoped authorization
   - `codebase/apis/media-api/`: proof photos, uploads, media access, lifecycle
 - Backend implementation stack:
   - Node.js latest stable LTS at implementation kickoff
@@ -71,8 +71,8 @@ The `codebase/uis/ios/` and `codebase/uis/android/` directories may begin empty 
 | `codebase/uis/ios/` | Primary iOS member app workflows |
 | `codebase/uis/android/` | Primary Android member app workflows |
 | `codebase/apis/gateway/` | Single entry point, route dispatching, auth propagation, edge controls |
-| `codebase/apis/auth-api/` | Accounts, sessions/tokens, password reset, verification, claims |
-| `codebase/apis/core-api/` | Chapters, roles, profiles, CoverageMatch, dossiers, ratings, community, Prep Lab |
+| `codebase/apis/auth-api/` | Accounts, sessions/tokens, password reset, verification, global RBAC, gateway-trusted claims |
+| `codebase/apis/core-api/` | Chapters, chapter-scoped RBAC, profiles, CoverageMatch, dossiers, ratings, community, Prep Lab |
 | `codebase/apis/media-api/` | Upload authorization, object validation, metadata, access URLs, retention |
 
 ## System Map
@@ -129,9 +129,13 @@ flowchart TD
 
 ```mermaid
 flowchart TD
-    Identity[IdentityAndClaims] --> ChapterMembership[ChapterMembershipAndRoles]
+    Identity[IdentityAndClaims] --> GlobalRBAC[GlobalRBACAndClaims]
+    Identity --> ChapterMembership[ChapterMembershipAndRoles]
     ChapterMembership --> MemberProfiles[MemberProfiles]
-    MemberProfiles --> CoverageRequests[CoverageRequests]
+    ChapterMembership --> ChapterRBAC[ChapterRBAC]
+    GlobalRBAC --> ChapterRBAC
+    ChapterRBAC --> CoverageRequests[CoverageRequests]
+    MemberProfiles --> CoverageRequests
     ChapterMembership --> CoverageRequests
     CoverageRequests --> MatchRanking[MatchRanking]
     MemberProfiles --> MatchRanking
@@ -369,19 +373,20 @@ flowchart TD
 - **Complexity:** `M`
 - **Dependencies:** `AU-02`, `GW-03`
 
-## AU-04 Roles, Claims, and Authorization Boundaries
+## AU-04 Global RBAC Claims and Authorization Boundaries
 - **Primary service owner:** Auth API
-- **Title:** Define role claims for members, officers, moderators, and admins
-- **Description:** Establish the authorization contract between Auth API, Gateway, and Core API, including chapter-scoped and global roles.
+- **Title:** Define global RBAC claims and authorization boundaries
+- **Description:** Establish the authorization contract between Auth API, Gateway, and Core API, including the global permission catalog, platform-global roles, claim payload shape, and the rule that chapter-scoped authorization is resolved from Core-owned state.
 - **Use cases:**
   - A chapter president can moderate community posts within their chapter
-  - A moderator can review flagged ratings
-  - A regular member cannot access administrative tools
+  - A platform support admin can investigate an account without being treated as a chapter officer
+  - A regular member cannot access administrative tools only because a stale token still has old role labels
 - **Acceptance criteria:**
-  - Role and permission matrix is defined
-  - Chapter-scoped vs global roles are distinguished
-  - Claim payload contract is documented for downstream services
-  - Role update propagation and revocation behavior is defined
+  - Global role and permission matrix is defined
+  - Chapter-scoped versus global authorization responsibilities are distinguished
+  - Claim payload contract is documented for downstream services and gateway-trusted context
+  - Role update propagation, revocation, and stale-claim handling behavior is defined
+  - Sensitive chapter writes are documented as Core-authorized rather than token-role-authorized
 - **Complexity:** `L`
 - **Dependencies:** `AU-01`, `CO-01`
 
@@ -391,8 +396,8 @@ flowchart TD
 
 ## CO-01 Chapter, Membership, and Role Primitives
 - **Primary service owner:** Core API
-- **Title:** Model chapters, memberships, and officer assignments
-- **Description:** Create the base business domain for chapters, member-to-chapter relationships, and operational roles such as Tech-4-Tech chair and Community moderator.
+- **Title:** Model chapters, memberships, and chapter-scoped role assignments
+- **Description:** Create the base business domain for chapters, member-to-chapter relationships, operational roles such as Tech-4-Tech chair and Community moderator, and the ownership boundary that makes Core the source of truth for chapter-scoped authorization.
 - **Use cases:**
   - A member belongs to a chapter
   - A chapter has officer assignments
@@ -402,6 +407,7 @@ flowchart TD
   - Officer/moderator role assignments are represented
   - Membership state changes are auditable
   - Auth claim synchronization requirements are defined
+  - Chapter-scoped authorization ownership is explicitly documented in Core API
 - **Complexity:** `L`
 - **Dependencies:** `PF-01`, `AU-01`
 
@@ -436,6 +442,23 @@ flowchart TD
   - Provider abstraction boundary is documented
 - **Complexity:** `M`
 - **Dependencies:** `CO-01`, `PF-05`
+
+## CO-04 Chapter RBAC Permission Resolution
+- **Primary service owner:** Core API
+- **Title:** Define chapter role-to-permission mapping and effective authorization rules
+- **Description:** Translate chapter roles into effective permissions for CoverageMatch, community moderation, ratings disputes, and chapter administration so Core can authorize sensitive chapter actions from current membership state.
+- **Use cases:**
+  - A Community moderator can hide or review flagged chapter posts without being a chapter president
+  - A Tech-4-Tech chair can perform coverage-related administrative actions without gaining unrelated moderation powers
+  - A former officer loses chapter powers immediately after role expiry
+- **Acceptance criteria:**
+  - Chapter role-to-permission mapping is defined for system roles
+  - Effective authorization resolution is documented from membership plus active role assignments
+  - Gateway/Auth versus Core authorization boundaries are explicit for sensitive chapter actions
+  - Permission lookup, caching, and stale-claim handling expectations are documented
+  - Audit expectations exist for chapter role and permission-sensitive actions
+- **Complexity:** `M`
+- **Dependencies:** `CO-01`, `AU-04`
 
 ---
 
@@ -1123,7 +1146,8 @@ flowchart TD
 
 ## Wave 2: Core Primitives
 - `CO-01` Chapter, Membership, and Role Primitives
-- `AU-04` Roles, Claims, and Authorization Boundaries
+- `AU-04` Global RBAC Claims and Authorization Boundaries
+- `CO-04` Chapter RBAC Permission Resolution
 - `GW-02` Auth Enforcement and Claim Propagation
 - `GW-03` Rate Limiting, CORS, and Error Normalization
 - `CO-02` Member Profiles and Service Area Model
@@ -1212,6 +1236,7 @@ This MVP aligns to the PRD:
 
 ## Notes for Build Sequencing
 - Do not start CoverageMatch before chapter membership, roles, and profiles exist.
+- Do not treat token role labels alone as sufficient for sensitive chapter actions; Core API must remain the source of truth for chapter-scoped authorization.
 - Do not expose proof-photo workflows before media ownership/authorization is implemented.
 - Do not expose trust scores publicly until rating disputes and provisional-score handling exist.
 - Do not launch Prep Lab content until provenance/licensing rules are established.

@@ -133,6 +133,17 @@ create type auth.token_status_enum as enum (
   'revoked',
   'expired'
 );
+
+create type auth.global_role_code_enum as enum (
+  'platform_admin',
+  'support_admin',
+  'readonly_auditor'
+);
+
+create type auth.permission_scope_enum as enum (
+  'global',
+  'chapter'
+);
 ```
 
 ## Core enums
@@ -520,6 +531,7 @@ create table auth.password_reset_tokens (
 ## `auth.invites`
 
 `chapter_id` is a **logical** reference to `core.chapters(id)`, not a physical FK.
+`suggested_chapter_role_code` is a Core-recognized role code, not a physical FK/enum dependency.
 
 ```sql
 create table auth.invites (
@@ -527,7 +539,7 @@ create table auth.invites (
   email citext not null,
   chapter_id uuid not null,
   invited_by_user_id uuid not null,
-  suggested_role core.chapter_role_enum not null default 'member',
+  suggested_chapter_role_code text not null default 'member',
   token_hash text not null,
   status auth.token_status_enum not null,
   expires_at timestamptz not null,
@@ -549,6 +561,97 @@ Indexes:
 create index idx_invites__email on auth.invites(email);
 create index idx_invites__chapter_id on auth.invites(chapter_id);
 create index idx_invites__status_expires_at on auth.invites(status, expires_at);
+```
+
+## `auth.permissions`
+
+```sql
+create table auth.permissions (
+  code text primary key,
+  scope auth.permission_scope_enum not null,
+  service_owner text not null,
+  description text not null,
+  is_system boolean not null default true,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+```
+
+Indexes:
+
+```sql
+create index idx_permissions__scope
+  on auth.permissions(scope);
+```
+
+## `auth.global_roles`
+
+```sql
+create table auth.global_roles (
+  code auth.global_role_code_enum primary key,
+  name text not null,
+  description text null,
+  is_system boolean not null default true,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+```
+
+## `auth.global_role_permissions`
+
+```sql
+create table auth.global_role_permissions (
+  global_role_code auth.global_role_code_enum not null,
+  permission_code text not null,
+  created_at timestamptz not null default now(),
+  constraint fk_global_role_permissions__global_roles
+    foreign key (global_role_code) references auth.global_roles(code) on delete cascade,
+  constraint fk_global_role_permissions__permissions
+    foreign key (permission_code) references auth.permissions(code) on delete cascade,
+  constraint uq_global_role_permissions__role_permission
+    unique (global_role_code, permission_code)
+);
+```
+
+Indexes:
+
+```sql
+create index idx_global_role_permissions__permission_code
+  on auth.global_role_permissions(permission_code);
+```
+
+## `auth.user_global_role_assignments`
+
+```sql
+create table auth.user_global_role_assignments (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid not null,
+  global_role_code auth.global_role_code_enum not null,
+  assigned_by_user_id uuid not null,
+  starts_at timestamptz not null,
+  ends_at timestamptz null,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now(),
+  constraint fk_user_global_role_assignments__users
+    foreign key (user_id) references auth.users(id) on delete cascade,
+  constraint fk_user_global_role_assignments__assigned_by_user
+    foreign key (assigned_by_user_id) references auth.users(id),
+  constraint fk_user_global_role_assignments__global_roles
+    foreign key (global_role_code) references auth.global_roles(code),
+  constraint chk_user_global_role_assignments__time_window
+    check (ends_at is null or ends_at > starts_at)
+);
+```
+
+Indexes:
+
+```sql
+create unique index uq_user_global_role_assignments__active_role
+  on auth.user_global_role_assignments(user_id, global_role_code)
+  where ends_at is null;
+
+create index idx_user_global_role_assignments__role_window
+  on auth.user_global_role_assignments(global_role_code, ends_at);
 ```
 
 ---
@@ -671,6 +774,27 @@ Indexes:
 create unique index uq_chapter_role_assignments__active_role
   on core.chapter_role_assignments(membership_id, role)
   where ends_at is null;
+```
+
+## `core.chapter_role_permissions`
+
+`permission_code` is a logical reference to `auth.permissions(code)`.
+
+```sql
+create table core.chapter_role_permissions (
+  role core.chapter_role_enum not null,
+  permission_code text not null,
+  created_at timestamptz not null default now(),
+  constraint uq_chapter_role_permissions__role_permission
+    unique (role, permission_code)
+);
+```
+
+Indexes:
+
+```sql
+create index idx_chapter_role_permissions__permission_code
+  on core.chapter_role_permissions(permission_code);
 ```
 
 ## `core.member_profiles`
@@ -1750,6 +1874,11 @@ Use physical foreign keys for relationships within the same service schema, incl
 
 - `auth.identities.user_id -> auth.users.id`
 - `auth.sessions.user_id -> auth.users.id`
+- `auth.global_role_permissions.global_role_code -> auth.global_roles.code`
+- `auth.global_role_permissions.permission_code -> auth.permissions.code`
+- `auth.user_global_role_assignments.user_id -> auth.users.id`
+- `auth.user_global_role_assignments.assigned_by_user_id -> auth.users.id`
+- `auth.user_global_role_assignments.global_role_code -> auth.global_roles.code`
 - `core.chapter_memberships.chapter_id -> core.chapters.id`
 - `core.coverage_candidates.coverage_request_id -> core.coverage_requests.id`
 - `core.coverage_matches.coverage_candidate_id -> core.coverage_candidates.id`
@@ -1767,6 +1896,7 @@ Do not create DB-level foreign keys for:
 
 - `core.*.user_id -> auth.users.id`
 - `auth.invites.chapter_id -> core.chapters.id`
+- `core.chapter_role_permissions.permission_code -> auth.permissions.code`
 - `media.upload_intents.target_id -> core polymorphic target`
 - `media.media_attachments.target_id -> core polymorphic target`
 
@@ -1793,12 +1923,17 @@ These should be enforced by:
    - `auth.email_verification_tokens`
    - `auth.password_reset_tokens`
    - `auth.invites`
+   - `auth.permissions`
+   - `auth.global_roles`
+   - `auth.global_role_permissions`
+   - `auth.user_global_role_assignments`
 
 3. Core foundations
    - `core.chapters`
    - `core.chapter_policies`
    - `core.chapter_memberships`
    - `core.chapter_role_assignments`
+   - `core.chapter_role_permissions`
    - `core.member_profiles`
    - `core.profile_service_areas`
    - `core.profile_specialties`
@@ -1858,7 +1993,9 @@ These should be enforced by:
 
 - whether to use one Postgres database with service schemas or separate DBs from day one
 - whether `postgis` is in MVP or deferred
-- whether `chapter_role_enum` should live in `core` only or be duplicated in `auth`-level contracts
+- whether chapter role codes should remain fixed enums or later become table-driven custom chapter roles
+- whether global permissions should be embedded directly in gateway-trusted claims or resolved lazily for some admin flows
+- whether chapter-scoped authorization should always resolve from Core state or allow a short-lived cached permission snapshot
 - whether `status text` fields in `core.coverage_exceptions`, `core.user_tier_assignments`, `core.content_reports`, `media.upload_intents`, and `media.media_access_logs` should become stricter enums in v1
 - whether to materialize `core.reputation_summaries` synchronously or via background jobs
 - whether to partition `core.audit_events` and `media.media_access_logs` once production volume is known

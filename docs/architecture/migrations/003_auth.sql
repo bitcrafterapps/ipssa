@@ -1,5 +1,6 @@
 -- 003_auth.sql
--- Auth-owned tables. Cross-service references remain logical UUID refs.
+-- Auth-owned tables, including global RBAC primitives.
+-- Cross-service references remain logical UUID refs.
 
 create table auth.users (
   id uuid primary key default gen_random_uuid(),
@@ -114,7 +115,7 @@ create table auth.invites (
   email citext not null,
   chapter_id uuid not null,
   invited_by_user_id uuid not null,
-  suggested_role core.chapter_role_enum not null default 'member',
+  suggested_chapter_role_code text not null default 'member',
   token_hash text not null unique,
   status auth.token_status_enum not null,
   expires_at timestamptz not null,
@@ -131,3 +132,66 @@ create table auth.invites (
 create index idx_invites__email on auth.invites(email);
 create index idx_invites__chapter_id on auth.invites(chapter_id);
 create index idx_invites__status_expires_at on auth.invites(status, expires_at);
+
+create table auth.permissions (
+  code text primary key,
+  scope auth.permission_scope_enum not null,
+  service_owner text not null,
+  description text not null,
+  is_system boolean not null default true,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
+create index idx_permissions__scope
+  on auth.permissions(scope);
+
+create table auth.global_roles (
+  code auth.global_role_code_enum primary key,
+  name text not null,
+  description text null,
+  is_system boolean not null default true,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
+create table auth.global_role_permissions (
+  global_role_code auth.global_role_code_enum not null,
+  permission_code text not null,
+  created_at timestamptz not null default now(),
+  constraint fk_global_role_permissions__global_roles
+    foreign key (global_role_code) references auth.global_roles(code) on delete cascade,
+  constraint fk_global_role_permissions__permissions
+    foreign key (permission_code) references auth.permissions(code) on delete cascade,
+  constraint uq_global_role_permissions__role_permission
+    unique (global_role_code, permission_code)
+);
+
+create index idx_global_role_permissions__permission_code
+  on auth.global_role_permissions(permission_code);
+
+create table auth.user_global_role_assignments (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid not null,
+  global_role_code auth.global_role_code_enum not null,
+  assigned_by_user_id uuid not null,
+  starts_at timestamptz not null,
+  ends_at timestamptz null,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now(),
+  constraint fk_user_global_role_assignments__users
+    foreign key (user_id) references auth.users(id) on delete cascade,
+  constraint fk_user_global_role_assignments__assigned_by_user
+    foreign key (assigned_by_user_id) references auth.users(id),
+  constraint fk_user_global_role_assignments__global_roles
+    foreign key (global_role_code) references auth.global_roles(code),
+  constraint chk_user_global_role_assignments__time_window
+    check (ends_at is null or ends_at > starts_at)
+);
+
+create unique index uq_user_global_role_assignments__active_role
+  on auth.user_global_role_assignments(user_id, global_role_code)
+  where ends_at is null;
+
+create index idx_user_global_role_assignments__role_window
+  on auth.user_global_role_assignments(global_role_code, ends_at);
