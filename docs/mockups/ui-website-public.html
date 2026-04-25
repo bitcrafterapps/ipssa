@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IPSSA Public Website — All Pages</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    * { font-family: 'Inter', sans-serif; box-sizing: border-box; }
+    .frame { width: 1280px; height: 740px; flex-shrink: 0; overflow: hidden; display: flex; flex-direction: column; background: #fff; }
+    .sitenav { height: 64px; background: #fff; border-bottom: 1px solid #E2E8F0; display: flex; align-items: center; padding: 0 40px; flex-shrink: 0; }
+    .sitenav-link { font-size: 14px; font-weight: 500; color: #475569; cursor: pointer; transition: color 0.2s; }
+    .sitenav-link:hover { color: #0891B2; }
+    .hero-grad { background: linear-gradient(135deg, #0D1B2A 0%, #0D5070 100%); }
+    .teal-btn { background: #0891B2; color: white; border-radius: 8px; font-weight: 600; font-size: 14px; cursor: pointer; transition: background 0.2s; }
+    .teal-btn:hover { background: #0E7490; }
+    .section-gray { background: #F8FAFC; }
+    .card { background: white; border: 1px solid #E2E8F0; border-radius: 12px; }
+    .badge { font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 20px; }
+    .sidebar { width: 224px; flex-shrink: 0; background: #0F172A; display: flex; flex-direction: column; height: 100%; }
+    .sidebar-item { display: flex; align-items: center; gap: 10px; padding: 10px 16px; font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.55); cursor: pointer; transition: all 0.2s; border-radius: 6px; margin: 1px 8px; }
+    .sidebar-item.active { background: #1E293B; color: white; border-left: 3px solid #4F46E5; padding-left: 13px; }
+    .sidebar-item:hover { background: #1E293B; color: rgba(255,255,255,0.85); }
+    .admin-main { flex: 1; background: #F1F5F9; overflow: hidden; display: flex; flex-direction: column; }
+    .admin-topbar { height: 56px; background: white; border-bottom: 1px solid #E2E8F0; display: flex; align-items: center; padding: 0 24px; flex-shrink: 0; }
+    .stat-card { background: white; border: 1px solid #E2E8F0; border-radius: 10px; padding: 16px 20px; }
+    .tbl-row { border-bottom: 1px solid #F1F5F9; }
+    .tbl-row:hover { background: #F8FAFC; }
+    th { font-size: 11px; font-weight: 600; color: #94A3B8; text-transform: uppercase; letter-spacing: 0.05em; padding: 10px 16px; background: #F8FAFC; }
+    td { font-size: 13px; color: #334155; padding: 12px 16px; }
+  </style>
+</head>
+<body class="p-8 min-h-screen" style="background:#CBD5E1;">
+
+  <div class="text-center mb-10">
+    <p class="text-xs font-semibold uppercase tracking-widest mb-1" style="color:#64748B;">IPSSA — Desktop Web UI</p>
+    <h1 class="text-3xl font-bold text-slate-900">Public Website — All Pages</h1>
+    <p class="text-slate-500 mt-2">10 Pages · Responsive · 1280×740 viewport</p>
+  </div>
+
+  <div class="flex items-start gap-8 overflow-x-auto pb-12">
+
+    <!-- ══ P1: HOMEPAGE ══ -->
+    <div class="flex flex-col gap-3 flex-shrink-0">
+      <span class="text-xs font-bold text-slate-400 uppercase tracking-wider text-center">P1 · Homepage</span>
+      <div class="frame rounded-2xl shadow-2xl" style="border:1px solid #CBD5E1;">
+        <!-- Nav -->
+        <nav class="sitenav gap-8">
+          <div class="flex items-center gap-2 mr-8"><i data-lucide="droplets" class="w-6 h-6" style="color:#0891B2;"></i><span class="font-bold text-slate-900 text-lg">IPSSA</span></div>
+          <a class="sitenav-link">Find a Pool Pro</a>
+          <a class="sitenav-link">For Professionals</a>
+          <a class="sitenav-link">About</a>
+          <a class="sitenav-link">Resources</a>
+          <div class="ml-auto flex items-center gap-3">
+            <button class="sitenav-link">Member Login</button>
+            <button class="teal-btn px-4 py-2">Join IPSSA →</button>
+          </div>
+        </nav>
+        <!-- Hero -->
+        <div class="hero-grad flex-1 flex flex-col items-center justify-center text-center px-8 pb-0 pt-0" style="min-height:0;">
+          <div class="max-w-3xl">
+            <div class="inline-flex items-center gap-2 bg-white/10 rounded-full px-4 py-1.5 mb-5">
+              <div class="w-2 h-2 bg-teal-400 rounded-full"></div>
+              <span class="text-white/80 text-sm font-medium">Independent Pool & Spa Service Association</span>
+            </div>
+            <h1 class="text-white font-bold mb-4 leading-tight" style="font-size:48px;">Find a trusted pool professional<br>in your area</h1>
+            <p class="mb-8 text-lg" style="color:rgba(255,255,255,0.65);">IPSSA-certified technicians with verified peer ratings, association accountability, and Tech-4-Tech route coverage standards.</p>
+            <!-- Search bar -->
+            <div class="flex items-center bg-white rounded-xl shadow-lg p-2 max-w-xl mx-auto mb-8">
+              <i data-lucide="map-pin" class="w-5 h-5 ml-2 flex-shrink-0" style="color:#94A3B8;"></i>
+              <input type="text" placeholder="Enter your ZIP code or city…" class="flex-1 px-3 py-2 text-slate-700 text-sm outline-none bg-transparent">
+              <button class="teal-btn px-5 py-2.5 rounded-lg">Find a Pro →</button>
+            </div>
+            <!-- Stats row -->
+            <div class="flex items-center justify-center gap-10">
+              <div class="text-center"><p class="text-white font-bold text-2xl">2,700+</p><p class="text-sm" style="color:rgba(255,255,255,0.5);">Active Members</p></div>
+              <div class="w-px h-8" style="background:rgba(255,255,255,0.15);"></div>
+              <div class="text-center"><p class="text-white font-bold text-2xl">12</p><p class="text-sm" style="color:rgba(255,255,255,0.5);">US Regions</p></div>
+              <div class="w-px h-8" style="background:rgba(255,255,255,0.15);"></div>
+              <div class="text-center"><p class="text-white font-bold text-2xl">45+</p><p class="text-sm" style="color:rgba(255,255,255,0.5);">Years of Service</p></div>
+              <div class="w-px h-8" style="background:rgba(255,255,255,0.15);"></div>
+              <div class="text-center"><p class="text-white font-bold text-2xl">Free</p><p class="text-sm" style="color:rgba(255,255,255,0.5);">Certification Exams</p></div>
+            </div>
+          </div>
+        </div>
+        <!-- Value strip -->
+        <div class="grid grid-cols-4 border-t border-gray-100">
+          <div class="flex items-center gap-3 px-6 py-4 border-r border-gray-100"><i data-lucide="shield-check" class="w-5 h-5 flex-shrink-0" style="color:#0891B2;"></i><div><p class="text-slate-900 font-semibold text-sm">Association Verified</p><p class="text-slate-500 text-xs">Every member vetted by IPSSA</p></div></div>
+          <div class="flex items-center gap-3 px-6 py-4 border-r border-gray-100"><i data-lucide="star" class="w-5 h-5 flex-shrink-0" style="color:#0891B2;"></i><div><p class="text-slate-900 font-semibold text-sm">Peer Rated</p><p class="text-slate-500 text-xs">Real ratings from fellow members</p></div></div>
+          <div class="flex items-center gap-3 px-6 py-4 border-r border-gray-100"><i data-lucide="award" class="w-5 h-5 flex-shrink-0" style="color:#0891B2;"></i><div><p class="text-slate-900 font-semibold text-sm">Certified Professionals</p><p class="text-slate-500 text-xs">Water chemistry & equipment trained</p></div></div>
+          <div class="flex items-center gap-3 px-6 py-4"><i data-lucide="users" class="w-5 h-5 flex-shrink-0" style="color:#0891B2;"></i><div><p class="text-slate-900 font-semibold text-sm">Chapter Accountable</p><p class="text-slate-500 text-xs">Local chapter oversight</p></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ P2: FIND A POOL PRO ══ -->
+    <div class="flex flex-col gap-3 flex-shrink-0">
+      <span class="text-xs font-bold text-slate-400 uppercase tracking-wider text-center">P2 · Find a Pool Pro</span>
+      <div class="frame rounded-2xl shadow-2xl" style="border:1px solid #CBD5E1;">
+        <nav class="sitenav gap-8">
+          <div class="flex items-center gap-2 mr-8"><i data-lucide="droplets" class="w-6 h-6" style="color:#0891B2;"></i><span class="font-bold text-slate-900 text-lg">IPSSA</span></div>
+          <a class="sitenav-link font-semibold" style="color:#0891B2;">Find a Pool Pro</a>
+          <a class="sitenav-link">For Professionals</a>
+          <a class="sitenav-link">About</a>
+          <a class="sitenav-link">Resources</a>
+          <div class="ml-auto flex items-center gap-3"><button class="sitenav-link">Member Login</button><button class="teal-btn px-4 py-2">Join IPSSA →</button></div>
+        </nav>
+        <div class="flex-1 flex overflow-hidden">
+          <!-- Filters sidebar -->
+          <div class="w-72 border-r border-gray-100 p-5 flex flex-col gap-4 overflow-hidden flex-shrink-0" style="background:#F8FAFC;">
+            <div>
+              <p class="text-slate-900 font-semibold text-sm mb-2">Location</p>
+              <div class="flex items-center gap-2 bg-white border border-gray-200 rounded-lg px-3 py-2"><i data-lucide="map-pin" class="w-4 h-4 text-slate-400"></i><input class="flex-1 text-sm text-slate-700 outline-none bg-transparent" value="San Diego, CA 92101"></div>
+            </div>
+            <div>
+              <p class="text-slate-900 font-semibold text-sm mb-2">Distance</p>
+              <div class="flex gap-2 flex-wrap">
+                <button class="teal-btn px-3 py-1.5 text-xs">5 mi</button>
+                <button class="border border-gray-200 rounded-lg px-3 py-1.5 text-xs text-slate-600">10 mi</button>
+                <button class="border border-gray-200 rounded-lg px-3 py-1.5 text-xs text-slate-600">25 mi</button>
+              </div>
+            </div>
+            <div>
+              <p class="text-slate-900 font-semibold text-sm mb-2">Specialties</p>
+              <div class="flex flex-col gap-2 text-sm">
+                <label class="flex items-center gap-2 text-slate-600"><input type="checkbox" checked class="rounded"> Salt Systems</label>
+                <label class="flex items-center gap-2 text-slate-600"><input type="checkbox" class="rounded"> Equipment Repairs</label>
+                <label class="flex items-center gap-2 text-slate-600"><input type="checkbox" class="rounded"> Commercial Pools</label>
+                <label class="flex items-center gap-2 text-slate-600"><input type="checkbox" checked class="rounded"> Green-to-Clean</label>
+              </div>
+            </div>
+            <div>
+              <p class="text-slate-900 font-semibold text-sm mb-2">Min. Rating</p>
+              <div class="flex gap-1.5">
+                <span class="text-amber-400 text-lg">★★★★</span><span class="text-gray-200 text-lg">★</span>
+                <span class="text-slate-500 text-sm self-center ml-1">4.0+</span>
+              </div>
+            </div>
+            <div>
+              <p class="text-slate-900 font-semibold text-sm mb-2">Tier</p>
+              <div class="flex flex-col gap-2 text-sm">
+                <label class="flex items-center gap-2 text-slate-600"><input type="checkbox" class="rounded"> Any tier</label>
+                <label class="flex items-center gap-2 text-slate-600"><input type="checkbox" checked class="rounded"> Route Protector +</label>
+                <label class="flex items-center gap-2 text-slate-600"><input type="checkbox" class="rounded"> Chapter Elite only</label>
+              </div>
+            </div>
+            <button class="teal-btn w-full py-2.5 rounded-lg mt-auto">Search Results</button>
+          </div>
+          <!-- Results + Map -->
+          <div class="flex-1 flex flex-col overflow-hidden">
+            <!-- Results header -->
+            <div class="flex items-center justify-between px-6 py-3 border-b border-gray-100 bg-white">
+              <p class="text-slate-700 font-semibold text-sm">14 professionals near San Diego, CA 92101</p>
+              <div class="flex items-center gap-3">
+                <span class="text-slate-500 text-sm">Sort:</span>
+                <select class="text-sm border border-gray-200 rounded-lg px-2 py-1 text-slate-600 outline-none">
+                  <option>Distance</option><option>Rating</option><option>Jobs Completed</option>
+                </select>
+              </div>
+            </div>
+            <div class="flex flex-1 overflow-hidden">
+              <!-- Result cards -->
+              <div class="w-96 flex flex-col overflow-hidden flex-shrink-0 px-4 py-4 gap-3 overflow-y-auto" style="background:#F8FAFC;">
+                <!-- Card 1 -->
+                <div class="card p-4 cursor-pointer hover:shadow-md transition-all" style="border-left:3px solid #0891B2;">
+                  <div class="flex items-start gap-3 mb-2">
+                    <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=60&h=60&fit=crop&crop=face" class="w-12 h-12 rounded-xl object-cover flex-shrink-0" alt="Sarah Chen">
+                    <div class="flex-1">
+                      <div class="flex items-center justify-between">
+                        <p class="text-slate-900 font-bold text-sm">Sarah Chen</p>
+                        <span class="badge" style="background:#FEF3C7;color:#92400E;">Chapter Elite</span>
+                      </div>
+                      <p class="text-slate-500 text-xs">Crystal Clear Pools</p>
+                      <div class="flex items-center gap-1.5 mt-0.5"><span class="text-amber-400 text-xs">★★★★★</span><span class="text-slate-700 text-xs font-semibold">4.9</span><span class="text-slate-400 text-xs">(38 reviews)</span></div>
+                    </div>
+                  </div>
+                  <div class="flex flex-wrap gap-1.5 mb-2">
+                    <span class="badge" style="background:#EFF6FF;color:#1D4ED8;">Salt Systems</span>
+                    <span class="badge" style="background:#EFF6FF;color:#1D4ED8;">Commercial</span>
+                    <span class="badge" style="background:#EFF6FF;color:#1D4ED8;">Repairs</span>
+                  </div>
+                  <div class="flex items-center justify-between">
+                    <span class="text-slate-500 text-xs flex items-center gap-1"><i data-lucide="map-pin" class="w-3 h-3"></i>2.1 mi · Chula Vista</span>
+                    <button class="teal-btn px-3 py-1.5 text-xs">View Profile</button>
+                  </div>
+                </div>
+                <!-- Card 2 -->
+                <div class="card p-4 cursor-pointer hover:shadow-md transition-all">
+                  <div class="flex items-start gap-3 mb-2">
+                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=60&h=60&fit=crop&crop=face" class="w-12 h-12 rounded-xl object-cover flex-shrink-0" alt="James Rivera">
+                    <div class="flex-1">
+                      <div class="flex items-center justify-between">
+                        <p class="text-slate-900 font-bold text-sm">James Rivera</p>
+                        <span class="badge" style="background:#FEF9C3;color:#713F12;">Route Protector</span>
+                      </div>
+                      <p class="text-slate-500 text-xs">Rivera Aqua Services</p>
+                      <div class="flex items-center gap-1.5 mt-0.5"><span class="text-amber-400 text-xs">★★★★★</span><span class="text-slate-700 text-xs font-semibold">4.8</span><span class="text-slate-400 text-xs">(31 reviews)</span></div>
+                    </div>
+                  </div>
+                  <div class="flex flex-wrap gap-1.5 mb-2">
+                    <span class="badge" style="background:#EFF6FF;color:#1D4ED8;">Salt Systems</span>
+                    <span class="badge" style="background:#EFF6FF;color:#1D4ED8;">Repairs</span>
+                  </div>
+                  <div class="flex items-center justify-between">
+                    <span class="text-slate-500 text-xs flex items-center gap-1"><i data-lucide="map-pin" class="w-3 h-3"></i>3.2 mi · El Cajon</span>
+                    <button class="teal-btn px-3 py-1.5 text-xs">View Profile</button>
+                  </div>
+                </div>
+                <!-- Card 3 -->
+                <div class="card p-4 cursor-pointer hover:shadow-md transition-all">
+                  <div class="flex items-start gap-3 mb-2">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=60&h=60&fit=crop&crop=face" class="w-12 h-12 rounded-xl object-cover flex-shrink-0" alt="Mike Sandoval">
+                    <div class="flex-1">
+                      <div class="flex items-center justify-between">
+                        <p class="text-slate-900 font-bold text-sm">Mike Sandoval</p>
+                        <span class="badge" style="background:#FEF9C3;color:#713F12;">Route Protector</span>
+                      </div>
+                      <p class="text-slate-500 text-xs">Sandoval Pool Care</p>
+                      <div class="flex items-center gap-1.5 mt-0.5"><span class="text-amber-400 text-xs">★★★★★</span><span class="text-slate-700 text-xs font-semibold">4.8</span><span class="text-slate-400 text-xs">(22 reviews)</span></div>
+                    </div>
+                  </div>
+                  <div class="flex flex-wrap gap-1.5 mb-2">
+                    <span class="badge" style="background:#EFF6FF;color:#1D4ED8;">Water Chemistry</span>
+                    <span class="badge" style="background:#EFF6FF;color:#1D4ED8;">Green-to-Clean</span>
+                  </div>
+                  <div class="flex items-center justify-between">
+                    <span class="text-slate-500 text-xs flex items-center gap-1"><i data-lucide="map-pin" class="w-3 h-3"></i>0.8 mi · San Diego</span>
+                    <button class="teal-btn px-3 py-1.5 text-xs">View Profile</button>
+                  </div>
+                </div>
+              </div>
+              <!-- Map -->
+              <div class="flex-1 relative overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1569336415962-a4bd9f69cd83?w=800&h=600&fit=crop" class="w-full h-full object-cover" alt="San Diego map">
+                <div class="absolute inset-0" style="background:rgba(13,27,42,0.3);"></div>
+                <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                  <div class="w-8 h-8 rounded-full border-3 border-white shadow-lg flex items-center justify-center" style="background:#0891B2;border-width:3px;"><span class="text-white text-xs font-bold">3</span></div>
+                </div>
+                <div class="absolute top-1/3 left-1/3">
+                  <div class="w-7 h-7 rounded-full border-2 border-white shadow-md flex items-center justify-center" style="background:#0891B2;"><span class="text-white text-xs font-bold">1</span></div>
+                </div>
+                <div class="absolute top-2/3 right-1/3">
+                  <div class="w-7 h-7 rounded-full border-2 border-white shadow-md flex items-center justify-center" style="background:#0891B2;"><span class="text-white text-xs font-bold">2</span></div>
+                </div>
+                <div class="absolute bottom-4 right-4 bg-white rounded-xl shadow-lg px-3 py-2">
+                  <p class="text-slate-700 text-xs font-semibold">14 professionals</p>
+                  <p class="text-slate-400 text-xs">within 5 miles</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ P3: MEMBER PROFILE (PUBLIC) ══ -->
+    <div class="flex flex-col gap-3 flex-shrink-0">
+      <span class="text-xs font-bold text-slate-400 uppercase tracking-wider text-center">P3 · Member Profile</span>
+      <div class="frame rounded-2xl shadow-2xl" style="border:1px solid #CBD5E1;">
+        <nav class="sitenav gap-8">
+          <div class="flex items-center gap-2 mr-8"><i data-lucide="droplets" class="w-6 h-6" style="color:#0891B2;"></i><span class="font-bold text-slate-900 text-lg">IPSSA</span></div>
+          <a class="sitenav-link" style="color:#0891B2;">Find a Pool Pro</a><a class="sitenav-link">For Professionals</a><a class="sitenav-link">About</a><a class="sitenav-link">Resources</a>
+          <div class="ml-auto flex items-center gap-3"><button class="sitenav-link">Member Login</button><button class="teal-btn px-4 py-2">Join IPSSA →</button></div>
+        </nav>
+        <!-- Breadcrumb -->
+        <div class="px-10 py-3 border-b border-gray-100 flex items-center gap-2 text-sm" style="background:#F8FAFC;">
+          <a class="text-teal-600 cursor-pointer">Find a Pro</a><i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i><span class="text-slate-500">San Diego</span><i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i><span class="text-slate-900 font-medium">Sarah Chen — Crystal Clear Pools</span>
+        </div>
+        <div class="flex-1 flex overflow-hidden px-10 py-6 gap-8">
+          <!-- Left: Profile card + Contact -->
+          <div class="w-80 flex flex-col gap-4 flex-shrink-0">
+            <div class="card p-6 text-center">
+              <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=120&h=120&fit=crop&crop=face" class="w-20 h-20 rounded-2xl object-cover mx-auto mb-4 shadow-md" alt="Sarah Chen">
+              <h2 class="text-slate-900 font-bold text-lg">Sarah Chen</h2>
+              <p class="text-slate-500 text-sm">Crystal Clear Pools</p>
+              <div class="flex items-center justify-center gap-1.5 mt-2 mb-3">
+                <span class="text-amber-400">★★★★★</span>
+                <span class="text-slate-900 font-bold">4.9</span>
+                <span class="text-slate-400 text-sm">(38 reviews)</span>
+              </div>
+              <div class="flex gap-2 justify-center mb-4">
+                <span class="badge" style="background:#FEF3C7;color:#92400E;">Chapter Elite · Tier 4</span>
+              </div>
+              <div class="flex justify-center gap-4 text-center mb-4">
+                <div><p class="text-slate-900 font-bold text-lg">38</p><p class="text-slate-400 text-xs">Coverage Jobs</p></div>
+                <div class="w-px bg-gray-100"></div>
+                <div><p class="text-slate-900 font-bold text-lg">6 yrs</p><p class="text-slate-400 text-xs">Member</p></div>
+                <div class="w-px bg-gray-100"></div>
+                <div><p class="text-slate-900 font-bold text-lg">240</p><p class="text-slate-400 text-xs">Route Pools</p></div>
+              </div>
+              <div class="flex items-center gap-2 mb-4 justify-center"><i data-lucide="check-circle" class="w-4 h-4 text-emerald-500"></i><span class="text-slate-600 text-sm">IPSSA Member · Chula Vista, CA</span></div>
+              <button class="teal-btn w-full py-3 rounded-xl text-sm mb-2">Request a Quote</button>
+              <button class="w-full py-2.5 rounded-xl text-sm border border-gray-200 text-slate-600 font-medium hover:bg-gray-50 transition-all">Send Message</button>
+            </div>
+            <!-- Certifications -->
+            <div class="card p-4">
+              <p class="text-slate-900 font-semibold text-sm mb-3">Certifications</p>
+              <div class="flex flex-col gap-2">
+                <div class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-emerald-500"></i><span class="text-slate-700 text-xs">Basic Training 1 — Water Chemistry</span></div>
+                <div class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-emerald-500"></i><span class="text-slate-700 text-xs">Basic Training 2 — Equipment</span></div>
+                <div class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-emerald-500"></i><span class="text-slate-700 text-xs">Intermediate Training</span></div>
+              </div>
+            </div>
+          </div>
+          <!-- Right: Details + Reviews -->
+          <div class="flex-1 flex flex-col gap-4 overflow-hidden">
+            <!-- Specialties -->
+            <div class="card p-5">
+              <p class="text-slate-900 font-semibold text-sm mb-3">Specialties & Services</p>
+              <div class="flex flex-wrap gap-2">
+                <span class="badge px-3 py-1.5" style="background:#EFF6FF;color:#1D4ED8;">Salt Systems</span>
+                <span class="badge px-3 py-1.5" style="background:#EFF6FF;color:#1D4ED8;">Commercial Pools</span>
+                <span class="badge px-3 py-1.5" style="background:#EFF6FF;color:#1D4ED8;">Equipment Repairs</span>
+                <span class="badge px-3 py-1.5" style="background:#EFF6FF;color:#1D4ED8;">Water Chemistry</span>
+                <span class="badge px-3 py-1.5" style="background:#EFF6FF;color:#1D4ED8;">Green-to-Clean</span>
+              </div>
+            </div>
+            <!-- Service area -->
+            <div class="card p-5">
+              <p class="text-slate-900 font-semibold text-sm mb-2">Service Area</p>
+              <p class="text-slate-500 text-sm">Chula Vista · National City · Bonita · Spring Valley · Lemon Grove · San Diego (South)</p>
+            </div>
+            <!-- Reviews -->
+            <div class="card p-5 flex-1">
+              <div class="flex items-center justify-between mb-4">
+                <p class="text-slate-900 font-semibold text-sm">Customer Reviews</p>
+                <span class="text-slate-500 text-xs">38 total reviews</span>
+              </div>
+              <div class="flex flex-col gap-3">
+                <div class="border-b border-gray-50 pb-3">
+                  <div class="flex items-center justify-between mb-1"><span class="text-slate-700 font-semibold text-xs">Jennifer M. · Chula Vista</span><span class="text-amber-400 text-xs">★★★★★</span></div>
+                  <p class="text-slate-500 text-xs leading-relaxed">"Sarah is incredibly professional and knowledgeable. She diagnosed a salt cell issue immediately and our pool has never looked better. Highly recommend."</p>
+                </div>
+                <div class="border-b border-gray-50 pb-3">
+                  <div class="flex items-center justify-between mb-1"><span class="text-slate-700 font-semibold text-xs">Robert K. · National City</span><span class="text-amber-400 text-xs">★★★★★</span></div>
+                  <p class="text-slate-500 text-xs leading-relaxed">"Turned our green swamp into a clean pool in two days. Showed up on time, communicated everything clearly, and the pricing was fair."</p>
+                </div>
+                <div>
+                  <div class="flex items-center justify-between mb-1"><span class="text-slate-700 font-semibold text-xs">Lisa T. · Bonita</span><span class="text-amber-400 text-xs">★★★★☆</span></div>
+                  <p class="text-slate-500 text-xs leading-relaxed">"Very knowledgeable and thorough. Took the time to explain our chemistry readings and what adjustments were needed."</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ P4: HOW IT WORKS ══ -->
+    <div class="flex flex-col gap-3 flex-shrink-0">
+      <span class="text-xs font-bold text-slate-400 uppercase tracking-wider text-center">P4 · How It Works</span>
+      <div class="frame rounded-2xl shadow-2xl" style="border:1px solid #CBD5E1;">
+        <nav class="sitenav gap-8">
+          <div class="flex items-center gap-2 mr-8"><i data-lucide="droplets" class="w-6 h-6" style="color:#0891B2;"></i><span class="font-bold text-slate-900 text-lg">IPSSA</span></div>
+          <a class="sitenav-link" style="color:#0891B2;">Find a Pool Pro</a><a class="sitenav-link">For Professionals</a><a class="sitenav-link">About</a><a class="sitenav-link">Resources</a>
+          <div class="ml-auto flex items-center gap-3"><button class="sitenav-link">Member Login</button><button class="teal-btn px-4 py-2">Join IPSSA →</button></div>
+        </nav>
+        <div class="flex-1 overflow-hidden px-16 py-8" style="background:#F8FAFC;">
+          <div class="text-center mb-8">
+            <p class="text-sm font-semibold uppercase tracking-widest mb-2" style="color:#0891B2;">FOR HOMEOWNERS</p>
+            <h2 class="text-slate-900 font-bold mb-3" style="font-size:32px;">How to find and hire an IPSSA professional</h2>
+            <p class="text-slate-500 text-base max-w-xl mx-auto">All IPSSA members are part of a local chapter, peer-rated by other professionals, and trained to the same association standard.</p>
+          </div>
+          <div class="grid grid-cols-4 gap-5 mb-8">
+            <div class="card p-5 text-center">
+              <div class="w-12 h-12 rounded-2xl flex items-center justify-center mx-auto mb-4" style="background:#EFF6FF;"><span class="text-xl font-bold" style="color:#0891B2;">1</span></div>
+              <h3 class="text-slate-900 font-bold text-sm mb-2">Search by ZIP code</h3>
+              <p class="text-slate-500 text-xs leading-relaxed">Enter your ZIP or city and browse verified IPSSA members in your area.</p>
+            </div>
+            <div class="card p-5 text-center">
+              <div class="w-12 h-12 rounded-2xl flex items-center justify-center mx-auto mb-4" style="background:#EFF6FF;"><span class="text-xl font-bold" style="color:#0891B2;">2</span></div>
+              <h3 class="text-slate-900 font-bold text-sm mb-2">Compare professionals</h3>
+              <p class="text-slate-500 text-xs leading-relaxed">Review CoverageScores, peer ratings, certifications, and service specialties side by side.</p>
+            </div>
+            <div class="card p-5 text-center">
+              <div class="w-12 h-12 rounded-2xl flex items-center justify-center mx-auto mb-4" style="background:#EFF6FF;"><span class="text-xl font-bold" style="color:#0891B2;">3</span></div>
+              <h3 class="text-slate-900 font-bold text-sm mb-2">Contact & hire</h3>
+              <p class="text-slate-500 text-xs leading-relaxed">Request a quote directly. All members are association-backed and chapter-accountable.</p>
+            </div>
+            <div class="card p-5 text-center">
+              <div class="w-12 h-12 rounded-2xl flex items-center justify-center mx-auto mb-4" style="background:#EFF6FF;"><span class="text-xl font-bold" style="color:#0891B2;">4</span></div>
+              <h3 class="text-slate-900 font-bold text-sm mb-2">Rate your experience</h3>
+              <p class="text-slate-500 text-xs leading-relaxed">Your feedback improves the quality of the IPSSA network for all homeowners.</p>
+            </div>
+          </div>
+          <!-- FAQ -->
+          <div class="grid grid-cols-2 gap-4">
+            <div class="card p-4"><p class="text-slate-900 font-semibold text-sm mb-1">What does IPSSA membership mean?</p><p class="text-slate-500 text-xs leading-relaxed">IPSSA is an independent trade association that requires members to pass certification exams, follow a code of ethics, and remain accountable through chapter standing rules.</p></div>
+            <div class="card p-4"><p class="text-slate-900 font-semibold text-sm mb-1">What is Tech-4-Tech route coverage?</p><p class="text-slate-500 text-xs leading-relaxed">If your IPSSA professional is sick or injured, the chapter's Tech-4-Tech program ensures another verified member covers your pool. Your service doesn't stop.</p></div>
+            <div class="card p-4"><p class="text-slate-900 font-semibold text-sm mb-1">How are CoverageScores calculated?</p><p class="text-slate-500 text-xs leading-relaxed">CoverageScores are peer ratings from other IPSSA members — not just homeowners. They measure service quality, communication, and professionalism across coverage jobs.</p></div>
+            <div class="card p-4"><p class="text-slate-900 font-semibold text-sm mb-1">Is there a cost to search for a professional?</p><p class="text-slate-500 text-xs leading-relaxed">No. Searching for and contacting IPSSA pool professionals is completely free for homeowners. Membership fees apply only to pool service professionals joining IPSSA.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ P5: FOR PROFESSIONALS ══ -->
+    <div class="flex flex-col gap-3 flex-shrink-0">
+      <span class="text-xs font-bold text-slate-400 uppercase tracking-wider text-center">P5 · For Professionals</span>
+      <div class="frame rounded-2xl shadow-2xl" style="border:1px solid #CBD5E1;">
+        <nav class="sitenav gap-8">
+          <div class="flex items-center gap-2 mr-8"><i data-lucide="droplets" class="w-6 h-6" style="color:#0891B2;"></i><span class="font-bold text-slate-900 text-lg">IPSSA</span></div>
+          <a class="sitenav-link">Find a Pool Pro</a><a class="sitenav-link font-semibold" style="color:#0891B2;">For Professionals</a><a class="sitenav-link">About</a><a class="sitenav-link">Resources</a>
+          <div class="ml-auto flex items-center gap-3"><button class="sitenav-link">Member Login</button><button class="teal-btn px-4 py-2">Join IPSSA →</button></div>
+        </nav>
+        <div class="hero-grad flex flex-col items-center justify-center text-center px-16 py-8 flex-shrink-0" style="height:220px;">
+          <p class="text-sm font-semibold uppercase tracking-widest mb-2 text-teal-300">FOR POOL SERVICE PROFESSIONALS</p>
+          <h1 class="text-white font-bold mb-3" style="font-size:36px;">Protect your route. Grow your business. Build your reputation.</h1>
+          <p style="color:rgba(255,255,255,0.6);" class="text-base">Join 2,700+ IPSSA members who use the chapter network and CoverageMatch to build more resilient, more profitable businesses.</p>
+        </div>
+        <div class="flex-1 overflow-hidden px-12 py-6" style="background:#F8FAFC;">
+          <div class="grid grid-cols-3 gap-5 mb-5">
+            <div class="card p-5">
+              <div class="flex items-center gap-3 mb-3"><div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background:#E0F2FE;"><i data-lucide="shield" class="w-5 h-5" style="color:#0891B2;"></i></div><p class="text-slate-900 font-bold text-sm">CoverageMatch</p></div>
+              <p class="text-slate-500 text-sm leading-relaxed">Find a trusted coverage partner in under 60 seconds when you're sick, injured, or on vacation. Ranked by proximity, CoverageScore, and availability.</p>
+            </div>
+            <div class="card p-5">
+              <div class="flex items-center gap-3 mb-3"><div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background:#E0F2FE;"><i data-lucide="star" class="w-5 h-5" style="color:#0891B2;"></i></div><p class="text-slate-900 font-bold text-sm">Build Your Reputation</p></div>
+              <p class="text-slate-500 text-sm leading-relaxed">Earn a CoverageScore from peer ratings. Progress from Pool Rookie to Chapter Elite to IPSSA Legend. Your tier is visible to homeowners hiring you.</p>
+            </div>
+            <div class="card p-5">
+              <div class="flex items-center gap-3 mb-3"><div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background:#E0F2FE;"><i data-lucide="users" class="w-5 h-5" style="color:#0891B2;"></i></div><p class="text-slate-900 font-bold text-sm">Chapter Community</p></div>
+              <p class="text-slate-500 text-sm leading-relaxed">Announcements, Tips & Tricks, Customer Issues — all in your chapter app, not scattered across text threads. Monthly meetings, networking, and peer support.</p>
+            </div>
+          </div>
+          <!-- Tier system preview -->
+          <div class="card p-5">
+            <p class="text-slate-900 font-bold text-sm mb-4">Tier System — Earn Your Rank</p>
+            <div class="grid grid-cols-5 gap-3">
+              <div class="text-center p-3 rounded-xl border border-gray-100"><p class="text-xl mb-1">🏊</p><p class="text-slate-900 font-semibold text-xs">Pool Rookie</p><p class="text-slate-400 text-[10px]">0–4 jobs</p></div>
+              <div class="text-center p-3 rounded-xl border border-gray-100"><p class="text-xl mb-1">🔧</p><p class="text-slate-900 font-semibold text-xs">Trusted Tech</p><p class="text-slate-400 text-[10px]">5–14 jobs · 4.0+</p></div>
+              <div class="text-center p-3 rounded-xl" style="background:#FEF9C3;border:1px solid #FDE68A;"><p class="text-xl mb-1">🛡️</p><p class="text-slate-900 font-semibold text-xs">Route Protector</p><p class="text-slate-500 text-[10px]">15–29 jobs · 4.3+</p></div>
+              <div class="text-center p-3 rounded-xl" style="background:#FEF3C7;border:1px solid #FCD34D;"><p class="text-xl mb-1">⭐</p><p class="text-slate-900 font-semibold text-xs">Chapter Elite</p><p class="text-slate-500 text-[10px]">30+ jobs · 4.6+</p></div>
+              <div class="text-center p-3 rounded-xl" style="background:#FFF7ED;border:1px solid #FED7AA;"><p class="text-xl mb-1">🏆</p><p class="text-slate-900 font-semibold text-xs">IPSSA Legend</p><p class="text-slate-500 text-[10px]">Top 5% nationally</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ P6: MEMBERSHIP BENEFITS ══ -->
+    <div class="flex flex-col gap-3 flex-shrink-0">
+      <span class="text-xs font-bold text-slate-400 uppercase tracking-wider text-center">P6 · Membership Benefits</span>
+      <div class="frame rounded-2xl shadow-2xl" style="border:1px solid #CBD5E1;">
+        <nav class="sitenav gap-8">
+          <div class="flex items-center gap-2 mr-8"><i data-lucide="droplets" class="w-6 h-6" style="color:#0891B2;"></i><span class="font-bold text-slate-900 text-lg">IPSSA</span></div>
+          <a class="sitenav-link">Find a Pool Pro</a><a class="sitenav-link" style="color:#0891B2;">For Professionals</a><a class="sitenav-link">About</a><a class="sitenav-link">Resources</a>
+          <div class="ml-auto flex items-center gap-3"><button class="sitenav-link">Member Login</button><button class="teal-btn px-4 py-2">Join IPSSA →</button></div>
+        </nav>
+        <div class="flex-1 overflow-hidden px-12 py-8" style="background:#F8FAFC;">
+          <div class="text-center mb-6">
+            <h2 class="text-slate-900 font-bold mb-2" style="font-size:30px;">Everything included with IPSSA membership</h2>
+            <p class="text-slate-500">Your membership pays for itself the first time you need coverage — and every day after.</p>
+          </div>
+          <div class="grid grid-cols-3 gap-4">
+            <div class="card p-5">
+              <div class="flex items-center gap-3 mb-2"><i data-lucide="shield" class="w-5 h-5 flex-shrink-0" style="color:#0891B2;"></i><p class="text-slate-900 font-bold text-sm">Tech-4-Tech Route Coverage</p></div>
+              <p class="text-slate-500 text-xs leading-relaxed">When you're sick or injured, the chapter finds a peer to cover your route. CoverageMatch makes it verifiable, ranked, and fast.</p>
+            </div>
+            <div class="card p-5">
+              <div class="flex items-center gap-3 mb-2"><i data-lucide="book-open" class="w-5 h-5 flex-shrink-0" style="color:#0891B2;"></i><p class="text-slate-900 font-bold text-sm">Free Certification Exams</p></div>
+              <p class="text-slate-500 text-xs leading-relaxed">Water Chemistry, Equipment, Intermediate Training, and Pool Chlorination Facts — all free with membership. 10 attempts per exam copy.</p>
+            </div>
+            <div class="card p-5">
+              <div class="flex items-center gap-3 mb-2"><i data-lucide="user" class="w-5 h-5 flex-shrink-0" style="color:#0891B2;"></i><p class="text-slate-900 font-bold text-sm">Public Business Profile</p></div>
+              <p class="text-slate-500 text-xs leading-relaxed">Listed on the national "Find a Pool Pro" map with your certifications, specialties, service area, and peer-earned CoverageScore.</p>
+            </div>
+            <div class="card p-5">
+              <div class="flex items-center gap-3 mb-2"><i data-lucide="zap" class="w-5 h-5 flex-shrink-0" style="color:#0891B2;"></i><p class="text-slate-900 font-bold text-sm">CoverageMatch App</p></div>
+              <p class="text-slate-500 text-xs leading-relaxed">Mobile app with CoverageMatch (3 modes), Coverage Dossier, Certification Prep Lab, Chapter Community, and tier gamification.</p>
+            </div>
+            <div class="card p-5">
+              <div class="flex items-center gap-3 mb-2"><i data-lucide="percent" class="w-5 h-5 flex-shrink-0" style="color:#0891B2;"></i><p class="text-slate-900 font-bold text-sm">Industry Partner Discounts</p></div>
+              <p class="text-slate-500 text-xs leading-relaxed">Special member pricing on Skimmer pool service software and other endorsed industry partners. Access the member portal for current offers.</p>
+            </div>
+            <div class="card p-5">
+              <div class="flex items-center gap-3 mb-2"><i data-lucide="users" class="w-5 h-5 flex-shrink-0" style="color:#0891B2;"></i><p class="text-slate-900 font-bold text-sm">Local Chapter Network</p></div>
+              <p class="text-slate-500 text-xs leading-relaxed">Monthly meetings, a searchable member directory, chapter chat, announcements, and officer support. 12 regions across the US.</p>
+            </div>
+          </div>
+          <div class="flex items-center justify-center mt-5 gap-4">
+            <button class="teal-btn px-8 py-3 rounded-xl text-sm">Apply for Membership →</button>
+            <a class="text-teal-600 text-sm font-semibold cursor-pointer">View member portal →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ P7: ABOUT IPSSA ══ -->
+    <div class="flex flex-col gap-3 flex-shrink-0">
+      <span class="text-xs font-bold text-slate-400 uppercase tracking-wider text-center">P7 · About IPSSA</span>
+      <div class="frame rounded-2xl shadow-2xl" style="border:1px solid #CBD5E1;">
+        <nav class="sitenav gap-8">
+          <div class="flex items-center gap-2 mr-8"><i data-lucide="droplets" class="w-6 h-6" style="color:#0891B2;"></i><span class="font-bold text-slate-900 text-lg">IPSSA</span></div>
+          <a class="sitenav-link">Find a Pool Pro</a><a class="sitenav-link">For Professionals</a><a class="sitenav-link font-semibold" style="color:#0891B2;">About</a><a class="sitenav-link">Resources</a>
+          <div class="ml-auto flex items-center gap-3"><button class="sitenav-link">Member Login</button><button class="teal-btn px-4 py-2">Join IPSSA →</button></div>
+        </nav>
+        <div class="flex-1 overflow-hidden flex">
+          <!-- Left: Mission content -->
+          <div class="flex-1 px-12 py-8 flex flex-col gap-5 overflow-hidden">
+            <div>
+              <p class="text-sm font-semibold uppercase tracking-widest mb-2" style="color:#0891B2;">INDEPENDENT POOL & SPA SERVICE ASSOCIATION</p>
+              <h2 class="text-slate-900 font-bold mb-3" style="font-size:28px;">Community. Education. Support.</h2>
+              <p class="text-slate-500 text-sm leading-relaxed">Founded to give independent pool service professionals the same network, training, and mutual support that larger operations take for granted. IPSSA's three pillars — community, education, and support — have defined its mission since its founding.</p>
+            </div>
+            <div class="grid grid-cols-3 gap-4">
+              <div class="p-4 rounded-xl text-center" style="background:#F0F9FF;">
+                <p class="text-slate-900 font-bold text-2xl mb-1">2,700+</p>
+                <p class="text-slate-500 text-xs">Active Members</p>
+              </div>
+              <div class="p-4 rounded-xl text-center" style="background:#F0F9FF;">
+                <p class="text-slate-900 font-bold text-2xl mb-1">12</p>
+                <p class="text-slate-500 text-xs">US Regions</p>
+              </div>
+              <div class="p-4 rounded-xl text-center" style="background:#F0F9FF;">
+                <p class="text-slate-900 font-bold text-2xl mb-1">45+</p>
+                <p class="text-slate-500 text-xs">Years of Service</p>
+              </div>
+            </div>
+            <div class="grid grid-cols-3 gap-4">
+              <div class="card p-4 border-t-4" style="border-top-color:#0891B2;">
+                <div class="flex items-center gap-2 mb-2"><i data-lucide="users" class="w-4 h-4" style="color:#0891B2;"></i><p class="text-slate-900 font-bold text-sm">Community</p></div>
+                <p class="text-slate-500 text-xs leading-relaxed">A nationwide network of independent professionals who support each other — through chapters, the Tech-4-Tech program, and everyday peer advice.</p>
+              </div>
+              <div class="card p-4 border-t-4" style="border-top-color:#0891B2;">
+                <div class="flex items-center gap-2 mb-2"><i data-lucide="book-open" class="w-4 h-4" style="color:#0891B2;"></i><p class="text-slate-900 font-bold text-sm">Education</p></div>
+                <p class="text-slate-500 text-xs leading-relaxed">Free certification exams, study guides, and a first-year Water Chemistry requirement ensure every member meets a consistent professional standard.</p>
+              </div>
+              <div class="card p-4 border-t-4" style="border-top-color:#0891B2;">
+                <div class="flex items-center gap-2 mb-2"><i data-lucide="shield" class="w-4 h-4" style="color:#0891B2;"></i><p class="text-slate-900 font-bold text-sm">Support</p></div>
+                <p class="text-slate-500 text-xs leading-relaxed">Tech-4-Tech route coverage is IPSSA's most tangible support pillar — a peer promise that when you need help, the chapter shows up.</p>
+              </div>
+            </div>
+          </div>
+          <!-- Right: Structure -->
+          <div class="w-80 flex-shrink-0 px-6 py-8 border-l border-gray-100" style="background:#F8FAFC;">
+            <p class="text-slate-900 font-bold text-sm mb-4">National + Chapter Structure</p>
+            <div class="flex flex-col gap-3 mb-4">
+              <div class="card p-3 flex items-center gap-3"><div class="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0" style="background:#0D1B2A;"><i data-lucide="globe" class="w-4 h-4 text-white"></i></div><div><p class="text-slate-900 font-semibold text-xs">National Board</p><p class="text-slate-400 text-[10px]">Policies, standards, national programs</p></div></div>
+              <div class="card p-3 flex items-center gap-3"><div class="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0" style="background:#0891B2;"><i data-lucide="map" class="w-4 h-4 text-white"></i></div><div><p class="text-slate-900 font-semibold text-xs">12 Regional Zones</p><p class="text-slate-400 text-[10px]">Geographic coverage across the US</p></div></div>
+              <div class="card p-3 flex items-center gap-3"><div class="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0" style="background:#059669;"><i data-lucide="users" class="w-4 h-4 text-white"></i></div><div><p class="text-slate-900 font-semibold text-xs">Local Chapters</p><p class="text-slate-400 text-[10px]">Monthly meetings, Tech-4-Tech chairs</p></div></div>
+              <div class="card p-3 flex items-center gap-3"><div class="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0" style="background:#F59E0B;"><i data-lucide="user" class="w-4 h-4 text-white"></i></div><div><p class="text-slate-900 font-semibold text-xs">Individual Members</p><p class="text-slate-400 text-[10px]">2,700+ independent professionals</p></div></div>
+            </div>
+            <div class="bg-white rounded-xl p-3 border border-gray-200">
+              <p class="text-slate-700 font-semibold text-xs mb-1">Disclaimer</p>
+              <p class="text-slate-400 text-[10px] leading-relaxed">IPSSA (ipssa.com) is the Independent Pool & Spa Service Association — not to be confused with IPPS-A, the U.S. Army personnel system.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ P8: JOIN / APPLY ══ -->
+    <div class="flex flex-col gap-3 flex-shrink-0">
+      <span class="text-xs font-bold text-slate-400 uppercase tracking-wider text-center">P8 · Join / Apply</span>
+      <div class="frame rounded-2xl shadow-2xl" style="border:1px solid #CBD5E1;">
+        <nav class="sitenav gap-8">
+          <div class="flex items-center gap-2 mr-8"><i data-lucide="droplets" class="w-6 h-6" style="color:#0891B2;"></i><span class="font-bold text-slate-900 text-lg">IPSSA</span></div>
+          <a class="sitenav-link">Find a Pool Pro</a><a class="sitenav-link" style="color:#0891B2;">For Professionals</a><a class="sitenav-link">About</a><a class="sitenav-link">Resources</a>
+          <div class="ml-auto flex items-center gap-3"><button class="sitenav-link">Member Login</button><button class="teal-btn px-4 py-2">Join IPSSA →</button></div>
+        </nav>
+        <div class="flex-1 overflow-hidden flex">
+          <div class="flex-1 px-12 py-8 flex flex-col gap-5">
+            <div>
+              <h2 class="text-slate-900 font-bold mb-2" style="font-size:28px;">Join IPSSA</h2>
+              <p class="text-slate-500 text-sm">Membership is open to independent pool and spa service professionals. Complete the application and connect with your local chapter.</p>
+            </div>
+            <!-- Application form -->
+            <div class="card p-5 flex-1">
+              <p class="text-slate-900 font-semibold text-sm mb-4">Membership Application</p>
+              <div class="grid grid-cols-2 gap-4 mb-4">
+                <div><p class="text-slate-600 text-xs font-medium mb-1">First Name</p><input class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-slate-700 outline-none" value="David"></div>
+                <div><p class="text-slate-600 text-xs font-medium mb-1">Last Name</p><input class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-slate-700 outline-none" value="Park"></div>
+                <div><p class="text-slate-600 text-xs font-medium mb-1">Business Name</p><input class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-slate-700 outline-none" value="Park Pool Pro"></div>
+                <div><p class="text-slate-600 text-xs font-medium mb-1">Email Address</p><input class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-slate-700 outline-none" value="david@parkpoolpro.com"></div>
+                <div><p class="text-slate-600 text-xs font-medium mb-1">Phone</p><input class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-slate-700 outline-none" value="(619) 555-0194"></div>
+                <div><p class="text-slate-600 text-xs font-medium mb-1">ZIP Code</p><input class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-slate-700 outline-none" value="91941 — La Mesa, CA"></div>
+              </div>
+              <div class="mb-4"><p class="text-slate-600 text-xs font-medium mb-1">Nearest Chapter</p>
+                <select class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-slate-700 outline-none"><option>San Diego — Chapter 7 (recommended)</option><option>Los Angeles</option></select>
+              </div>
+              <div class="bg-amber-50 rounded-xl p-3 mb-4 border border-amber-100"><p class="text-slate-700 text-xs font-semibold mb-1">First-Year Requirement</p><p class="text-slate-500 text-xs">All new members must complete the Water Chemistry exam within the first year. The official exam is available at ipssa.com after joining. Use the Prep Lab to study.</p></div>
+              <button class="teal-btn w-full py-3 rounded-xl text-sm">Submit Application →</button>
+            </div>
+          </div>
+          <!-- Right: Summary -->
+          <div class="w-72 flex-shrink-0 px-6 py-8 border-l border-gray-100" style="background:#F8FAFC;">
+            <p class="text-slate-900 font-bold text-sm mb-4">What's included</p>
+            <div class="flex flex-col gap-2.5">
+              <div class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-emerald-500 flex-shrink-0"></i><p class="text-slate-600 text-xs">CoverageMatch mobile app access</p></div>
+              <div class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-emerald-500 flex-shrink-0"></i><p class="text-slate-600 text-xs">Tech-4-Tech route coverage enrollment</p></div>
+              <div class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-emerald-500 flex-shrink-0"></i><p class="text-slate-600 text-xs">Free certification exams (Water Chemistry required yr 1)</p></div>
+              <div class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-emerald-500 flex-shrink-0"></i><p class="text-slate-600 text-xs">Public "Find a Pro" business profile</p></div>
+              <div class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-emerald-500 flex-shrink-0"></i><p class="text-slate-600 text-xs">Local chapter membership + monthly meetings</p></div>
+              <div class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-emerald-500 flex-shrink-0"></i><p class="text-slate-600 text-xs">Member portal: study guides, partner discounts, resources</p></div>
+              <div class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-emerald-500 flex-shrink-0"></i><p class="text-slate-600 text-xs">Certification Prep Lab (gamified study app)</p></div>
+            </div>
+            <div class="mt-5 p-3 rounded-xl" style="background:#EFF6FF;">
+              <p class="text-teal-800 font-semibold text-xs mb-1">Already a member?</p>
+              <a class="text-teal-600 text-xs cursor-pointer font-medium">Log in to your member portal →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ P9: CHAPTER LOCATOR ══ -->
+    <div class="flex flex-col gap-3 flex-shrink-0">
+      <span class="text-xs font-bold text-slate-400 uppercase tracking-wider text-center">P9 · Chapter Locator</span>
+      <div class="frame rounded-2xl shadow-2xl" style="border:1px solid #CBD5E1;">
+        <nav class="sitenav gap-8">
+          <div class="flex items-center gap-2 mr-8"><i data-lucide="droplets" class="w-6 h-6" style="color:#0891B2;"></i><span class="font-bold text-slate-900 text-lg">IPSSA</span></div>
+          <a class="sitenav-link">Find a Pool Pro</a><a class="sitenav-link">For Professionals</a><a class="sitenav-link font-semibold" style="color:#0891B2;">About</a><a class="sitenav-link">Resources</a>
+          <div class="ml-auto flex items-center gap-3"><button class="sitenav-link">Member Login</button><button class="teal-btn px-4 py-2">Join IPSSA →</button></div>
+        </nav>
+        <div class="flex-1 overflow-hidden flex">
+          <!-- Map area -->
+          <div class="flex-1 relative overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1569336415962-a4bd9f69cd83?w=900&h=700&fit=crop" class="w-full h-full object-cover" alt="US map">
+            <div class="absolute inset-0" style="background:rgba(13,27,42,0.55);"></div>
+            <!-- Chapter markers -->
+            <div class="absolute inset-0 flex items-center justify-center">
+              <div class="text-center">
+                <p class="text-white font-bold text-2xl mb-2">12 Regions · National Coverage</p>
+                <p style="color:rgba(255,255,255,0.6);" class="text-sm">Find your nearest IPSSA chapter below</p>
+              </div>
+            </div>
+            <!-- Region pins -->
+            <div class="absolute" style="top:40%;left:18%;"><div class="w-6 h-6 rounded-full bg-teal-400 border-2 border-white shadow-lg flex items-center justify-center"><span class="text-white text-[9px] font-bold">CA</span></div></div>
+            <div class="absolute" style="top:50%;left:20%;"><div class="w-6 h-6 rounded-full bg-teal-400 border-2 border-white shadow-lg flex items-center justify-center"><span class="text-white text-[9px] font-bold">SD</span></div></div>
+            <div class="absolute" style="top:55%;left:45%;"><div class="w-6 h-6 rounded-full bg-teal-400 border-2 border-white shadow-lg"></div></div>
+            <div class="absolute" style="top:45%;left:65%;"><div class="w-6 h-6 rounded-full bg-teal-400 border-2 border-white shadow-lg"></div></div>
+            <div class="absolute" style="top:60%;left:75%;"><div class="w-6 h-6 rounded-full bg-teal-400 border-2 border-white shadow-lg"></div></div>
+            <!-- Search overlay -->
+            <div class="absolute bottom-6 left-1/2 transform -translate-x-1/2">
+              <div class="bg-white rounded-xl shadow-xl px-4 py-3 flex items-center gap-3">
+                <i data-lucide="map-pin" class="w-4 h-4 text-slate-400"></i>
+                <input class="text-sm text-slate-700 outline-none w-48" placeholder="Enter your ZIP to find chapter…">
+                <button class="teal-btn px-4 py-1.5 text-xs">Find Chapter</button>
+              </div>
+            </div>
+          </div>
+          <!-- Chapter list -->
+          <div class="w-80 flex-shrink-0 border-l border-gray-100 overflow-y-auto px-4 py-5" style="background:#F8FAFC;">
+            <p class="text-slate-900 font-bold text-sm mb-3">All Chapters</p>
+            <div class="flex flex-col gap-2">
+              <div class="card p-3 cursor-pointer" style="border-left:3px solid #0891B2;">
+                <p class="text-slate-900 font-semibold text-xs">San Diego — Chapter 7</p>
+                <p class="text-slate-400 text-[10px]">47 members · Southern CA</p>
+                <p class="text-teal-600 text-[10px] font-medium mt-0.5">Meeting: Thu Apr 30 · 7 PM →</p>
+              </div>
+              <div class="card p-3 cursor-pointer"><p class="text-slate-900 font-semibold text-xs">Los Angeles — Chapter 2</p><p class="text-slate-400 text-[10px]">124 members · SoCal</p></div>
+              <div class="card p-3 cursor-pointer"><p class="text-slate-900 font-semibold text-xs">Phoenix — Chapter 5</p><p class="text-slate-400 text-[10px]">89 members · Arizona</p></div>
+              <div class="card p-3 cursor-pointer"><p class="text-slate-900 font-semibold text-xs">Las Vegas — Chapter 9</p><p class="text-slate-400 text-[10px]">63 members · Nevada</p></div>
+              <div class="card p-3 cursor-pointer"><p class="text-slate-900 font-semibold text-xs">South Florida — Chapter 1</p><p class="text-slate-400 text-[10px]">198 members · FL</p></div>
+              <div class="card p-3 cursor-pointer"><p class="text-slate-900 font-semibold text-xs">Houston — Chapter 4</p><p class="text-slate-400 text-[10px]">112 members · Texas</p></div>
+              <div class="card p-3 cursor-pointer"><p class="text-slate-900 font-semibold text-xs">Dallas / Fort Worth — Ch. 8</p><p class="text-slate-400 text-[10px]">94 members · Texas</p></div>
+              <div class="card p-3 cursor-pointer"><p class="text-slate-900 font-semibold text-xs">Atlanta — Chapter 11</p><p class="text-slate-400 text-[10px]">71 members · Georgia</p></div>
+              <div class="card p-3 text-center"><p class="text-teal-600 text-xs font-semibold cursor-pointer">+ 4 more chapters →</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ P10: RESOURCES / EDUCATION ══ -->
+    <div class="flex flex-col gap-3 flex-shrink-0">
+      <span class="text-xs font-bold text-slate-400 uppercase tracking-wider text-center">P10 · Resources</span>
+      <div class="frame rounded-2xl shadow-2xl" style="border:1px solid #CBD5E1;">
+        <nav class="sitenav gap-8">
+          <div class="flex items-center gap-2 mr-8"><i data-lucide="droplets" class="w-6 h-6" style="color:#0891B2;"></i><span class="font-bold text-slate-900 text-lg">IPSSA</span></div>
+          <a class="sitenav-link">Find a Pool Pro</a><a class="sitenav-link">For Professionals</a><a class="sitenav-link">About</a><a class="sitenav-link font-semibold" style="color:#0891B2;">Resources</a>
+          <div class="ml-auto flex items-center gap-3"><button class="sitenav-link">Member Login</button><button class="teal-btn px-4 py-2">Join IPSSA →</button></div>
+        </nav>
+        <div class="flex-1 overflow-hidden px-12 py-6" style="background:#F8FAFC;">
+          <div class="flex items-center justify-between mb-5">
+            <div><h2 class="text-slate-900 font-bold mb-1" style="font-size:26px;">Member Resources & Education</h2><p class="text-slate-500 text-sm">Certification guides, industry tools, and IPSSA program documentation.</p></div>
+            <div class="flex items-center gap-2 bg-white border border-gray-200 rounded-lg px-3 py-2"><i data-lucide="search" class="w-4 h-4 text-slate-400"></i><input class="text-sm text-slate-700 outline-none" placeholder="Search resources…"></div>
+          </div>
+          <!-- Certification section -->
+          <div class="mb-5">
+            <p class="text-slate-900 font-semibold text-sm mb-3">Certification Exams</p>
+            <div class="grid grid-cols-4 gap-3">
+              <div class="card p-4">
+                <div class="w-8 h-8 rounded-lg mb-2 flex items-center justify-center" style="background:#EFF6FF;"><i data-lucide="droplets" class="w-4 h-4" style="color:#0891B2;"></i></div>
+                <p class="text-slate-900 font-semibold text-xs mb-1">Water Chemistry</p>
+                <p class="text-slate-400 text-[10px] mb-2">Basic Training 1 · Required yr 1</p>
+                <span class="badge" style="background:#DCFCE7;color:#166534;">Required</span>
+              </div>
+              <div class="card p-4">
+                <div class="w-8 h-8 rounded-lg mb-2 flex items-center justify-center" style="background:#EFF6FF;"><i data-lucide="wrench" class="w-4 h-4" style="color:#0891B2;"></i></div>
+                <p class="text-slate-900 font-semibold text-xs mb-1">Equipment</p>
+                <p class="text-slate-400 text-[10px] mb-2">Basic Training 2</p>
+                <span class="badge" style="background:#EFF6FF;color:#1D4ED8;">Elective</span>
+              </div>
+              <div class="card p-4">
+                <div class="w-8 h-8 rounded-lg mb-2 flex items-center justify-center" style="background:#EFF6FF;"><i data-lucide="flask-conical" class="w-4 h-4" style="color:#0891B2;"></i></div>
+                <p class="text-slate-900 font-semibold text-xs mb-1">Pool Chlorination Facts</p>
+                <p class="text-slate-400 text-[10px] mb-2">Mastery track</p>
+                <span class="badge" style="background:#EFF6FF;color:#1D4ED8;">Elective</span>
+              </div>
+              <div class="card p-4">
+                <div class="w-8 h-8 rounded-lg mb-2 flex items-center justify-center" style="background:#EFF6FF;"><i data-lucide="graduation-cap" class="w-4 h-4" style="color:#0891B2;"></i></div>
+                <p class="text-slate-900 font-semibold text-xs mb-1">Intermediate Training</p>
+                <p class="text-slate-400 text-[10px] mb-2">Advanced track</p>
+                <span class="badge" style="background:#EFF6FF;color:#1D4ED8;">Elective</span>
+              </div>
+            </div>
+          </div>
+          <!-- Articles -->
+          <div>
+            <p class="text-slate-900 font-semibold text-sm mb-3">Featured Articles</p>
+            <div class="grid grid-cols-3 gap-4">
+              <div class="card overflow-hidden cursor-pointer hover:shadow-md transition-all">
+                <img src="https://images.unsplash.com/photo-1575429198097-0414ec08e8cd?w=400&h=180&fit=crop" class="w-full h-28 object-cover" alt="pool chemistry">
+                <div class="p-3"><p class="text-slate-900 font-semibold text-xs mb-1">Understanding CYA & Chlorine Lock</p><p class="text-slate-400 text-[10px]">Water Chemistry · 5 min read</p></div>
+              </div>
+              <div class="card overflow-hidden cursor-pointer hover:shadow-md transition-all">
+                <img src="https://images.unsplash.com/photo-1536936218826-61fd1e3b3e9a?w=400&h=180&fit=crop" class="w-full h-28 object-cover" alt="pool equipment">
+                <div class="p-3"><p class="text-slate-900 font-semibold text-xs mb-1">Salt Cell Maintenance: A Field Guide</p><p class="text-slate-400 text-[10px]">Equipment · 8 min read</p></div>
+              </div>
+              <div class="card overflow-hidden cursor-pointer hover:shadow-md transition-all">
+                <img src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=400&h=180&fit=crop" class="w-full h-28 object-cover" alt="pool pro">
+                <div class="p-3"><p class="text-slate-900 font-semibold text-xs mb-1">Tech-4-Tech: How Coverage Works</p><p class="text-slate-400 text-[10px]">IPSSA Programs · 4 min read</p></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <script>lucide.createIcons();</script>
+</body>
+</html>

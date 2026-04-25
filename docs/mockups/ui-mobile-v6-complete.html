@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IPSSA App — V6: Complete App (All Screens)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    * { font-family: 'Inter', sans-serif; box-sizing: border-box; }
+    .screen { width: 375px; height: 812px; flex-shrink: 0; overflow: hidden; display: flex; flex-direction: column; background: #fff; }
+    .nav-icon { display: flex; flex-direction: column; align-items: center; gap: 3px; flex: 1; padding: 8px 0; cursor: pointer; }
+    .hdr { background: linear-gradient(160deg, #1E293B 0%, #334155 100%); }
+    .acct { background: linear-gradient(135deg, #4F46E5 0%, #4338CA 100%); }
+    .section-label { font-size: 11px; font-weight: 700; color: #fff; letter-spacing: .08em; text-transform: uppercase; padding: 4px 12px; border-radius: 20px; margin-bottom: 8px; display: inline-block; }
+  </style>
+</head>
+<body class="bg-slate-200 p-8 min-h-screen">
+
+  <div class="text-center mb-8">
+    <p class="text-xs font-semibold text-slate-500 uppercase tracking-widest mb-1">IPSSA Mobile App · Mockup Series</p>
+    <h1 class="text-3xl font-bold text-slate-900">Variation 6 — Complete App</h1>
+    <p class="text-slate-500 mt-2">All Screens · Every Flow · Full Information Architecture</p>
+    <div class="flex flex-wrap justify-center gap-3 mt-4">
+      <span class="section-label" style="background:#1E293B;">Onboarding</span>
+      <span class="section-label" style="background:#0D6E4B;">Home</span>
+      <span class="section-label" style="background:#1D4ED8;">Coverage</span>
+      <span class="section-label" style="background:#7C3AED;">Chapter</span>
+      <span class="section-label" style="background:#B45309;">Members</span>
+      <span class="section-label" style="background:#0E7490;">Prep Lab</span>
+      <span class="section-label" style="background:#9D174D;">Achievements</span>
+    </div>
+  </div>
+
+  <div class="flex items-start gap-6 overflow-x-auto pb-12">
+
+    <!-- ══════════════════════════════════
+         GROUP 1: ONBOARDING (2 screens)
+    ══════════════════════════════════ -->
+
+    <!-- ── S1: WELCOME / SPLASH ── -->
+    <div class="flex flex-col gap-3 flex-shrink-0">
+      <div class="flex items-center gap-2"><div class="h-1.5 w-8 rounded-full" style="background:#1E293B;"></div><span class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Onboarding</span></div>
+      <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider text-center">S1 · Welcome</span>
+      <div class="screen rounded-3xl border border-slate-300 shadow-xl">
+        <div style="background:linear-gradient(160deg,#0F172A 0%,#1E293B 100%);" class="px-6 pt-10 pb-10 flex flex-col items-center text-center flex-1">
+          <div class="w-20 h-20 bg-white rounded-3xl flex items-center justify-center mb-5 shadow-lg">
+            <i data-lucide="droplets" class="w-10 h-10 text-indigo-600"></i>
+          </div>
+          <p class="text-white/50 text-xs font-semibold uppercase tracking-widest mb-2">Independent Pool & Spa Service Association</p>
+          <h1 class="text-white text-3xl font-bold leading-tight mb-3">IPSSA<br>Member App</h1>
+          <p class="text-white/50 text-sm leading-relaxed mb-8">More customers. Protected routes.<br>Verified coverage.</p>
+
+          <div class="w-full flex flex-col gap-3 mt-auto">
+            <div class="flex items-center gap-4 text-left bg-white/8 rounded-2xl p-3.5" style="background:rgba(255,255,255,0.07);">
+              <div class="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0" style="background:rgba(99,102,241,0.3);"><i data-lucide="shield" class="w-4 h-4 text-indigo-300"></i></div>
+              <p class="text-white/70 text-xs">Find your best coverage partner in under 60 seconds</p>
+            </div>
+            <div class="flex items-center gap-4 text-left rounded-2xl p-3.5" style="background:rgba(255,255,255,0.07);">
+              <div class="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0" style="background:rgba(99,102,241,0.3);"><i data-lucide="star" class="w-4 h-4 text-indigo-300"></i></div>
+              <p class="text-white/70 text-xs">Build a CoverageScore that proves your reliability</p>
+            </div>
+            <div class="flex items-center gap-4 text-left rounded-2xl p-3.5" style="background:rgba(255,255,255,0.07);">
+              <div class="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0" style="background:rgba(99,102,241,0.3);"><i data-lucide="book-open" class="w-4 h-4 text-indigo-300"></i></div>
+              <p class="text-white/70 text-xs">Pass your Water Chemistry cert with gamified practice</p>
+            </div>
+          </div>
+
+          <div class="w-full mt-6">
+            <button class="w-full py-4 rounded-2xl font-bold text-white text-sm transition-all" style="background:linear-gradient(135deg,#4F46E5 0%,#4338CA 100%);">Sign In with IPSSA →</button>
+            <p class="text-white/30 text-xs mt-3 text-center">New member? Join at ipssa.com</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── S2: SIGN IN ── -->
+    <div class="flex flex-col gap-3 flex-shrink-0">
+      <div class="h-7"></div>
+      <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider text-center">S2 · Sign In</span>
+      <div class="screen rounded-3xl border border-slate-300 shadow-xl">
+        <div class="hdr px-6 pt-8 pb-6 flex flex-col items-center text-center">
+          <div class="w-12 h-12 bg-white/15 rounded-2xl flex items-center justify-center mb-3">
+            <i data-lucide="log-in" class="w-6 h-6 text-white"></i>
+          </div>
+          <h2 class="text-white text-xl font-bold">Member Sign In</h2>
+          <p class="text-white/50 text-xs mt-1">IPSSA member credentials</p>
+        </div>
+
+        <div class="flex-1 overflow-hidden px-6 py-6 bg-white flex flex-col gap-4">
+          <div>
+            <p class="text-black text-xs font-semibold mb-1.5">Email Address</p>
+            <div class="flex items-center gap-3 bg-gray-50 rounded-xl px-4 py-3.5 border border-gray-200">
+              <i data-lucide="mail" class="w-4 h-4 text-black/25"></i>
+              <p class="text-black/30 text-sm">mike@sandovalpoolcare.com</p>
+            </div>
+          </div>
+          <div>
+            <p class="text-black text-xs font-semibold mb-1.5">Password</p>
+            <div class="flex items-center gap-3 bg-gray-50 rounded-xl px-4 py-3.5 border border-gray-200">
+              <i data-lucide="lock" class="w-4 h-4 text-black/25"></i>
+              <p class="text-black/30 text-sm flex-1">••••••••••</p>
+              <i data-lucide="eye-off" class="w-4 h-4 text-black/20"></i>
+            </div>
+          </div>
+          <button class="w-full py-4 rounded-2xl font-bold text-white text-sm transition-all" style="background:linear-gradient(135deg,#4F46E5 0%,#4338CA 100%);">Sign In →</button>
+          <p class="text-center text-black/35 text-xs">Forgot password? <span class="text-indigo-600 font-semibold">Reset via IPSSA.com</span></p>
+
+          <div class="border-t border-gray-100 pt-4">
+            <p class="text-black text-xs font-semibold text-center mb-3">Chapter 7 · San Diego</p>
+            <div class="flex gap-2">
+              <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=40&h=40&fit=crop&crop=face" class="w-9 h-9 rounded-xl object-cover" alt="">
+              <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=40&h=40&fit=crop&crop=face" class="w-9 h-9 rounded-xl object-cover" alt="">
+              <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=40&h=40&fit=crop&crop=face" class="w-9 h-9 rounded-xl object-cover" alt="">
+              <div class="w-9 h-9 rounded-xl bg-indigo-100 flex items-center justify-center"><p class="text-indigo-700 text-[10px] font-bold">+44</p></div>
+              <p class="text-black/35 text-xs self-center ml-1">47 members</p>
+            </div>
+          </div>
+
+          <div class="bg-slate-50 rounded-2xl p-3.5 border border-slate-100">
+            <p class="text-black/50 text-xs text-center leading-relaxed">Your IPSSA.com membership credentials work here. If you're not a member, visit ipssa.com to join.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════
+         GROUP 2: HOME (2 screens)
+    ══════════════════════════════════ -->
+
+    <!-- ── S3: HOME ESTABLISHED MEMBER ── -->
+    <div class="flex flex-col gap-3 flex-shrink-0">
+      <div class="flex items-center gap-2"><div class="h-1.5 w-8 rounded-full" style="background:#0D6E4B;"></div><span class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Home</span></div>
+      <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider text-center">S3 · Dashboard</span>
+      <div class="screen rounded-3xl border border-slate-300 shadow-xl">
+        <div class="hdr px-5 pt-6 pb-4">
+          <div class="flex items-center justify-between mb-4">
+            <div><p class="text-white/50 text-xs">Good morning</p><h2 class="text-white text-xl font-bold">Mike Sandoval</h2></div>
+            <div class="flex items-center gap-3">
+              <button class="relative"><i data-lucide="bell" class="w-5 h-5 text-white/60"></i><span class="absolute -top-1 -right-1 w-2 h-2 bg-indigo-400 rounded-full"></span></button>
+              <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&h=80&fit=crop&crop=face" class="w-10 h-10 rounded-full border-2 border-white/20 object-cover" alt="Mike">
+            </div>
+          </div>
+          <div class="flex gap-2">
+            <div class="flex-1 bg-white/10 rounded-xl p-2.5 text-center"><p class="text-white font-bold">4.8</p><p class="text-white/45 text-[9px]">Score</p></div>
+            <div class="flex-1 bg-white/10 rounded-xl p-2.5 text-center"><p class="text-white font-bold">22</p><p class="text-white/45 text-[9px]">Jobs</p></div>
+            <div class="flex-1 bg-white/10 rounded-xl p-2.5 text-center"><p class="text-yellow-400 text-[10px] font-bold">★ T3</p><p class="text-white/45 text-[9px]">Rt. Prot.</p></div>
+            <div class="flex-1 bg-white/10 rounded-xl p-2.5 text-center"><p class="text-white font-bold">🔥7</p><p class="text-white/45 text-[9px]">Streak</p></div>
+          </div>
+        </div>
+        <div class="flex-1 overflow-hidden px-4 py-3 bg-white flex flex-col gap-2.5">
+          <button class="w-full rounded-2xl p-3.5 flex items-center justify-between acct transition-all duration-200">
+            <div><p class="text-white font-bold text-sm">I Need Coverage</p><p class="text-white/60 text-xs">Find a partner in 60 sec</p></div>
+            <div class="bg-white/15 rounded-xl p-2"><i data-lucide="shield" class="w-5 h-5 text-white"></i></div>
+          </button>
+          <div class="bg-gray-50 rounded-2xl p-3 border border-gray-100">
+            <div class="flex items-center justify-between mb-1.5">
+              <div class="flex items-center gap-2">
+                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=40&h=40&fit=crop&crop=face" class="w-7 h-7 rounded-full object-cover" alt="">
+                <div><p class="text-black text-xs font-semibold">Covering Rivera Aqua</p><p class="text-black/35 text-[10px]">Today</p></div>
+              </div>
+              <span class="bg-green-100 text-green-800 text-[9px] font-bold px-2 py-0.5 rounded-full">Active</span>
+            </div>
+            <div class="flex items-center gap-2"><div class="flex-1 bg-gray-200 rounded-full h-1.5"><div class="bg-indigo-600 h-1.5 rounded-full" style="width:75%"></div></div><p class="text-black text-[10px] font-medium">18/24</p></div>
+          </div>
+          <div class="flex flex-col gap-1.5">
+            <div class="flex items-center gap-2.5 bg-gray-50 rounded-xl p-2.5 border border-gray-100">
+              <div class="bg-indigo-100 rounded-lg p-1.5"><i data-lucide="calendar" class="w-3.5 h-3.5 text-indigo-700"></i></div>
+              <div class="flex-1"><p class="text-black text-xs font-semibold">Monthly Meeting · Apr 30</p><p class="text-black/35 text-[10px]">7:00 PM · Handlebar Restaurant</p></div>
+              <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-black/20"></i>
+            </div>
+            <div class="flex items-center gap-2.5 bg-gray-50 rounded-xl p-2.5 border border-gray-100">
+              <div class="bg-amber-100 rounded-lg p-1.5"><i data-lucide="book-open" class="w-3.5 h-3.5 text-amber-700"></i></div>
+              <div class="flex-1"><p class="text-black text-xs font-semibold">Prep Lab — 3-day streak</p><p class="text-black/35 text-[10px]">Resume Water Chemistry →</p></div>
+            </div>
+            <div class="flex items-center gap-2.5 bg-gray-50 rounded-xl p-2.5 border border-gray-100">
+              <div class="bg-green-100 rounded-lg p-1.5"><i data-lucide="user-plus" class="w-3.5 h-3.5 text-green-700"></i></div>
+              <div class="flex-1"><p class="text-black text-xs font-semibold">New Member: David Park</p><p class="text-black/35 text-[10px]">Park Pool Pro · La Mesa</p></div>
+            </div>
+          </div>
+        </div>
+        <div class="flex items-center bg-white border-t border-gray-100 px-2" style="height:58px;">
+          <div class="nav-icon"><i data-lucide="home" class="w-5 h-5 text-indigo-600"></i><span class="text-[9px] font-bold text-indigo-600">Home</span></div>
+          <div class="nav-icon"><i data-lucide="shield" class="w-5 h-5 text-black/20"></i><span class="text-[9px] text-black/35">Coverage</span></div>
+          <div class="nav-icon"><i data-lucide="message-circle" class="w-5 h-5 text-black/20"></i><span class="text-[9px] text-black/35">Chapter</span></div>
+          <div class="nav-icon"><i data-lucide="user" class="w-5 h-5 text-black/20"></i><span class="text-[9px] text-black/35">Profile</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── S4: NOTIFICATIONS ── -->
+    <div class="flex flex-col gap-3 flex-shrink-0">
+      <div class="h-7"></div>
+      <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider text-center">S4 · Notifications</span>
+      <div class="screen rounded-3xl border border-slate-300 shadow-xl">
+        <div class="hdr px-5 pt-6 pb-4">
+          <div class="flex items-center gap-3">
+            <button class="bg-white/10 rounded-xl p-2"><i data-lucide="arrow-left" class="w-4 h-4 text-white"></i></button>
+            <h2 class="text-white text-lg font-bold">Notifications</h2>
+            <button class="ml-auto text-white/50 text-xs font-semibold">Clear all</button>
+          </div>
+        </div>
+        <div class="flex-1 overflow-hidden px-4 py-3 bg-white flex flex-col gap-2">
+          <p class="text-black text-xs font-semibold uppercase tracking-wider">Today</p>
+          <div class="flex items-start gap-3 bg-indigo-50 rounded-2xl p-3 border border-indigo-100">
+            <div class="bg-indigo-600 rounded-xl p-2 flex-shrink-0 mt-0.5"><i data-lucide="shield" class="w-3.5 h-3.5 text-white"></i></div>
+            <div class="flex-1"><p class="text-black font-bold text-xs">Coverage request matched!</p><p class="text-black/50 text-xs mt-0.5">Rivera Aqua Services accepted your Sick Day request for Apr 24–25.</p><p class="text-black/25 text-[10px] mt-1">9:02 AM</p></div>
+            <div class="w-2 h-2 bg-indigo-500 rounded-full mt-1 flex-shrink-0"></div>
+          </div>
+          <div class="flex items-start gap-3 bg-indigo-50 rounded-2xl p-3 border border-indigo-100">
+            <div class="bg-green-500 rounded-xl p-2 flex-shrink-0 mt-0.5"><i data-lucide="check-circle" class="w-3.5 h-3.5 text-white"></i></div>
+            <div class="flex-1"><p class="text-black font-bold text-xs">18 pools completed</p><p class="text-black/50 text-xs mt-0.5">James Rivera completed 18 of 24 pools on your route. 6 remaining.</p><p class="text-black/25 text-[10px] mt-1">10:18 AM</p></div>
+            <div class="w-2 h-2 bg-indigo-500 rounded-full mt-1 flex-shrink-0"></div>
+          </div>
+          <div class="flex items-start gap-3 bg-amber-50 rounded-2xl p-3 border border-amber-100">
+            <div class="bg-amber-500 rounded-xl p-2 flex-shrink-0 mt-0.5"><i data-lucide="alert-triangle" class="w-3.5 h-3.5 text-white"></i></div>
+            <div class="flex-1"><p class="text-black font-bold text-xs">Exception flagged on route</p><p class="text-black/50 text-xs mt-0.5">509 Magnolia Ave: locked gate reported. James needs your help resolving.</p><p class="text-black/25 text-[10px] mt-1">10:05 AM</p></div>
+            <div class="w-2 h-2 bg-amber-400 rounded-full mt-1 flex-shrink-0"></div>
+          </div>
+          <p class="text-black text-xs font-semibold uppercase tracking-wider mt-2">Yesterday</p>
+          <div class="flex items-start gap-3 bg-gray-50 rounded-2xl p-3 border border-gray-100">
+            <div class="bg-purple-100 rounded-xl p-2 flex-shrink-0 mt-0.5"><i data-lucide="star" class="w-3.5 h-3.5 text-purple-600"></i></div>
+            <div class="flex-1"><p class="text-black font-bold text-xs">New rating received</p><p class="text-black/50 text-xs mt-0.5">Sarah Chen gave you 5.0 stars for your last coverage job. See details →</p><p class="text-black/25 text-[10px] mt-1">Apr 23 · 4:30 PM</p></div>
+          </div>
+          <div class="flex items-start gap-3 bg-gray-50 rounded-2xl p-3 border border-gray-100">
+            <div class="bg-teal-100 rounded-xl p-2 flex-shrink-0 mt-0.5"><i data-lucide="megaphone" class="w-3.5 h-3.5 text-teal-700"></i></div>
+            <div class="flex-1"><p class="text-black font-bold text-xs">Chapter announcement</p><p class="text-black/50 text-xs mt-0.5">Lisa Torres: Monthly meeting confirmed for Apr 30. RSVP by Apr 28.</p><p class="text-black/25 text-[10px] mt-1">Apr 23 · 2:15 PM</p></div>
+          </div>
+          <div class="flex items-start gap-3 bg-gray-50 rounded-2xl p-3 border border-gray-100">
+            <div class="bg-yellow-100 rounded-xl p-2 flex-shrink-0 mt-0.5"><i data-lucide="award" class="w-3.5 h-3.5 text-yellow-700"></i></div>
+            <div class="flex-1"><p class="text-black font-bold text-xs">7-day Prep Lab streak! 🔥</p><p class="text-black/50 text-xs mt-0.5">You've studied Water Chemistry 7 days in a row. +100 bonus points earned.</p><p class="text-black/25 text-[10px] mt-1">Apr 23 · 8:00 AM</p></div>
+          </div>
+        </div>
+        <div class="flex items-center bg-white border-t border-gray-100 px-2" style="height:58px;">
+          <div class="nav-icon"><i data-lucide="home" class="w-5 h-5 text-black/20"></i><span class="text-[9px] text-black/35">Home</span></div>
+          <div class="nav-icon"><i data-lucide="shield" class="w-5 h-5 text-black/20"></i><span class="text-[9px] text-black/35">Coverage</span></div>
+          <div class="nav-icon"><i data-lucide="message-circle" class="w-5 h-5 text-black/20"></i><span class="text-[9px] text-black/35">Chapter</span></div>
+          <div class="nav-icon"><i data-lucide="user" class="w-5 h-5 text-black/20"></i><span class="text-[9px] text-black/35">Profile</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════
+         GROUP 3: COVERAGE (5 screens)
+    ══════════════════════════════════ -->
+
+    <!-- ── S5: COVERAGE MODE SELECT ── -->
+    <div class="flex flex-col gap-3 flex-shrink-0">
+      <div class="flex items-center gap-2"><div class="h-1.5 w-8 rounded-full" style="background:#1D4ED8;"></div><span class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Coverage</span></div>
+      <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider text-center">S5 · Mode Select</span>
+      <div class="screen rounded-3xl border border-slate-300 shadow-xl">
+        <div class="hdr px-5 pt-6 pb-4">
+          <div class="flex items-center gap-3 mb-3"><button class="bg-white/10 rounded-xl p-2"><i data-lucide="arrow-left" class="w-4 h-4 text-white"></i></button><h2 class="text-white text-lg font-bold">Request Coverage</h2></div>
+          <p class="text-white/50 text-xs leading-relaxed">Partners ranked by proximity, CoverageScore, and availability.</p>
+        </div>
+        <div class="flex-1 overflow-hidden px-5 py-4 bg-white flex flex-col gap-3">
+          <p class="text-black text-xs font-semibold uppercase tracking-wider">Coverage Mode</p>
+          <div class="rounded-2xl p-4 border-2 border-indigo-600 bg-indigo-50">
+            <div class="flex items-center justify-between mb-1.5">
+              <div class="flex items-center gap-2.5"><div class="bg-indigo-600 rounded-xl p-2"><i data-lucide="zap" class="w-4 h-4 text-white"></i></div><p class="text-black font-bold text-sm">Sick Day</p></div>
+              <div class="w-5 h-5 rounded-full bg-indigo-600 flex items-center justify-center"><i data-lucide="check" class="w-3 h-3 text-white"></i></div>
+            </div>
+            <p class="text-black/50 text-xs ml-9">Same-day or next-day. High-priority 15-min accept window.</p>
+          </div>
+          <div class="rounded-2xl p-4 border border-gray-200 bg-white">
+            <div class="flex items-center gap-2.5 mb-1.5"><div class="bg-red-100 rounded-xl p-2"><i data-lucide="alert-circle" class="w-4 h-4 text-red-600"></i></div><p class="text-black font-bold text-sm">Emergency Broadcast</p></div>
+            <p class="text-black/35 text-xs ml-9">Broadcasts to all available members. First to accept wins.</p>
+          </div>
+          <div class="rounded-2xl p-4 border border-gray-200 bg-white">
+            <div class="flex items-center gap-2.5 mb-1.5"><div class="bg-green-100 rounded-xl p-2"><i data-lucide="calendar" class="w-4 h-4 text-green-600"></i></div><p class="text-black font-bold text-sm">Vacation / Planned</p></div>
+            <p class="text-black/35 text-xs ml-9">Schedule coverage days to months ahead. Browse at leisure.</p>
+          </div>
+          <div class="flex gap-2">
+            <div class="flex-1 bg-gray-50 rounded-xl p-3 border border-gray-100 text-center"><p class="text-black/35 text-[10px] uppercase">Start</p><p class="text-black font-semibold text-sm">Today, Apr 24</p></div>
+            <div class="flex-1 bg-gray-50 rounded-xl p-3 border border-gray-100 text-center"><p class="text-black/35 text-[10px] uppercase">End</p><p class="text-black font-semibold text-sm">Fri, Apr 25</p></div>
+          </div>
+          <button class="w-full py-4 rounded-2xl font-bold text-white text-sm mt-auto acct transition-all duration-200">Find Coverage Partners →</button>
+        </div>
+        <div class="flex items-center bg-white border-t border-gray-100 px-2" style="height:58px;">
+          <div class="nav-icon"><i data-lucide="home" class="w-5 h-5 text-black/20"></i><span class="text-[9px] text-black/35">Home</span></div>
+          <div class="nav-icon"><i data-lucide="shield" class="w-5 h-5 text-indigo-600"></i><span class="text-[9px] font-bold text-indigo-600">Coverage</span></div>
+          <div class="nav-icon"><i data-lucide="message-circle" class="w-5 h-5 text-black/20"></i><span class="text-[9px] text-black/35">Chapter</span></div>
+          <div class="nav-icon"><i data-lucide="user" class="w-5 h-5 text-black/20"></i><span class="text-[9px] text-black/35">Profile</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── S6: MATCH DECK ── -->
+    <div class="flex flex-col gap-3 flex-shrink-0">
+      <div class="h-7"></div>
+      <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider text-center">S6 · Match Deck</span>
+      <div class="screen rounded-3xl border border-slate-300 shadow-xl">
+        <div class="hdr px-5 pt-6 pb-4">
+          <div class="flex items-center gap-3 mb-3">
+            <button class="bg-white/10 rounded-xl p-2"><i data-lucide="arrow-left" class="w-4 h-4 text-white"></i></button>
+            <div class="flex-1"><h2 class="text-white text-lg font-bold">Coverage Partners</h2><p class="text-white/45 text-xs">8 matches · Sick Day</p></div>
+            <button class="bg-white/10 rounded-xl p-2"><i data-lucide="sliders-horizontal" class="w-4 h-4 text-white"></i></button>
+          </div>
+          <div class="flex gap-1.5 justify-center">
+            <div class="w-6 h-1.5 bg-indigo-400 rounded-full"></div>
+            <div class="w-1.5 h-1.5 bg-white/25 rounded-full"></div>
+            <div class="w-1.5 h-1.5 bg-white/25 rounded-full"></div>
+            <div class="w-1.5 h-1.5 bg-white/25 rounded-full"></div>
+          </div>
+        </div>
+        <div class="flex-1 overflow-hidden px-5 py-3 bg-white flex flex-col">
+          <div class="flex-1 bg-white rounded-3xl border border-gray-200 shadow-md p-4 flex flex-col">
+            <div class="flex items-start gap-3 mb-3">
+              <img src="https://images.unsplash.com/photo-1560250097-0dc05ffefdbb?w=80&h=80&fit=crop&crop=face" class="w-14 h-14 rounded-2xl object-cover" alt="Rivera">
+              <div class="flex-1">
+                <h3 class="text-black font-bold text-base">Rivera Aqua Services</h3>
+                <div class="flex items-center gap-1.5 mt-0.5"><span class="text-yellow-500 text-sm">★</span><span class="text-black font-bold text-sm">4.8</span><span class="text-black/20">·</span><span class="bg-yellow-100 text-yellow-800 text-[10px] font-bold px-2 py-0.5 rounded-full">Route Protector</span></div>
+              </div>
+            </div>
+            <div class="grid grid-cols-3 gap-2 mb-3">
+              <div class="bg-gray-50 rounded-xl p-2 text-center"><p class="text-black font-bold text-xs">3.2 mi</p><p class="text-black/35 text-[9px]">from route</p></div>
+              <div class="bg-gray-50 rounded-xl p-2 text-center"><p class="text-black font-bold text-xs">31 jobs</p><p class="text-black/35 text-[9px]">completed</p></div>
+              <div class="bg-gray-50 rounded-xl p-2 text-center"><p class="text-black font-bold text-xs">3 / 3</p><p class="text-black/35 text-[9px]">accepted</p></div>
+            </div>
+            <div class="flex flex-wrap gap-1.5 mb-3">
+              <span class="bg-indigo-50 text-indigo-900 text-[10px] font-semibold px-2.5 py-1 rounded-full">Salt Systems</span>
+              <span class="bg-indigo-50 text-indigo-900 text-[10px] font-semibold px-2.5 py-1 rounded-full">Repairs</span>
+              <span class="bg-indigo-50 text-indigo-900 text-[10px] font-semibold px-2.5 py-1 rounded-full">Commercial</span>
+            </div>
+            <div class="bg-gray-50 rounded-xl p-3 flex-1 mb-3"><p class="text-black/50 text-xs italic">"Best handoffs in the chapter. Always sends updates and my customers loved working with him."</p><p class="text-black/25 text-[10px] mt-1">— Sarah Chen · Chapter Elite</p></div>
+            <div class="flex items-center gap-2 mb-3"><div class="w-2 h-2 bg-green-500 rounded-full"></div><p class="text-black text-xs font-medium">Available today and tomorrow</p></div>
+            <div class="flex gap-3">
+              <button class="flex-1 py-3 rounded-2xl border-2 border-gray-200 font-bold text-black text-sm">Pass</button>
+              <button class="flex-1 py-3 rounded-2xl font-bold text-white text-sm acct transition-all duration-200">Request →</button>
+            </div>
+          </div>
+        </div>
+        <div class="flex items-center bg-white border-t border-gray-100 px-2" style="height:58px;">
+          <div class="nav-icon"><i data-lucide="home" class="w-5 h-5 text-black/20"></i><span class="text-[9px] text-black/35">Home</span></div>
+          <div class="nav-icon"><i data-lucide="shield" class="w-5 h-5 text-indigo-600"></i><span class="text-[9px] font-bold text-indigo-600">Coverage</span></div>
+          <div class="nav-icon"><i data-lucide="message-circle" class="w-5 h-5 text-black/20"></i><span class="text-[9px] text-black/35">Chapter</span></div>
+          <div class="nav-icon"><i data-lucide="user" class="w-5 h-5 text-black/20"></i><span class="text-[9px] text-black/35">Profile</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── S7: ACTIVE DOSSIER ── -->
+    <div class="flex flex-col gap-3 flex-shrink-0">
+      <div class="h-7"></div>
+      <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider text-center">S7 · Active Dossier</span>
+      <div class="screen rounded-3xl border border-slate-300 shadow-xl">
+        <div class="hdr px-5 pt-6 pb-4">
+          <div class="flex items-center gap-3 mb-3">
+            <button class="bg-white/10 rounded-xl p-2"><i data-lucide="arrow-left" class="w-4 h-4 text-white"></i></button>
+            <div class="flex-1"><h2 class="text-white text-lg font-bold">Coverage Dossier</h2><p class="text-white/45 text-xs">Sandoval Pool Care · Apr 24–25</p></div>
+            <span class="bg-green-400/20 text-green-300 text-[10px] font-bold px-2.5 py-1 rounded-xl">Active</span>
+          </div>
+          <div class="bg-white/10 rounded-2xl p-3"><div class="flex justify-between mb-2"><p class="text-white/65 text-xs">Pool Progress</p><p class="text-white font-bold text-sm">18 / 24</p></div><div class="bg-white/20 rounded-full h-2"><div class="bg-green-400 h-2 rounded-full" style="width:75%"></div></div></div>
+        </div>
+        <div class="flex-1 overflow-hidden px-4 py-3 bg-white flex flex-col gap-2.5">
+          <div class="flex items-center gap-3 bg-gray-50 rounded-2xl p-3 border border-gray-100">
+            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=60&h=60&fit=crop&crop=face" class="w-9 h-9 rounded-xl object-cover" alt="James">
+            <div class="flex-1"><p class="text-black font-semibold text-sm">James Rivera</p><p class="text-black/35 text-xs">Rivera Aqua Services · ★ 4.8</p></div>
+            <button class="bg-indigo-100 rounded-xl p-2"><i data-lucide="message-circle" class="w-4 h-4 text-indigo-700"></i></button>
+          </div>
+          <p class="text-black text-xs font-semibold uppercase tracking-wider">Activity</p>
+          <div class="flex flex-col gap-1.5">
+            <div class="flex items-center gap-2.5 p-2.5 rounded-xl bg-green-50 border border-green-100"><div class="w-6 h-6 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0"><i data-lucide="check" class="w-3 h-3 text-green-700"></i></div><div class="flex-1"><p class="text-black font-medium text-xs">1847 Vista Bonita Dr</p><p class="text-black/35 text-[10px]">Chemicals adjusted · 2 photos · 9:14 AM</p></div></div>
+            <div class="flex items-center gap-2.5 p-2.5 rounded-xl bg-green-50 border border-green-100"><div class="w-6 h-6 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0"><i data-lucide="check" class="w-3 h-3 text-green-700"></i></div><div class="flex-1"><p class="text-black font-medium text-xs">2204 El Cajon Blvd</p><p class="text-black/35 text-[10px]">Complete · 1 photo · 9:42 AM</p></div></div>
+            <div class="flex items-center gap-2.5 p-2.5 rounded-xl bg-amber-50 border border-amber-100"><div class="w-6 h-6 bg-amber-100 rounded-lg flex items-center justify-center flex-shrink-0"><i data-lucide="alert-triangle" class="w-3 h-3 text-amber-600"></i></div><div class="flex-1"><p class="text-black font-medium text-xs">509 Magnolia Ave</p><p class="text-black/35 text-[10px]">Locked gate flagged · 10:05 AM</p></div></div>
+          </div>
+          <p class="text-black text-xs font-semibold uppercase tracking-wider">Photo Proof</p>
+          <div class="flex gap-2">
+            <img src="https://images.unsplash.com/photo-1575429198097-0414ec08e8cd?w=100&h=80&fit=crop" class="w-18 h-14 rounded-xl object-cover flex-shrink-0" style="width:72px;height:56px;" alt="pool">
+            <img src="https://images.unsplash.com/photo-1536936218826-61fd1e3b3e9a?w=100&h=80&fit=crop" class="w-18 h-14 rounded-xl object-cover flex-shrink-0" style="width:72px;height:56px;" alt="pool">
+            <img src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=100&h=80&fit=crop" class="w-18 h-14 rounded-xl object-cover flex-shrink-0" style="width:72px;height:56px;" alt="pool">
+            <div class="rounded-xl bg-gray-100 flex items-center justify-center flex-shrink-0 border border-gray-200" style="width:72px;height:56px;"><p class="text-black/25 text-[10px] text-center">+15</p></div>
+          </div>
+          <button class="w-full py-3 rounded-2xl border-2 border-red-200 font-semibold text-black text-xs flex items-center justify-center gap-2"><i data-lucide="alert-circle" class="w-4 h-4 text-red-400"></i>Report Exception</button>
+        </div>
+        <div class="flex items-center bg-white border-t border-gray-100 px-2" style="height:58px;">
+          <div class="nav-icon"><i data-lucide="home" class="w-5 h-5 text-black/20"></i><span class="text-[9px] text-black/35">Home</span></div>
+          <div class="nav-icon"><i data-lucide="shield" class="w-5 h-5 text-indigo-600"></i><span class="text-[9px] font-bold text-indigo-600">Coverage</span></div>
+          <div class="nav-icon"><i data-lucide="message-circle" class="w-5 h-5 text-black/20"></i><span class="text-[9px] text-black/35">Chapter</span></div>
+          <div class="nav-icon"><i data-lucide="user" class="w-5 h-5 text-black/20"></i><span class="text-[9px] text-black/35">Profile</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── S8: POST-JOB RATING ── -->
+    <div class="flex flex-col gap-3 flex-shrink-0">
+      <div class="h-7"></div>
+      <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider text-center">S8 · Rate Coverage</span>
+      <div class="screen rounded-3xl border border-slate-300 shadow-xl">
+        <div class="hdr px-5 pt-6 pb-4">
+          <h2 class="text-white text-lg font-bold mb-0.5">Rate This Coverage</h2>
+          <p class="text-white/45 text-xs mb-3">Rivera Aqua · Apr 24–25 · Completed</p>
+          <div class="bg-green-400/15 rounded-2xl p-3 flex items-center gap-2.5 border border-green-400/20">
+            <i data-lucide="check-circle" class="w-5 h-5 text-green-400 flex-shrink-0"></i>
+            <div><p class="text-white font-semibold text-sm">All 24 pools completed</p><p class="text-white/45 text-xs">All photos submitted on time</p></div>
+          </div>
+        </div>
+        <div class="flex-1 overflow-hidden px-5 py-3 bg-white flex flex-col gap-3">
+          <div class="flex items-center gap-3 bg-gray-50 rounded-2xl p-3 border border-gray-100">
+            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=60&h=60&fit=crop&crop=face" class="w-10 h-10 rounded-xl object-cover" alt="James">
+            <div><p class="text-black font-bold text-sm">James Rivera</p><p class="text-black/35 text-xs">Rivera Aqua Services</p></div>
+          </div>
+          <p class="text-black text-xs font-semibold uppercase tracking-wider">Your Rating (3 Dimensions)</p>
+          <div class="bg-gray-50 rounded-2xl p-3.5 border border-gray-100">
+            <p class="text-black font-semibold text-xs mb-0.5">Service Quality</p>
+            <p class="text-black/35 text-[10px] mb-2.5">Pools serviced correctly, proper chemistry, no shortcuts</p>
+            <div class="flex gap-1.5 justify-center"><button class="w-9 h-9 rounded-xl text-yellow-500 text-lg bg-yellow-50">★</button><button class="w-9 h-9 rounded-xl text-yellow-500 text-lg bg-yellow-50">★</button><button class="w-9 h-9 rounded-xl text-yellow-500 text-lg bg-yellow-50">★</button><button class="w-9 h-9 rounded-xl text-yellow-500 text-lg bg-yellow-50">★</button><button class="w-9 h-9 rounded-xl text-yellow-500 text-lg bg-yellow-50">★</button></div>
+          </div>
+          <div class="bg-gray-50 rounded-2xl p-3.5 border border-gray-100">
+            <p class="text-black font-semibold text-xs mb-0.5">Communication</p>
+            <p class="text-black/35 text-[10px] mb-2.5">Showed up as agreed, sent updates, flagged issues</p>
+            <div class="flex gap-1.5 justify-center"><button class="w-9 h-9 rounded-xl text-yellow-500 text-lg bg-yellow-50">★</button><button class="w-9 h-9 rounded-xl text-yellow-500 text-lg bg-yellow-50">★</button><button class="w-9 h-9 rounded-xl text-yellow-500 text-lg bg-yellow-50">★</button><button class="w-9 h-9 rounded-xl text-yellow-500 text-lg bg-yellow-50">★</button><button class="w-9 h-9 rounded-xl text-gray-200 text-lg bg-gray-50">★</button></div>
+          </div>
+          <div class="bg-gray-50 rounded-2xl p-3.5 border border-gray-100">
+            <p class="text-black font-semibold text-xs mb-0.5">Professionalism</p>
+            <p class="text-black/35 text-[10px] mb-2.5">No poaching, treated homeowners as your clients</p>
+            <div class="flex gap-1.5 justify-center"><button class="w-9 h-9 rounded-xl text-yellow-500 text-lg bg-yellow-50">★</button><button class="w-9 h-9 rounded-xl text-yellow-500 text-lg bg-yellow-50">★</button><button class="w-9 h-9 rounded-xl text-yellow-500 text-lg bg-yellow-50">★</button><button class="w-9 h-9 rounded-xl text-yellow-500 text-lg bg-yellow-50">★</button><button class="w-9 h-9 rounded-xl text-yellow-500 text-lg bg-yellow-50">★</button></div>
+          </div>
+          <button class="w-full py-3.5 rounded-2xl font-bold text-white text-sm acct transition-all duration-200">Submit Rating</button>
+        </div>
+        <div class="flex items-center bg-white border-t border-gray-100 px-2" style="height:58px;">
+          <div class="nav-icon"><i data-lucide="home" class="w-5 h-5 text-black/20"></i><span class="text-[9px] text-black/35">Home</span></div>
+          <div class="nav-icon"><i data-lucide="shield" class="w-5 h-5 text-indigo-600"></i><span class="text-[9px] font-bold text-indigo-600">Coverage</span></div>
+          <div class="nav-icon"><i data-lucide="message-circle" class="w-5 h-5 text-black/20"></i><span class="text-[9px] text-black/35">Chapter</span></div>
+          <div class="nav-icon"><i data-lucide="user" class="w-5 h-5 text-black/20"></i><span class="text-[9px] text-black/35">Profile</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════
+         GROUP 4: CHAPTER (3 screens)
+    ══════════════════════════════════ -->
+
+    <!-- ── S9: COMMUNITY HUB ── -->
+    <div class="flex flex-col gap-3 flex-shrink-0">
+      <div class="flex items-center gap-2"><div class="h-1.5 w-8 rounded-full" style="background:#7C3AED;"></div><span class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Chapter</span></div>
+      <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider text-center">S9 · Community Hub</span>
+      <div class="screen rounded-3xl border border-slate-300 shadow-xl">
+        <div class="hdr px-5 pt-6 pb-4">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="flex-1"><p class="text-white/45 text-xs">San Diego · Chapter 7</p><h2 class="text-white text-lg font-bold">Community</h2></div>
+            <button class="bg-white/10 rounded-xl p-2"><i data-lucide="search" class="w-4 h-4 text-white"></i></button>
+          </div>
+          <div class="flex items-center gap-2">
+            <div class="flex -space-x-2"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=40&h=40&fit=crop&crop=face" class="w-7 h-7 rounded-full border-2 border-slate-700 object-cover" alt=""><img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=40&h=40&fit=crop&crop=face" class="w-7 h-7 rounded-full border-2 border-slate-700 object-cover" alt=""><img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=40&h=40&fit=crop&crop=face" class="w-7 h-7 rounded-full border-2 border-slate-700 object-cover" alt=""><div class="w-7 h-7 rounded-full border-2 border-slate-700 bg-white/15 flex items-center justify-center"><span class="text-white text-[9px] font-bold">+44</span></div></div>
+            <p class="text-white/40 text-xs">47 members · 12 online</p>
+          </div>
+        </div>
+        <div class="flex-1 overflow-hidden px-4 py-3 bg-white flex flex-col gap-2">
+          <p class="text-black text-xs font-semibold uppercase tracking-wider mb-1">Channels</p>
+          <div class="flex flex-col gap-1.5">
+            <div class="flex items-center gap-3 p-3 rounded-2xl bg-indigo-50 border-2 border-indigo-200"><div class="bg-indigo-600 rounded-xl p-2"><i data-lucide="megaphone" class="w-4 h-4 text-white"></i></div><div class="flex-1"><div class="flex items-center justify-between"><p class="text-black font-bold text-sm">Announcements</p><span class="bg-indigo-600 text-white text-[9px] font-bold px-2 py-0.5 rounded-full">2</span></div><p class="text-black/35 text-xs">Monthly meeting · Apr 24</p></div><i data-lucide="chevron-right" class="w-4 h-4 text-black/20"></i></div>
+            <div class="flex items-center gap-3 p-3 rounded-2xl bg-gray-50 border border-gray-100"><div class="bg-amber-100 rounded-xl p-2"><i data-lucide="lightbulb" class="w-4 h-4 text-amber-700"></i></div><div class="flex-1"><div class="flex items-center justify-between"><p class="text-black font-bold text-sm">Tips & Tricks</p><span class="bg-gray-700 text-white text-[9px] font-bold px-2 py-0.5 rounded-full">5</span></div><p class="text-black/35 text-xs">High CYA fix · 8m ago</p></div><i data-lucide="chevron-right" class="w-4 h-4 text-black/20"></i></div>
+            <div class="flex items-center gap-3 p-3 rounded-2xl bg-gray-50 border border-gray-100"><div class="bg-red-100 rounded-xl p-2"><i data-lucide="help-circle" class="w-4 h-4 text-red-600"></i></div><div class="flex-1"><div class="flex items-center justify-between"><p class="text-black font-bold text-sm">Customer Issues</p><span class="bg-gray-700 text-white text-[9px] font-bold px-2 py-0.5 rounded-full">1</span></div><p class="text-black/35 text-xs">Algae case · Sarah C.</p></div><i data-lucide="chevron-right" class="w-4 h-4 text-black/20"></i></div>
+            <div class="flex items-center gap-3 p-3 rounded-2xl bg-gray-50 border border-gray-100"><div class="bg-blue-100 rounded-xl p-2"><i data-lucide="message-square" class="w-4 h-4 text-blue-600"></i></div><div class="flex-1"><p class="text-black font-bold text-sm">General Chat</p><p class="text-black/35 text-xs">Welcome David P. · 2h</p></div><i data-lucide="chevron-right" class="w-4 h-4 text-black/20"></i></div>
+          </div>
+          <div class="mt-1 bg-indigo-50 rounded-2xl p-3 border border-indigo-100 flex items-center gap-3">
+            <div class="bg-indigo-600 rounded-xl p-2"><i data-lucide="calendar" class="w-4 h-4 text-white"></i></div>
+            <div class="flex-1"><p class="text-black font-semibold text-sm">Monthly Meeting</p><p class="text-black/40 text-xs">Thu Apr 30 · 7:00 PM · Handlebar</p></div>
+            <button class="bg-indigo-600 text-white text-[10px] font-bold px-2.5 py-1.5 rounded-xl">RSVP</button>
+          </div>
+        </div>
+        <div class="flex items-center bg-white border-t border-gray-100 px-2" style="height:58px;">
+          <div class="nav-icon"><i data-lucide="home" class="w-5 h-5 text-black/20"></i><span class="text-[9px] text-black/35">Home</span></div>
+          <div class="nav-icon"><i data-lucide="shield" class="w-5 h-5 text-black/20"></i><span class="text-[9px] text-black/35">Coverage</span></div>
+          <div class="nav-icon"><i data-lucide="message-circle" class="w-5 h-5 text-indigo-600"></i><span class="text-[9px] font-bold text-indigo-600">Chapter</span></div>
+          <div class="nav-icon"><i data-lucide="user" class="w-5 h-5 text-black/20"></i><span class="text-[9px] text-black/35">Profile</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── S10: CUSTOMER ISSUES THREAD ── -->
+    <div class="flex flex-col gap-3 flex-shrink-0">
+      <div class="h-7"></div>
+      <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider text-center">S10 · Customer Issues</span>
+      <div class="screen rounded-3xl border border-slate-300 shadow-xl">
+        <div class="hdr px-5 pt-6 pb-4">
+          <div class="flex items-center gap-3 mb-1">
+            <button class="bg-white/10 rounded-xl p-2"><i data-lucide="arrow-left" class="w-4 h-4 text-white"></i></button>
+            <div class="flex-1"><h2 class="text-white text-lg font-bold">Customer Issues</h2><p class="text-white/40 text-xs">De-identified · Chapter 7</p></div>
+          </div>
+        </div>
+        <div class="flex-1 overflow-hidden px-4 py-3 bg-white flex flex-col gap-3">
+          <div class="bg-amber-50 rounded-xl p-3 border border-amber-100 flex items-start gap-2">
+            <i data-lucide="info" class="w-4 h-4 text-amber-600 flex-shrink-0 mt-0.5"></i>
+            <p class="text-black/55 text-[11px] leading-relaxed">Use "Customer A / pool type / symptom". No full names or addresses in public threads.</p>
+          </div>
+          <!-- Post 1 -->
+          <div class="bg-gray-50 rounded-2xl p-3.5 border border-gray-100">
+            <div class="flex items-center gap-2.5 mb-2">
+              <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=40&h=40&fit=crop&crop=face" class="w-8 h-8 rounded-xl object-cover" alt="Sarah">
+              <div><div class="flex items-center gap-1.5"><p class="text-black font-bold text-xs">Sarah Chen</p><span class="bg-orange-100 text-orange-800 text-[9px] font-bold px-1.5 py-0.5 rounded-full">Ch. Elite</span></div><p class="text-black/30 text-[10px]">34 min ago</p></div>
+            </div>
+            <p class="text-black font-semibold text-xs mb-1.5">Persistent algae after super-chlorination</p>
+            <p class="text-black/55 text-xs leading-relaxed mb-2">Customer A — commercial pool, ~50k gal, vinyl liner. Treated with 10 ppm shock two days ago. Still seeing green walls. CYA is 80 ppm. FC reading this morning: 0.5 ppm. pH 7.8.</p>
+            <img src="https://images.unsplash.com/photo-1575429198097-0414ec08e8cd?w=375&h=100&fit=crop" class="w-full h-16 object-cover rounded-xl mb-2" alt="pool">
+            <div class="flex items-center gap-3 pt-2 border-t border-gray-100"><button class="flex items-center gap-1 text-black/40 text-xs"><i data-lucide="message-circle" class="w-3.5 h-3.5"></i> 3 replies</button></div>
+          </div>
+          <!-- Reply -->
+          <div class="ml-4 bg-gray-50 rounded-2xl p-3 border border-gray-100">
+            <div class="flex items-center gap-2.5 mb-1.5">
+              <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=40&h=40&fit=crop&crop=face" class="w-7 h-7 rounded-xl object-cover" alt="James">
+              <div><p class="text-black font-bold text-xs">James Rivera</p><p class="text-black/30 text-[10px]">22 min ago</p></div>
+            </div>
+            <p class="text-black/60 text-xs leading-relaxed">High CYA is killing your chlorine efficiency. At 80 ppm you need 6–8 ppm FC to have any active sanitizer. Try a 25% partial drain first, then re-shock to 15 ppm. Let it circulate 24h before brushing walls.</p>
+          </div>
+        </div>
+        <!-- Composer -->
+        <div class="bg-white border-t border-gray-100 px-4 py-2.5">
+          <div class="flex items-center gap-2">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=40&h=40&fit=crop&crop=face" class="w-7 h-7 rounded-full object-cover" alt="me">
+            <div class="flex-1 bg-gray-100 rounded-xl px-3 py-2"><p class="text-black/30 text-xs">Reply to this thread…</p></div>
+            <button class="acct rounded-xl p-2"><i data-lucide="send" class="w-3.5 h-3.5 text-white"></i></button>
+          </div>
+        </div>
+        <div class="flex items-center bg-white border-t border-gray-100 px-2" style="height:54px;">
+          <div class="nav-icon"><i data-lucide="home" class="w-5 h-5 text-black/20"></i><span class="text-[9px] text-black/35">Home</span></div>
+          <div class="nav-icon"><i data-lucide="shield" class="w-5 h-5 text-black/20"></i><span class="text-[9px] text-black/35">Coverage</span></div>
+          <div class="nav-icon"><i data-lucide="message-circle" class="w-5 h-5 text-indigo-600"></i><span class="text-[9px] font-bold text-indigo-600">Chapter</span></div>
+          <div class="nav-icon"><i data-lucide="user" class="w-5 h-5 text-black/20"></i><span class="text-[9px] text-black/35">Profile</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════
+         GROUP 5: MEMBERS (2 screens)
+    ══════════════════════════════════ -->
+
+    <!-- ── S11: MEMBER DIRECTORY ── -->
+    <div class="flex flex-col gap-3 flex-shrink-0">
+      <div class="flex items-center gap-2"><div class="h-1.5 w-8 rounded-full" style="background:#B45309;"></div><span class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Members</span></div>
+      <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider text-center">S11 · Directory</span>
+      <div class="screen rounded-3xl border border-slate-300 shadow-xl">
+        <div class="hdr px-5 pt-6 pb-4">
+          <div class="flex items-center gap-3 mb-3"><button class="bg-white/10 rounded-xl p-2"><i data-lucide="arrow-left" class="w-4 h-4 text-white"></i></button><h2 class="text-white text-lg font-bold">Members</h2><span class="ml-auto text-white/40 text-xs">47 total</span></div>
+          <div class="flex items-center gap-2 bg-white/10 rounded-2xl px-3 py-2.5"><i data-lucide="search" class="w-4 h-4 text-white/40"></i><p class="text-white/30 text-xs">Search members, businesses…</p></div>
+        </div>
+        <div class="flex-1 overflow-hidden px-4 py-3 bg-white flex flex-col gap-3">
+          <div class="flex gap-1.5 overflow-x-auto">
+            <button class="bg-indigo-600 text-white text-xs font-bold px-3 py-1.5 rounded-full flex-shrink-0">All</button>
+            <button class="bg-gray-100 text-black text-xs px-3 py-1.5 rounded-full flex-shrink-0">Available</button>
+            <button class="bg-gray-100 text-black text-xs px-3 py-1.5 rounded-full flex-shrink-0">Nearby</button>
+            <button class="bg-gray-100 text-black text-xs px-3 py-1.5 rounded-full flex-shrink-0">Elite+</button>
+          </div>
+          <div class="flex flex-col gap-2">
+            <div class="flex items-center gap-3 bg-gray-50 rounded-2xl p-3 border border-gray-100"><img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=60&h=60&fit=crop&crop=face" class="w-11 h-11 rounded-2xl object-cover" alt="Sarah"><div class="flex-1"><div class="flex items-center gap-1.5"><p class="text-black font-bold text-sm">Sarah Chen</p><span class="bg-orange-100 text-orange-800 text-[9px] font-bold px-1.5 py-0.5 rounded-full">Ch. Elite</span></div><p class="text-black/35 text-xs">Crystal Clear Pools · Chula Vista</p><p class="text-black/30 text-[10px]">★ 4.9 · 38 jobs · 2.1 mi</p></div><div class="w-2.5 h-2.5 bg-green-500 rounded-full flex-shrink-0"></div></div>
+            <div class="flex items-center gap-3 bg-gray-50 rounded-2xl p-3 border border-gray-100"><img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=60&h=60&fit=crop&crop=face" class="w-11 h-11 rounded-2xl object-cover" alt="James"><div class="flex-1"><div class="flex items-center gap-1.5"><p class="text-black font-bold text-sm">James Rivera</p><span class="bg-yellow-100 text-yellow-800 text-[9px] font-bold px-1.5 py-0.5 rounded-full">Rt. Prot.</span></div><p class="text-black/35 text-xs">Rivera Aqua Services · El Cajon</p><p class="text-black/30 text-[10px]">★ 4.8 · 31 jobs · 3.2 mi</p></div><div class="w-2.5 h-2.5 bg-green-500 rounded-full flex-shrink-0"></div></div>
+            <div class="flex items-center gap-3 bg-gray-50 rounded-2xl p-3 border border-gray-100"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=60&h=60&fit=crop&crop=face" class="w-11 h-11 rounded-2xl object-cover" alt="Mike"><div class="flex-1"><div class="flex items-center gap-1.5"><p class="text-black font-bold text-sm">Mike Sandoval</p><span class="bg-yellow-100 text-yellow-800 text-[9px] font-bold px-1.5 py-0.5 rounded-full">Rt. Prot.</span></div><p class="text-black/35 text-xs">Sandoval Pool Care · San Diego</p><p class="text-black/30 text-[10px]">★ 4.8 · 22 jobs · You</p></div><div class="w-2.5 h-2.5 bg-green-500 rounded-full flex-shrink-0"></div></div>
+            <div class="flex items-center gap-3 bg-gray-50 rounded-2xl p-3 border border-gray-100"><img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=60&h=60&fit=crop&crop=face" class="w-11 h-11 rounded-2xl object-cover" alt="David"><div class="flex-1"><div class="flex items-center gap-1.5"><p class="text-black font-bold text-sm">David Park</p><span class="bg-gray-200 text-black text-[9px] font-bold px-1.5 py-0.5 rounded-full">Pool Rookie</span></div><p class="text-black/35 text-xs">Park Pool Pro · La Mesa</p><p class="text-black/30 text-[10px]">New member · 4.6 mi</p></div><div class="w-2.5 h-2.5 bg-gray-300 rounded-full flex-shrink-0"></div></div>
+          </div>
+        </div>
+        <div class="flex items-center bg-white border-t border-gray-100 px-2" style="height:58px;">
+          <div class="nav-icon"><i data-lucide="home" class="w-5 h-5 text-black/20"></i><span class="text-[9px] text-black/35">Home</span></div>
+          <div class="nav-icon"><i data-lucide="shield" class="w-5 h-5 text-black/20"></i><span class="text-[9px] text-black/35">Coverage</span></div>
+          <div class="nav-icon"><i data-lucide="message-circle" class="w-5 h-5 text-indigo-600"></i><span class="text-[9px] font-bold text-indigo-600">Chapter</span></div>
+          <div class="nav-icon"><i data-lucide="user" class="w-5 h-5 text-black/20"></i><span class="text-[9px] text-black/35">Profile</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── S12: MY PROFILE ── -->
+    <div class="flex flex-col gap-3 flex-shrink-0">
+      <div class="h-7"></div>
+      <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider text-center">S12 · My Profile</span>
+      <div class="screen rounded-3xl border border-slate-300 shadow-xl">
+        <div class="hdr px-5 pt-6 pb-5">
+          <div class="flex justify-end mb-2"><button class="bg-white/10 rounded-xl px-3 py-1.5 text-white text-xs font-semibold">Edit</button></div>
+          <div class="flex items-center gap-4">
+            <div class="relative"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face" class="w-16 h-16 rounded-2xl object-cover border-2 border-white/25" alt="Mike"><div class="absolute -bottom-1 -right-1 bg-yellow-400 rounded-lg p-1"><i data-lucide="shield" class="w-3 h-3 text-yellow-900"></i></div></div>
+            <div><h2 class="text-white font-bold text-lg">Mike Sandoval</h2><p class="text-white/45 text-xs">Sandoval Pool Care · San Diego</p><div class="flex items-center gap-2 mt-1.5"><span class="bg-yellow-400/20 text-yellow-300 text-[10px] font-bold px-2 py-0.5 rounded-full">Route Protector</span><span class="text-white/50 text-xs">★ 4.8</span></div></div>
+          </div>
+        </div>
+        <div class="flex-1 overflow-hidden px-5 py-3 bg-white flex flex-col gap-3">
+          <div class="grid grid-cols-3 gap-2">
+            <div class="bg-gray-50 rounded-2xl p-2.5 text-center border border-gray-100"><p class="text-black font-bold text-lg">22</p><p class="text-black/30 text-[10px]">Coverage<br>Jobs</p></div>
+            <div class="bg-gray-50 rounded-2xl p-2.5 text-center border border-gray-100"><p class="text-black font-bold text-lg">4 yrs</p><p class="text-black/30 text-[10px]">IPSSA<br>Member</p></div>
+            <div class="bg-gray-50 rounded-2xl p-2.5 text-center border border-gray-100"><p class="text-black font-bold text-lg">187</p><p class="text-black/30 text-[10px]">Route<br>Pools</p></div>
+          </div>
+          <div>
+            <p class="text-black text-xs font-semibold uppercase tracking-wider mb-2">Certifications</p>
+            <div class="flex flex-col gap-1.5">
+              <div class="flex items-center gap-2.5 bg-green-50 rounded-xl p-2.5 border border-green-100"><i data-lucide="check-circle" class="w-4 h-4 text-green-600"></i><p class="text-black text-xs font-medium flex-1">Basic Training 1 — Water Chemistry</p><span class="text-green-700 text-[10px] font-bold">Passed</span></div>
+              <div class="flex items-center gap-2.5 bg-green-50 rounded-xl p-2.5 border border-green-100"><i data-lucide="check-circle" class="w-4 h-4 text-green-600"></i><p class="text-black text-xs font-medium flex-1">Basic Training 2 — Equipment</p><span class="text-green-700 text-[10px] font-bold">Passed</span></div>
+            </div>
+          </div>
+          <div>
+            <p class="text-black text-xs font-semibold uppercase tracking-wider mb-2">Specialties</p>
+            <div class="flex flex-wrap gap-1.5"><span class="bg-indigo-50 text-indigo-900 text-[10px] font-semibold px-2.5 py-1 rounded-full">Salt Systems</span><span class="bg-indigo-50 text-indigo-900 text-[10px] font-semibold px-2.5 py-1 rounded-full">Repairs</span><span class="bg-indigo-50 text-indigo-900 text-[10px] font-semibold px-2.5 py-1 rounded-full">Water Chemistry</span><span class="bg-indigo-50 text-indigo-900 text-[10px] font-semibold px-2.5 py-1 rounded-full">Green-to-Clean</span></div>
+          </div>
+          <div class="bg-gray-50 rounded-2xl p-3 border border-gray-100"><div class="flex items-center justify-between mb-1.5"><p class="text-black text-xs font-semibold">Most Recent Rating</p><div class="flex items-center gap-1"><span class="text-yellow-500 text-xs">★★★★★</span><span class="text-black text-xs font-bold">5.0</span></div></div><p class="text-black/45 text-xs italic">"Handoff notes were incredibly thorough. Every pool documented perfectly."</p><p class="text-black/20 text-[10px] mt-1">— Rivera Aqua Services · Apr 22</p></div>
+        </div>
+        <div class="flex items-center bg-white border-t border-gray-100 px-2" style="height:58px;">
+          <div class="nav-icon"><i data-lucide="home" class="w-5 h-5 text-black/20"></i><span class="text-[9px] text-black/35">Home</span></div>
+          <div class="nav-icon"><i data-lucide="shield" class="w-5 h-5 text-black/20"></i><span class="text-[9px] text-black/35">Coverage</span></div>
+          <div class="nav-icon"><i data-lucide="message-circle" class="w-5 h-5 text-black/20"></i><span class="text-[9px] text-black/35">Chapter</span></div>
+          <div class="nav-icon"><i data-lucide="user" class="w-5 h-5 text-indigo-600"></i><span class="text-[9px] font-bold text-indigo-600">Profile</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════
+         GROUP 6: PREP LAB (2 screens)
+    ══════════════════════════════════ -->
+
+    <!-- ── S13: PREP LAB ── -->
+    <div class="flex flex-col gap-3 flex-shrink-0">
+      <div class="flex items-center gap-2"><div class="h-1.5 w-8 rounded-full" style="background:#0E7490;"></div><span class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Prep Lab</span></div>
+      <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider text-center">S13 · Track Select</span>
+      <div class="screen rounded-3xl border border-slate-300 shadow-xl">
+        <div class="hdr px-5 pt-6 pb-4">
+          <div class="flex items-center gap-3 mb-3"><button class="bg-white/10 rounded-xl p-2"><i data-lucide="arrow-left" class="w-4 h-4 text-white"></i></button><div class="flex-1"><h2 class="text-white text-lg font-bold">Prep Lab</h2><p class="text-white/40 text-xs">Practice · Official exams at IPSSA.com</p></div></div>
+          <div class="bg-white/10 rounded-2xl p-3 flex items-center gap-3"><div><p class="text-white/50 text-[10px] font-semibold uppercase tracking-wide">Review Deck</p><p class="text-white font-bold text-sm">8 missed questions</p></div><button class="ml-auto bg-yellow-400 text-black text-[10px] font-bold px-3 py-1.5 rounded-xl">Review →</button></div>
+        </div>
+        <div class="flex-1 overflow-hidden px-5 py-3 bg-white flex flex-col gap-3">
+          <p class="text-black text-xs font-semibold uppercase tracking-wider">Study Tracks</p>
+          <div class="rounded-2xl p-4 border-2 border-cyan-500 bg-cyan-50">
+            <div class="flex items-center justify-between mb-2"><div class="flex items-center gap-2.5"><div class="bg-cyan-600 rounded-xl p-2"><i data-lucide="droplets" class="w-4 h-4 text-white"></i></div><div><p class="text-black font-bold text-sm">Water Chemistry</p><p class="text-black/45 text-xs">Basic Training 1 · Required</p></div></div><span class="bg-cyan-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">Required</span></div>
+            <div class="flex items-center justify-between mb-1.5"><p class="text-black/45 text-[11px]">72% · 43/60 questions mastered</p><p class="text-black font-bold text-xs">72%</p></div>
+            <div class="bg-cyan-200 rounded-full h-2 mb-3"><div class="bg-cyan-600 h-2 rounded-full" style="width:72%"></div></div>
+            <button class="w-full py-2.5 rounded-xl font-bold text-white text-xs bg-cyan-600 transition-all duration-200">Continue Practice →</button>
+          </div>
+          <div class="rounded-2xl p-4 border border-gray-200 bg-white"><div class="flex items-center gap-2.5 mb-2"><div class="bg-gray-100 rounded-xl p-2"><i data-lucide="wrench" class="w-4 h-4 text-black/40"></i></div><div><p class="text-black font-bold text-sm">Equipment</p><p class="text-black/35 text-xs">Basic Training 2 · 45%</p></div></div><div class="bg-gray-200 rounded-full h-1.5"><div class="bg-gray-400 h-1.5 rounded-full" style="width:45%"></div></div></div>
+          <div class="rounded-2xl p-4 border border-gray-200 bg-white"><div class="flex items-center gap-2.5 mb-2"><div class="bg-gray-100 rounded-xl p-2"><i data-lucide="flask-conical" class="w-4 h-4 text-black/40"></i></div><div><p class="text-black font-bold text-sm">Pool Chlorination Facts</p><p class="text-black/35 text-xs">Mastery track · 20%</p></div></div><div class="bg-gray-200 rounded-full h-1.5"><div class="bg-gray-400 h-1.5 rounded-full" style="width:20%"></div></div></div>
+          <div class="rounded-2xl p-4 border border-dashed border-gray-200 bg-gray-50 flex items-center gap-3"><div class="bg-gray-200 rounded-xl p-2"><i data-lucide="lock" class="w-4 h-4 text-black/25"></i></div><div><p class="text-black/40 font-bold text-sm">Intermediate Training</p><p class="text-black/25 text-xs">Complete Water Chemistry first</p></div></div>
+        </div>
+        <div class="flex items-center bg-white border-t border-gray-100 px-2" style="height:58px;">
+          <div class="nav-icon"><i data-lucide="home" class="w-5 h-5 text-black/20"></i><span class="text-[9px] text-black/35">Home</span></div>
+          <div class="nav-icon"><i data-lucide="shield" class="w-5 h-5 text-black/20"></i><span class="text-[9px] text-black/35">Coverage</span></div>
+          <div class="nav-icon"><i data-lucide="message-circle" class="w-5 h-5 text-black/20"></i><span class="text-[9px] text-black/35">Chapter</span></div>
+          <div class="nav-icon"><i data-lucide="user" class="w-5 h-5 text-black/20"></i><span class="text-[9px] text-black/35">Profile</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── S14: QUIZ QUESTION ── -->
+    <div class="flex flex-col gap-3 flex-shrink-0">
+      <div class="h-7"></div>
+      <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider text-center">S14 · Quiz</span>
+      <div class="screen rounded-3xl border border-slate-300 shadow-xl">
+        <div class="hdr px-5 pt-6 pb-4">
+          <div class="flex items-center gap-3 mb-3"><button class="bg-white/10 rounded-xl p-2"><i data-lucide="x" class="w-4 h-4 text-white"></i></button><div class="flex-1"><div class="flex items-center justify-between mb-1"><p class="text-white/45 text-xs">Water Chemistry · Q 7 of 15</p><span class="text-yellow-400 text-xs font-bold">🔥 7</span></div><div class="bg-white/20 rounded-full h-1.5"><div class="bg-yellow-400 h-1.5 rounded-full" style="width:47%"></div></div></div></div>
+          <div class="bg-white/10 rounded-xl px-3 py-2 flex items-center gap-2 mt-2"><i data-lucide="droplets" class="w-3.5 h-3.5 text-white/40"></i><p class="text-white/50 text-[11px]">Chlorination · Basic Training 1</p></div>
+        </div>
+        <div class="flex-1 overflow-hidden px-5 py-3 bg-white flex flex-col gap-2.5">
+          <div class="bg-gray-50 rounded-2xl p-4 border border-gray-100"><p class="text-black font-bold text-sm leading-relaxed">What is the ideal free chlorine range for a residential swimming pool?</p></div>
+          <div class="flex flex-col gap-2">
+            <button class="flex items-center gap-3 p-3.5 rounded-2xl border border-gray-200 bg-white text-left"><div class="w-7 h-7 rounded-full border-2 border-gray-200 flex items-center justify-center flex-shrink-0"><span class="text-black/35 text-xs font-bold">A</span></div><p class="text-black/45 text-sm">0.5 – 1.0 ppm</p></button>
+            <button class="flex items-center gap-3 p-3.5 rounded-2xl border-2 border-green-500 bg-green-50 text-left"><div class="w-7 h-7 rounded-full bg-green-500 flex items-center justify-center flex-shrink-0"><i data-lucide="check" class="w-3.5 h-3.5 text-white"></i></div><p class="text-black font-bold text-sm flex-1">1.0 – 3.0 ppm</p><span class="text-green-600 text-[10px] font-bold">Correct!</span></button>
+            <button class="flex items-center gap-3 p-3.5 rounded-2xl border border-gray-200 bg-white text-left"><div class="w-7 h-7 rounded-full border-2 border-gray-200 flex items-center justify-center flex-shrink-0"><span class="text-black/35 text-xs font-bold">C</span></div><p class="text-black/45 text-sm">3.0 – 5.0 ppm</p></button>
+            <button class="flex items-center gap-3 p-3.5 rounded-2xl border border-gray-200 bg-white text-left"><div class="w-7 h-7 rounded-full border-2 border-gray-200 flex items-center justify-center flex-shrink-0"><span class="text-black/35 text-xs font-bold">D</span></div><p class="text-black/45 text-sm">5.0 – 8.0 ppm</p></button>
+          </div>
+          <div class="bg-green-50 rounded-2xl p-3.5 border border-green-100"><div class="flex items-center gap-2 mb-1.5"><i data-lucide="info" class="w-4 h-4 text-green-700"></i><p class="text-black font-semibold text-xs">Why 1.0 – 3.0 ppm?</p></div><p class="text-black/55 text-xs leading-relaxed">This range provides effective sanitation without irritating swimmers. Below 1.0 ppm, pathogens may not be killed fast enough. Above 3.0 ppm can cause eye and skin irritation.</p></div>
+          <button class="w-full py-3.5 rounded-2xl font-bold text-white text-sm acct transition-all duration-200">Next Question →</button>
+        </div>
+        <div class="flex items-center bg-white border-t border-gray-100 px-2" style="height:58px;">
+          <div class="nav-icon"><i data-lucide="home" class="w-5 h-5 text-black/20"></i><span class="text-[9px] text-black/35">Home</span></div>
+          <div class="nav-icon"><i data-lucide="shield" class="w-5 h-5 text-black/20"></i><span class="text-[9px] text-black/35">Coverage</span></div>
+          <div class="nav-icon"><i data-lucide="message-circle" class="w-5 h-5 text-black/20"></i><span class="text-[9px] text-black/35">Chapter</span></div>
+          <div class="nav-icon"><i data-lucide="user" class="w-5 h-5 text-black/20"></i><span class="text-[9px] text-black/35">Profile</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════
+         GROUP 7: ACHIEVEMENTS (2 screens)
+    ══════════════════════════════════ -->
+
+    <!-- ── S15: ACHIEVEMENTS ── -->
+    <div class="flex flex-col gap-3 flex-shrink-0">
+      <div class="flex items-center gap-2"><div class="h-1.5 w-8 rounded-full" style="background:#9D174D;"></div><span class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Achievements</span></div>
+      <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider text-center">S15 · Badges & Tiers</span>
+      <div class="screen rounded-3xl border border-slate-300 shadow-xl">
+        <div class="hdr px-5 pt-6 pb-5">
+          <div class="flex items-center gap-3 mb-4"><button class="bg-white/10 rounded-xl p-2"><i data-lucide="arrow-left" class="w-4 h-4 text-white"></i></button><h2 class="text-white text-lg font-bold">Achievements</h2></div>
+          <div class="flex items-center gap-4">
+            <div class="w-14 h-14 rounded-2xl flex items-center justify-center flex-shrink-0" style="background:linear-gradient(135deg,#F59E0B,#D97706);"><i data-lucide="shield" class="w-7 h-7 text-white"></i></div>
+            <div><p class="text-yellow-400 text-[10px] font-bold uppercase tracking-wide">Current Tier</p><p class="text-white font-bold text-xl">Route Protector</p><p class="text-white/40 text-xs">Tier 3 of 5 · 2,847 points</p></div>
+          </div>
+        </div>
+        <div class="flex-1 overflow-hidden px-5 py-3 bg-white flex flex-col gap-3">
+          <div class="bg-indigo-50 rounded-2xl p-3 border border-indigo-100">
+            <div class="flex items-center justify-between mb-2"><p class="text-black font-semibold text-xs">Progress to Chapter Elite</p><span class="text-indigo-600 text-xs font-bold">8 jobs away</span></div>
+            <div class="flex gap-3 mb-2">
+              <div class="flex-1"><p class="text-black/35 text-[10px] mb-1">Jobs (30+)</p><div class="bg-indigo-200 rounded-full h-1.5"><div class="bg-indigo-600 h-1.5 rounded-full" style="width:73%"></div></div><p class="text-black text-[10px] font-bold mt-0.5">22 / 30</p></div>
+              <div class="flex-1"><p class="text-black/35 text-[10px] mb-1">Score (4.6+)</p><div class="bg-green-200 rounded-full h-1.5"><div class="bg-green-500 h-1.5 rounded-full w-full"></div></div><p class="text-black text-[10px] font-bold mt-0.5">4.8 ✓</p></div>
+            </div>
+          </div>
+          <p class="text-black text-xs font-semibold uppercase tracking-wider">Badges</p>
+          <div class="grid grid-cols-3 gap-2">
+            <div class="bg-yellow-50 rounded-2xl p-2.5 text-center border border-yellow-100"><div class="w-9 h-9 rounded-xl flex items-center justify-center mx-auto mb-1" style="background:linear-gradient(135deg,#F59E0B,#D97706);"><i data-lucide="star" class="w-4 h-4 text-white"></i></div><p class="text-black text-[10px] font-bold leading-tight">First Job</p><p class="text-black/25 text-[9px]">Oct 2022</p></div>
+            <div class="bg-yellow-50 rounded-2xl p-2.5 text-center border border-yellow-100"><div class="w-9 h-9 rounded-xl flex items-center justify-center mx-auto mb-1" style="background:linear-gradient(135deg,#F59E0B,#D97706);"><i data-lucide="zap" class="w-4 h-4 text-white"></i></div><p class="text-black text-[10px] font-bold leading-tight">5-Job Streak</p><p class="text-black/25 text-[9px]">Mar 2024</p></div>
+            <div class="bg-yellow-50 rounded-2xl p-2.5 text-center border border-yellow-100"><div class="w-9 h-9 rounded-xl flex items-center justify-center mx-auto mb-1" style="background:linear-gradient(135deg,#F59E0B,#D97706);"><i data-lucide="droplets" class="w-4 h-4 text-white"></i></div><p class="text-black text-[10px] font-bold leading-tight">Chem Master</p><p class="text-black/25 text-[9px]">Jan 2025</p></div>
+            <div class="bg-yellow-50 rounded-2xl p-2.5 text-center border border-yellow-100"><div class="w-9 h-9 rounded-xl flex items-center justify-center mx-auto mb-1" style="background:linear-gradient(135deg,#F59E0B,#D97706);"><i data-lucide="alert-circle" class="w-4 h-4 text-white"></i></div><p class="text-black text-[10px] font-bold leading-tight">1st Emergency</p><p class="text-black/25 text-[9px]">Apr 2025</p></div>
+            <div class="bg-gray-100 rounded-2xl p-2.5 text-center border border-gray-200"><div class="w-9 h-9 bg-gray-200 rounded-xl flex items-center justify-center mx-auto mb-1"><i data-lucide="lock" class="w-4 h-4 text-black/20"></i></div><p class="text-black/25 text-[10px] font-bold leading-tight">Perfect Score</p><p class="text-black/15 text-[9px]">Locked</p></div>
+            <div class="bg-gray-100 rounded-2xl p-2.5 text-center border border-gray-200"><div class="w-9 h-9 bg-gray-200 rounded-xl flex items-center justify-center mx-auto mb-1"><i data-lucide="trophy" class="w-4 h-4 text-black/20"></i></div><p class="text-black/25 text-[10px] font-bold leading-tight">Ch. Elite</p><p class="text-black/15 text-[9px]">8 jobs</p></div>
+          </div>
+        </div>
+        <div class="flex items-center bg-white border-t border-gray-100 px-2" style="height:58px;">
+          <div class="nav-icon"><i data-lucide="home" class="w-5 h-5 text-black/20"></i><span class="text-[9px] text-black/35">Home</span></div>
+          <div class="nav-icon"><i data-lucide="shield" class="w-5 h-5 text-black/20"></i><span class="text-[9px] text-black/35">Coverage</span></div>
+          <div class="nav-icon"><i data-lucide="message-circle" class="w-5 h-5 text-black/20"></i><span class="text-[9px] text-black/35">Chapter</span></div>
+          <div class="nav-icon"><i data-lucide="user" class="w-5 h-5 text-indigo-600"></i><span class="text-[9px] font-bold text-indigo-600">Profile</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── S16: LEADERBOARD ── -->
+    <div class="flex flex-col gap-3 flex-shrink-0">
+      <div class="h-7"></div>
+      <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider text-center">S16 · Leaderboard</span>
+      <div class="screen rounded-3xl border border-slate-300 shadow-xl">
+        <div class="hdr px-5 pt-6 pb-4">
+          <div class="flex items-center gap-3 mb-4"><button class="bg-white/10 rounded-xl p-2"><i data-lucide="arrow-left" class="w-4 h-4 text-white"></i></button><h2 class="text-white text-lg font-bold">Leaderboard</h2></div>
+          <div class="flex gap-2"><button class="flex-1 bg-white/20 text-white text-xs font-bold py-2 rounded-xl">Monthly</button><button class="flex-1 bg-white/08 text-white/40 text-xs py-2 rounded-xl" style="background:rgba(255,255,255,0.07);">All Time</button></div>
+        </div>
+        <div class="flex-1 overflow-hidden px-5 py-3 bg-white flex flex-col gap-3">
+          <div class="flex items-end justify-center gap-3 mb-1">
+            <div class="flex flex-col items-center gap-1.5 flex-1">
+              <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=60&h=60&fit=crop&crop=face" class="w-11 h-11 rounded-2xl object-cover border-2 border-gray-300" alt="James">
+              <div class="w-full bg-gray-100 rounded-t-xl py-3 text-center"><p class="text-xl">🥈</p><p class="text-black font-bold text-xs">James R.</p><p class="text-black/35 text-[10px]">31 jobs</p></div>
+            </div>
+            <div class="flex flex-col items-center gap-1.5 flex-1">
+              <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=60&h=60&fit=crop&crop=face" class="w-13 h-13 rounded-2xl object-cover border-2 border-yellow-400" style="width:52px;height:52px;" alt="Sarah">
+              <div class="w-full rounded-t-xl py-4 text-center" style="background:linear-gradient(135deg,#1E293B,#334155);"><p class="text-xl">🥇</p><p class="text-white font-bold text-xs">Sarah C.</p><p class="text-white/40 text-[10px]">38 jobs</p></div>
+            </div>
+            <div class="flex flex-col items-center gap-1.5 flex-1">
+              <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=60&h=60&fit=crop&crop=face" class="w-10 h-10 rounded-2xl object-cover border-2 border-amber-600" alt="Tony">
+              <div class="w-full bg-amber-50 rounded-t-xl py-2.5 text-center"><p class="text-lg">🥉</p><p class="text-black font-bold text-xs">Tony M.</p><p class="text-black/35 text-[10px]">27 jobs</p></div>
+            </div>
+          </div>
+          <div class="flex flex-col gap-1.5">
+            <div class="flex items-center gap-3 bg-gray-50 rounded-2xl p-3 border border-gray-100"><span class="text-black/25 text-sm font-bold w-5 text-center">4</span><img src="https://images.unsplash.com/photo-1560250097-0dc05ffefdbb?w=40&h=40&fit=crop&crop=face" class="w-9 h-9 rounded-xl object-cover" alt="Lisa"><div class="flex-1"><p class="text-black font-semibold text-xs">Lisa Torres</p><p class="text-black/30 text-[10px]">Rt. Protector · 24 jobs · ★4.7</p></div><p class="text-black font-bold text-sm">2,210<span class="text-black/25 text-[9px]"> pts</span></p></div>
+            <div class="flex items-center gap-3 rounded-2xl p-3 border-2 border-indigo-400 bg-indigo-50"><span class="text-indigo-600 text-sm font-bold w-5 text-center">5</span><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=40&h=40&fit=crop&crop=face" class="w-9 h-9 rounded-xl object-cover border border-indigo-300" alt="Mike"><div class="flex-1"><p class="text-black font-bold text-xs">Mike Sandoval <span class="text-indigo-500 text-[10px]">(you)</span></p><p class="text-black/35 text-[10px]">Rt. Protector · 22 jobs · ★4.8</p></div><p class="text-black font-bold text-sm">2,047<span class="text-black/25 text-[9px]"> pts</span></p></div>
+          </div>
+          <div class="bg-indigo-50 rounded-2xl p-3 border border-indigo-100 flex items-center gap-2"><i data-lucide="info" class="w-4 h-4 text-indigo-600 flex-shrink-0"></i><p class="text-black/55 text-[11px]">Complete 8 more jobs this month to reach <span class="font-bold text-black">#3</span> and earn Month Champion.</p></div>
+        </div>
+        <div class="flex items-center bg-white border-t border-gray-100 px-2" style="height:58px;">
+          <div class="nav-icon"><i data-lucide="home" class="w-5 h-5 text-black/20"></i><span class="text-[9px] text-black/35">Home</span></div>
+          <div class="nav-icon"><i data-lucide="shield" class="w-5 h-5 text-black/20"></i><span class="text-[9px] text-black/35">Coverage</span></div>
+          <div class="nav-icon"><i data-lucide="message-circle" class="w-5 h-5 text-black/20"></i><span class="text-[9px] text-black/35">Chapter</span></div>
+          <div class="nav-icon"><i data-lucide="user" class="w-5 h-5 text-indigo-600"></i><span class="text-[9px] font-bold text-indigo-600">Profile</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <script>lucide.createIcons();</script>
+</body>
+</html>

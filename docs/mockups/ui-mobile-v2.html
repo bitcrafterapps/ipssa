@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IPSSA App — V2: AquaClear (Community Hub)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    * { font-family: 'Inter', sans-serif; box-sizing: border-box; }
+    .screen { width: 375px; height: 812px; flex-shrink: 0; overflow: hidden; position: relative; display: flex; flex-direction: column; }
+    .nav-icon { display: flex; flex-direction: column; align-items: center; gap: 3px; flex: 1; padding: 8px 0; cursor: pointer; }
+    .hdr { background: linear-gradient(160deg, #0D4F4F 0%, #0A8080 100%); }
+    .badge-new { background:#0D9488; color:#fff; font-size:9px; font-weight:700; padding:2px 6px; border-radius:999px; }
+  </style>
+</head>
+<body class="bg-gray-100 p-8 min-h-screen">
+
+  <div class="text-center mb-10">
+    <p class="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-1">IPSSA Mobile App · Mockup Series</p>
+    <h1 class="text-3xl font-bold text-gray-900">Variation 2 — AquaClear</h1>
+    <p class="text-gray-500 mt-2">Fresh Teal · Community-First · Chapter Engagement</p>
+  </div>
+
+  <div class="flex items-start gap-8 overflow-x-auto pb-10">
+
+    <!-- ── SCREEN 1: HOME ── -->
+    <div class="flex flex-col items-center gap-3 flex-shrink-0">
+      <span class="text-xs font-semibold text-gray-400 uppercase tracking-wider">1 — Home</span>
+      <div class="screen rounded-3xl border border-gray-200 shadow-2xl bg-white">
+        <div class="hdr px-5 pt-6 pb-5">
+          <div class="flex items-center justify-between mb-1">
+            <div>
+              <p class="text-white/60 text-xs font-medium">San Diego · Chapter 7</p>
+              <h2 class="text-white text-xl font-bold">Welcome back, Mike</h2>
+            </div>
+            <div class="flex items-center gap-3">
+              <button class="relative">
+                <i data-lucide="bell" class="w-5 h-5 text-white/70"></i>
+                <span class="absolute -top-1 -right-1 w-4 h-4 bg-red-400 rounded-full flex items-center justify-center text-white" style="font-size:8px;font-weight:700;">3</span>
+              </button>
+              <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&h=80&fit=crop&crop=face" class="w-10 h-10 rounded-full border-2 border-white/30 object-cover" alt="Mike">
+            </div>
+          </div>
+          <p class="text-white/50 text-xs mt-1 mb-4">47 active members · 3 unread messages</p>
+          <div class="flex gap-2">
+            <button class="flex-1 bg-white/15 rounded-2xl py-2.5 text-center transition-all duration-200">
+              <i data-lucide="message-circle" class="w-4 h-4 text-white mx-auto mb-1"></i>
+              <p class="text-white text-[11px] font-semibold">Community</p>
+            </button>
+            <button class="flex-1 bg-white/15 rounded-2xl py-2.5 text-center transition-all duration-200">
+              <i data-lucide="shield" class="w-4 h-4 text-white mx-auto mb-1"></i>
+              <p class="text-white text-[11px] font-semibold">Coverage</p>
+            </button>
+            <button class="flex-1 bg-white/15 rounded-2xl py-2.5 text-center transition-all duration-200">
+              <i data-lucide="book-open" class="w-4 h-4 text-white mx-auto mb-1"></i>
+              <p class="text-white text-[11px] font-semibold">Prep Lab</p>
+            </button>
+            <button class="flex-1 bg-white/15 rounded-2xl py-2.5 text-center transition-all duration-200">
+              <i data-lucide="users" class="w-4 h-4 text-white mx-auto mb-1"></i>
+              <p class="text-white text-[11px] font-semibold">Members</p>
+            </button>
+          </div>
+        </div>
+
+        <div class="flex-1 overflow-hidden px-5 py-3 bg-white flex flex-col gap-3">
+          <p class="text-black text-xs font-semibold uppercase tracking-wider">Chapter Activity</p>
+
+          <div class="flex flex-col gap-2">
+            <div class="flex items-start gap-3 bg-teal-50 rounded-2xl p-3 border border-teal-100">
+              <div class="bg-teal-600 rounded-xl p-1.5 flex-shrink-0 mt-0.5"><i data-lucide="megaphone" class="w-3.5 h-3.5 text-white"></i></div>
+              <div class="flex-1">
+                <p class="text-black font-semibold text-xs">Monthly Meeting — Thu Apr 30</p>
+                <p class="text-black/50 text-[11px]">7:00 PM · Handlebar Restaurant · RSVP by Apr 28</p>
+              </div>
+              <span class="badge-new">New</span>
+            </div>
+
+            <div class="flex items-start gap-3 bg-gray-50 rounded-2xl p-3 border border-gray-100">
+              <img src="https://images.unsplash.com/photo-1560250097-0dc05ffefdbb?w=60&h=60&fit=crop&crop=face" class="w-8 h-8 rounded-full object-cover flex-shrink-0" alt="James">
+              <div class="flex-1">
+                <p class="text-black font-semibold text-xs">James Rivera in Tips & Tricks</p>
+                <p class="text-black/50 text-[11px]">"For high CYA pools, try partial drain + refill before adding any oxidizer. Saves..."</p>
+              </div>
+              <span class="text-black/25 text-[10px]">8m</span>
+            </div>
+
+            <div class="flex items-start gap-3 bg-gray-50 rounded-2xl p-3 border border-gray-100">
+              <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=60&h=60&fit=crop&crop=face" class="w-8 h-8 rounded-full object-cover flex-shrink-0" alt="Sarah">
+              <div class="flex-1">
+                <p class="text-black font-semibold text-xs">Sarah Chen in Customer Issues</p>
+                <p class="text-black/50 text-[11px]">"Customer A (commercial, 50k gal) — persistent algae after super-chlorination..."</p>
+              </div>
+              <span class="text-black/25 text-[10px]">34m</span>
+            </div>
+
+            <div class="flex items-start gap-3 bg-gray-50 rounded-2xl p-3 border border-gray-100">
+              <div class="bg-green-100 rounded-xl p-1.5 flex-shrink-0 mt-0.5"><i data-lucide="user-plus" class="w-3.5 h-3.5 text-green-700"></i></div>
+              <div class="flex-1">
+                <p class="text-black font-semibold text-xs">New member joined Chapter 7</p>
+                <p class="text-black/50 text-[11px]">David Park · Park Pool Pro · La Mesa, CA</p>
+              </div>
+              <span class="text-black/25 text-[10px]">2h</span>
+            </div>
+          </div>
+
+          <div class="bg-gray-50 rounded-2xl p-3.5 border border-gray-100 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+              <p class="text-black text-xs font-medium">You're marked available for coverage</p>
+            </div>
+            <button class="text-teal-600 text-xs font-bold">Manage →</button>
+          </div>
+        </div>
+
+        <div class="flex items-center bg-white border-t border-gray-100 px-2" style="height:60px;">
+          <div class="nav-icon"><i data-lucide="home" class="w-5 h-5 text-teal-600"></i><span class="text-[9px] font-bold text-teal-600">Home</span></div>
+          <div class="nav-icon"><i data-lucide="shield" class="w-5 h-5 text-black/25"></i><span class="text-[9px] text-black/40">Coverage</span></div>
+          <div class="nav-icon"><i data-lucide="message-circle" class="w-5 h-5 text-black/25"></i><span class="text-[9px] text-black/40">Chapter</span></div>
+          <div class="nav-icon"><i data-lucide="user" class="w-5 h-5 text-black/25"></i><span class="text-[9px] text-black/40">Profile</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SCREEN 2: CHAPTER COMMUNITY HUB ── -->
+    <div class="flex flex-col items-center gap-3 flex-shrink-0">
+      <span class="text-xs font-semibold text-gray-400 uppercase tracking-wider">2 — Chapter Community</span>
+      <div class="screen rounded-3xl border border-gray-200 shadow-2xl bg-white">
+        <div class="hdr px-5 pt-6 pb-5">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="flex-1">
+              <p class="text-white/60 text-xs font-medium">San Diego · Chapter 7</p>
+              <h2 class="text-white text-lg font-bold">Community</h2>
+            </div>
+            <button class="bg-white/10 rounded-xl p-2"><i data-lucide="search" class="w-4 h-4 text-white"></i></button>
+          </div>
+          <div class="flex items-center gap-2">
+            <div class="flex -space-x-2">
+              <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=40&h=40&fit=crop&crop=face" class="w-7 h-7 rounded-full border-2 border-teal-700 object-cover" alt="">
+              <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=40&h=40&fit=crop&crop=face" class="w-7 h-7 rounded-full border-2 border-teal-700 object-cover" alt="">
+              <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=40&h=40&fit=crop&crop=face" class="w-7 h-7 rounded-full border-2 border-teal-700 object-cover" alt="">
+              <div class="w-7 h-7 rounded-full border-2 border-teal-700 bg-white/20 flex items-center justify-center"><span class="text-white text-[9px] font-bold">+44</span></div>
+            </div>
+            <p class="text-white/60 text-xs">47 members · 12 online now</p>
+          </div>
+        </div>
+
+        <div class="flex-1 overflow-hidden px-4 py-3 bg-white flex flex-col gap-2">
+          <p class="text-black text-xs font-semibold uppercase tracking-wider mb-1">Channels</p>
+
+          <div class="flex flex-col gap-1.5">
+            <div class="flex items-center gap-3 p-3 rounded-2xl bg-teal-50 border border-teal-100 transition-all duration-200">
+              <div class="bg-teal-600 rounded-xl p-2 flex-shrink-0"><i data-lucide="megaphone" class="w-4 h-4 text-white"></i></div>
+              <div class="flex-1">
+                <div class="flex items-center justify-between">
+                  <p class="text-black font-bold text-sm">Announcements</p>
+                  <span class="badge-new">2 new</span>
+                </div>
+                <p class="text-black/40 text-xs">Monthly meeting confirmed · Apr 24</p>
+              </div>
+              <i data-lucide="chevron-right" class="w-4 h-4 text-black/25"></i>
+            </div>
+
+            <div class="flex items-center gap-3 p-3 rounded-2xl bg-gray-50 border border-gray-100 transition-all duration-200">
+              <div class="bg-amber-100 rounded-xl p-2 flex-shrink-0"><i data-lucide="lightbulb" class="w-4 h-4 text-amber-700"></i></div>
+              <div class="flex-1">
+                <div class="flex items-center justify-between">
+                  <p class="text-black font-bold text-sm">Tips & Tricks</p>
+                  <span class="badge-new">5 new</span>
+                </div>
+                <p class="text-black/40 text-xs">High CYA fix from James R. · 8m ago</p>
+              </div>
+              <i data-lucide="chevron-right" class="w-4 h-4 text-black/25"></i>
+            </div>
+
+            <div class="flex items-center gap-3 p-3 rounded-2xl bg-gray-50 border border-gray-100 transition-all duration-200">
+              <div class="bg-red-100 rounded-xl p-2 flex-shrink-0"><i data-lucide="help-circle" class="w-4 h-4 text-red-600"></i></div>
+              <div class="flex-1">
+                <div class="flex items-center justify-between">
+                  <p class="text-black font-bold text-sm">Customer Issues</p>
+                  <span class="badge-new">1 new</span>
+                </div>
+                <p class="text-black/40 text-xs">Persistent algae case · Sarah C. · 34m</p>
+              </div>
+              <i data-lucide="chevron-right" class="w-4 h-4 text-black/25"></i>
+            </div>
+
+            <div class="flex items-center gap-3 p-3 rounded-2xl bg-gray-50 border border-gray-100 transition-all duration-200">
+              <div class="bg-blue-100 rounded-xl p-2 flex-shrink-0"><i data-lucide="message-square" class="w-4 h-4 text-blue-600"></i></div>
+              <div class="flex-1">
+                <p class="text-black font-bold text-sm">General Chat</p>
+                <p class="text-black/40 text-xs">Welcome David P. · 2 hours ago</p>
+              </div>
+              <i data-lucide="chevron-right" class="w-4 h-4 text-black/25"></i>
+            </div>
+          </div>
+
+          <div class="mt-1">
+            <p class="text-black text-xs font-semibold uppercase tracking-wider mb-2">Upcoming Events</p>
+            <div class="flex items-center gap-3 bg-teal-50 rounded-2xl p-3.5 border border-teal-100">
+              <div class="bg-teal-600 rounded-xl p-2"><i data-lucide="calendar" class="w-4 h-4 text-white"></i></div>
+              <div class="flex-1">
+                <p class="text-black font-semibold text-sm">Monthly Chapter Meeting</p>
+                <p class="text-black/50 text-xs">Thu Apr 30 · 7:00 PM · Handlebar Restaurant</p>
+              </div>
+              <button class="bg-teal-600 text-white text-[10px] font-bold px-3 py-1.5 rounded-xl transition-all duration-200">RSVP</button>
+            </div>
+          </div>
+
+          <div>
+            <p class="text-black text-xs font-semibold uppercase tracking-wider mb-2">Members Online</p>
+            <div class="flex gap-3 overflow-x-auto">
+              <div class="flex flex-col items-center gap-1 flex-shrink-0">
+                <div class="relative"><img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=40&h=40&fit=crop&crop=face" class="w-10 h-10 rounded-xl object-cover" alt="James"><div class="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-green-500 border-2 border-white rounded-full"></div></div>
+                <p class="text-black text-[9px] font-medium">James</p>
+              </div>
+              <div class="flex flex-col items-center gap-1 flex-shrink-0">
+                <div class="relative"><img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=40&h=40&fit=crop&crop=face" class="w-10 h-10 rounded-xl object-cover" alt="Sarah"><div class="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-green-500 border-2 border-white rounded-full"></div></div>
+                <p class="text-black text-[9px] font-medium">Sarah</p>
+              </div>
+              <div class="flex flex-col items-center gap-1 flex-shrink-0">
+                <div class="relative"><img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=40&h=40&fit=crop&crop=face" class="w-10 h-10 rounded-xl object-cover" alt="David"><div class="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-green-500 border-2 border-white rounded-full"></div></div>
+                <p class="text-black text-[9px] font-medium">David</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex items-center bg-white border-t border-gray-100 px-2" style="height:60px;">
+          <div class="nav-icon"><i data-lucide="home" class="w-5 h-5 text-black/25"></i><span class="text-[9px] text-black/40">Home</span></div>
+          <div class="nav-icon"><i data-lucide="shield" class="w-5 h-5 text-black/25"></i><span class="text-[9px] text-black/40">Coverage</span></div>
+          <div class="nav-icon"><i data-lucide="message-circle" class="w-5 h-5 text-teal-600"></i><span class="text-[9px] font-bold text-teal-600">Chapter</span></div>
+          <div class="nav-icon"><i data-lucide="user" class="w-5 h-5 text-black/25"></i><span class="text-[9px] text-black/40">Profile</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SCREEN 3: ANNOUNCEMENTS ── -->
+    <div class="flex flex-col items-center gap-3 flex-shrink-0">
+      <span class="text-xs font-semibold text-gray-400 uppercase tracking-wider">3 — Announcements</span>
+      <div class="screen rounded-3xl border border-gray-200 shadow-2xl bg-white">
+        <div class="hdr px-5 pt-6 pb-4">
+          <div class="flex items-center gap-3">
+            <button class="bg-white/10 rounded-xl p-2"><i data-lucide="arrow-left" class="w-4 h-4 text-white"></i></button>
+            <div class="flex-1">
+              <h2 class="text-white text-lg font-bold">Announcements</h2>
+              <p class="text-white/50 text-xs">Officers only · San Diego Ch. 7</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex-1 overflow-hidden px-5 py-4 bg-white flex flex-col gap-3">
+          <!-- Pinned post -->
+          <div class="bg-teal-50 rounded-2xl p-4 border border-teal-200">
+            <div class="flex items-center gap-2 mb-2">
+              <i data-lucide="pin" class="w-3.5 h-3.5 text-teal-600"></i>
+              <span class="text-teal-700 text-[10px] font-bold uppercase tracking-wide">Pinned by Chapter President</span>
+            </div>
+            <div class="flex items-center gap-3 mb-3">
+              <img src="https://images.unsplash.com/photo-1560250097-0dc05ffefdbb?w=60&h=60&fit=crop&crop=face" class="w-9 h-9 rounded-xl object-cover" alt="Lisa">
+              <div>
+                <p class="text-black font-bold text-sm">Lisa Torres</p>
+                <p class="text-black/40 text-xs">Chapter President · Apr 22</p>
+              </div>
+            </div>
+            <h3 class="text-black font-bold text-sm mb-1.5">Monthly Meeting — Thu Apr 30 · 7 PM</h3>
+            <p class="text-black/60 text-xs leading-relaxed">Join us at Handlebar Restaurant, 3766 5th Ave, San Diego. Agenda: Q2 member recap, Tech-4-Tech availability drive, and intro for new member David Park. Please RSVP by Apr 28 so we can confirm the room size.</p>
+            <div class="flex items-center gap-3 mt-3 pt-3 border-t border-teal-100">
+              <button class="flex items-center gap-1.5 text-black/50 text-xs"><i data-lucide="thumbs-up" class="w-3.5 h-3.5"></i> 18</button>
+              <button class="flex items-center gap-1.5 text-black/50 text-xs"><i data-lucide="message-circle" class="w-3.5 h-3.5"></i> 4</button>
+              <button class="ml-auto bg-teal-600 text-white text-[10px] font-bold px-3 py-1.5 rounded-xl">RSVP ✓</button>
+            </div>
+          </div>
+
+          <!-- Regular post -->
+          <div class="bg-gray-50 rounded-2xl p-4 border border-gray-100">
+            <div class="flex items-center gap-3 mb-3">
+              <img src="https://images.unsplash.com/photo-1560250097-0dc05ffefdbb?w=60&h=60&fit=crop&crop=face" class="w-9 h-9 rounded-xl object-cover" alt="Lisa">
+              <div>
+                <p class="text-black font-bold text-sm">Lisa Torres</p>
+                <p class="text-black/40 text-xs">Chapter President · Apr 18</p>
+              </div>
+            </div>
+            <h3 class="text-black font-semibold text-sm mb-1.5">Update your Tech-4-Tech availability for May</h3>
+            <p class="text-black/55 text-xs leading-relaxed">If you're traveling or unavailable in May, please mark your dates in the Coverage tab so members know who they can count on. Coverage availability helps the whole chapter.</p>
+            <div class="flex items-center gap-3 mt-3 pt-3 border-t border-gray-100">
+              <button class="flex items-center gap-1.5 text-black/50 text-xs"><i data-lucide="thumbs-up" class="w-3.5 h-3.5"></i> 22</button>
+              <button class="flex items-center gap-1.5 text-black/50 text-xs"><i data-lucide="message-circle" class="w-3.5 h-3.5"></i> 7</button>
+            </div>
+          </div>
+
+          <!-- Third post -->
+          <div class="bg-gray-50 rounded-2xl p-4 border border-gray-100">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="w-9 h-9 rounded-xl bg-teal-600 flex items-center justify-center flex-shrink-0"><i data-lucide="shield" class="w-4 h-4 text-white"></i></div>
+              <div>
+                <p class="text-black font-bold text-sm">IPSSA National</p>
+                <p class="text-black/40 text-xs">Apr 10</p>
+              </div>
+            </div>
+            <p class="text-black/60 text-xs leading-relaxed">Reminder: Water Chemistry exam is required for all first-year members. Study guides available in the member webstore. 10 attempts allowed per official copy.</p>
+          </div>
+        </div>
+
+        <div class="flex items-center bg-white border-t border-gray-100 px-2" style="height:60px;">
+          <div class="nav-icon"><i data-lucide="home" class="w-5 h-5 text-black/25"></i><span class="text-[9px] text-black/40">Home</span></div>
+          <div class="nav-icon"><i data-lucide="shield" class="w-5 h-5 text-black/25"></i><span class="text-[9px] text-black/40">Coverage</span></div>
+          <div class="nav-icon"><i data-lucide="message-circle" class="w-5 h-5 text-teal-600"></i><span class="text-[9px] font-bold text-teal-600">Chapter</span></div>
+          <div class="nav-icon"><i data-lucide="user" class="w-5 h-5 text-black/25"></i><span class="text-[9px] text-black/40">Profile</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SCREEN 4: TIPS & TRICKS ── -->
+    <div class="flex flex-col items-center gap-3 flex-shrink-0">
+      <span class="text-xs font-semibold text-gray-400 uppercase tracking-wider">4 — Tips & Tricks</span>
+      <div class="screen rounded-3xl border border-gray-200 shadow-2xl bg-white">
+        <div class="hdr px-5 pt-6 pb-4">
+          <div class="flex items-center gap-3 mb-1">
+            <button class="bg-white/10 rounded-xl p-2"><i data-lucide="arrow-left" class="w-4 h-4 text-white"></i></button>
+            <div class="flex-1">
+              <h2 class="text-white text-lg font-bold">Tips & Tricks</h2>
+              <p class="text-white/50 text-xs">Field knowledge from your chapter</p>
+            </div>
+            <button class="bg-white/10 rounded-xl p-2"><i data-lucide="search" class="w-4 h-4 text-white"></i></button>
+          </div>
+        </div>
+
+        <div class="flex-1 overflow-hidden px-5 py-3 bg-white flex flex-col gap-3">
+          <!-- Post 1 - with image -->
+          <div class="bg-gray-50 rounded-2xl p-3.5 border border-gray-100">
+            <div class="flex items-center gap-3 mb-2.5">
+              <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=60&h=60&fit=crop&crop=face" class="w-9 h-9 rounded-xl object-cover" alt="James">
+              <div class="flex-1">
+                <div class="flex items-center gap-1.5">
+                  <p class="text-black font-bold text-sm">James Rivera</p>
+                  <span class="bg-yellow-100 text-yellow-800 text-[9px] font-bold px-1.5 py-0.5 rounded-full">Route Protector</span>
+                </div>
+                <p class="text-black/40 text-xs">8 minutes ago</p>
+              </div>
+            </div>
+            <p class="text-black font-semibold text-xs mb-1.5">High CYA pools — the partial drain trick</p>
+            <p class="text-black/60 text-xs leading-relaxed mb-2.5">For pools stuck above 100 ppm CYA, I do a 20–30% partial drain and refill before adding any oxidizer. Cut my chemical costs by ~30% on these accounts and the chlorine holds way better after.</p>
+            <img src="https://images.unsplash.com/photo-1575429198097-0414ec08e8cd?w=375&h=120&fit=crop" class="w-full h-24 object-cover rounded-xl mb-2.5" alt="pool">
+            <div class="flex items-center gap-4">
+              <button class="flex items-center gap-1.5 text-black/50 text-xs"><i data-lucide="thumbs-up" class="w-3.5 h-3.5"></i> 14</button>
+              <button class="flex items-center gap-1.5 text-black/50 text-xs"><i data-lucide="message-circle" class="w-3.5 h-3.5"></i> 6</button>
+              <button class="ml-auto text-teal-600 text-xs font-semibold">Save tip</button>
+            </div>
+          </div>
+
+          <!-- Post 2 -->
+          <div class="bg-gray-50 rounded-2xl p-3.5 border border-gray-100">
+            <div class="flex items-center gap-3 mb-2.5">
+              <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=60&h=60&fit=crop&crop=face" class="w-9 h-9 rounded-xl object-cover" alt="Sarah">
+              <div class="flex-1">
+                <div class="flex items-center gap-1.5">
+                  <p class="text-black font-bold text-sm">Sarah Chen</p>
+                  <span class="bg-orange-100 text-orange-800 text-[9px] font-bold px-1.5 py-0.5 rounded-full">Chapter Elite</span>
+                </div>
+                <p class="text-black/40 text-xs">2 hours ago</p>
+              </div>
+            </div>
+            <p class="text-black font-semibold text-xs mb-1.5">Salt cell cleaning frequency</p>
+            <p class="text-black/60 text-xs leading-relaxed">Inspect cells every 3 months in SD — our hard water calcifies faster than the manual says. Dilute muriatic acid 4:1 water, 10-minute soak max. Never exceed 15 min.</p>
+            <div class="flex items-center gap-4 mt-2.5">
+              <button class="flex items-center gap-1.5 text-black/50 text-xs"><i data-lucide="thumbs-up" class="w-3.5 h-3.5"></i> 9</button>
+              <button class="flex items-center gap-1.5 text-black/50 text-xs"><i data-lucide="message-circle" class="w-3.5 h-3.5"></i> 3</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Composer -->
+        <div class="bg-white border-t border-gray-100 px-4 py-3">
+          <div class="flex items-center gap-2">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=40&h=40&fit=crop&crop=face" class="w-8 h-8 rounded-full object-cover" alt="me">
+            <div class="flex-1 bg-gray-100 rounded-2xl px-3 py-2"><p class="text-black/35 text-xs">Share a field tip with the chapter…</p></div>
+            <button class="bg-teal-600 rounded-xl p-2"><i data-lucide="send" class="w-4 h-4 text-white"></i></button>
+          </div>
+        </div>
+
+        <div class="flex items-center bg-white border-t border-gray-100 px-2" style="height:56px;">
+          <div class="nav-icon"><i data-lucide="home" class="w-5 h-5 text-black/25"></i><span class="text-[9px] text-black/40">Home</span></div>
+          <div class="nav-icon"><i data-lucide="shield" class="w-5 h-5 text-black/25"></i><span class="text-[9px] text-black/40">Coverage</span></div>
+          <div class="nav-icon"><i data-lucide="message-circle" class="w-5 h-5 text-teal-600"></i><span class="text-[9px] font-bold text-teal-600">Chapter</span></div>
+          <div class="nav-icon"><i data-lucide="user" class="w-5 h-5 text-black/25"></i><span class="text-[9px] text-black/40">Profile</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SCREEN 5: MEMBER DIRECTORY ── -->
+    <div class="flex flex-col items-center gap-3 flex-shrink-0">
+      <span class="text-xs font-semibold text-gray-400 uppercase tracking-wider">5 — Member Directory</span>
+      <div class="screen rounded-3xl border border-gray-200 shadow-2xl bg-white">
+        <div class="hdr px-5 pt-6 pb-4">
+          <div class="flex items-center gap-3 mb-4">
+            <button class="bg-white/10 rounded-xl p-2"><i data-lucide="arrow-left" class="w-4 h-4 text-white"></i></button>
+            <h2 class="text-white text-lg font-bold">Members</h2>
+            <span class="ml-auto text-white/50 text-xs">47 members</span>
+          </div>
+          <div class="flex items-center gap-2 bg-white/10 rounded-2xl px-3 py-2.5">
+            <i data-lucide="search" class="w-4 h-4 text-white/50"></i>
+            <p class="text-white/40 text-xs">Search members, businesses…</p>
+          </div>
+        </div>
+
+        <div class="flex-1 overflow-hidden px-5 py-3 bg-white flex flex-col gap-3">
+          <div class="flex gap-2 overflow-x-auto pb-1">
+            <button class="bg-teal-600 text-white text-xs font-bold px-3 py-1.5 rounded-full flex-shrink-0">All</button>
+            <button class="bg-gray-100 text-black text-xs font-medium px-3 py-1.5 rounded-full flex-shrink-0">Available Now</button>
+            <button class="bg-gray-100 text-black text-xs font-medium px-3 py-1.5 rounded-full flex-shrink-0">Nearby</button>
+            <button class="bg-gray-100 text-black text-xs font-medium px-3 py-1.5 rounded-full flex-shrink-0">Elite+</button>
+          </div>
+
+          <div class="flex flex-col gap-2">
+            <div class="flex items-center gap-3 bg-gray-50 rounded-2xl p-3 border border-gray-100">
+              <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=60&h=60&fit=crop&crop=face" class="w-11 h-11 rounded-2xl object-cover" alt="Sarah">
+              <div class="flex-1">
+                <div class="flex items-center gap-1.5"><p class="text-black font-bold text-sm">Sarah Chen</p><span class="bg-orange-100 text-orange-800 text-[9px] font-bold px-1.5 py-0.5 rounded-full">Ch. Elite</span></div>
+                <p class="text-black/40 text-xs">Crystal Clear Pools · Chula Vista</p>
+                <div class="flex items-center gap-2 mt-1"><span class="text-black/40 text-[10px]">★ 4.9 · 38 jobs · 2.1 mi</span></div>
+              </div>
+              <div class="w-2.5 h-2.5 bg-green-500 rounded-full flex-shrink-0"></div>
+            </div>
+
+            <div class="flex items-center gap-3 bg-gray-50 rounded-2xl p-3 border border-gray-100">
+              <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=60&h=60&fit=crop&crop=face" class="w-11 h-11 rounded-2xl object-cover" alt="James">
+              <div class="flex-1">
+                <div class="flex items-center gap-1.5"><p class="text-black font-bold text-sm">James Rivera</p><span class="bg-yellow-100 text-yellow-800 text-[9px] font-bold px-1.5 py-0.5 rounded-full">Rt. Protector</span></div>
+                <p class="text-black/40 text-xs">Rivera Aqua Services · El Cajon</p>
+                <div class="flex items-center gap-2 mt-1"><span class="text-black/40 text-[10px]">★ 4.8 · 31 jobs · 3.2 mi</span></div>
+              </div>
+              <div class="w-2.5 h-2.5 bg-green-500 rounded-full flex-shrink-0"></div>
+            </div>
+
+            <div class="flex items-center gap-3 bg-gray-50 rounded-2xl p-3 border border-gray-100">
+              <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=60&h=60&fit=crop&crop=face" class="w-11 h-11 rounded-2xl object-cover" alt="Mike">
+              <div class="flex-1">
+                <div class="flex items-center gap-1.5"><p class="text-black font-bold text-sm">Mike Sandoval</p><span class="bg-yellow-100 text-yellow-800 text-[9px] font-bold px-1.5 py-0.5 rounded-full">Rt. Protector</span></div>
+                <p class="text-black/40 text-xs">Sandoval Pool Care · San Diego</p>
+                <div class="flex items-center gap-2 mt-1"><span class="text-black/40 text-[10px]">★ 4.8 · 22 jobs · You</span></div>
+              </div>
+              <div class="w-2.5 h-2.5 bg-green-500 rounded-full flex-shrink-0"></div>
+            </div>
+
+            <div class="flex items-center gap-3 bg-gray-50 rounded-2xl p-3 border border-gray-100">
+              <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=60&h=60&fit=crop&crop=face" class="w-11 h-11 rounded-2xl object-cover" alt="David">
+              <div class="flex-1">
+                <div class="flex items-center gap-1.5"><p class="text-black font-bold text-sm">David Park</p><span class="bg-gray-200 text-black text-[9px] font-bold px-1.5 py-0.5 rounded-full">Pool Rookie</span></div>
+                <p class="text-black/40 text-xs">Park Pool Pro · La Mesa</p>
+                <div class="flex items-center gap-2 mt-1"><span class="text-black/40 text-[10px]">New member · 4.6 mi</span></div>
+              </div>
+              <div class="w-2.5 h-2.5 bg-gray-300 rounded-full flex-shrink-0"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex items-center bg-white border-t border-gray-100 px-2" style="height:60px;">
+          <div class="nav-icon"><i data-lucide="home" class="w-5 h-5 text-black/25"></i><span class="text-[9px] text-black/40">Home</span></div>
+          <div class="nav-icon"><i data-lucide="shield" class="w-5 h-5 text-black/25"></i><span class="text-[9px] text-black/40">Coverage</span></div>
+          <div class="nav-icon"><i data-lucide="message-circle" class="w-5 h-5 text-teal-600"></i><span class="text-[9px] font-bold text-teal-600">Chapter</span></div>
+          <div class="nav-icon"><i data-lucide="user" class="w-5 h-5 text-black/25"></i><span class="text-[9px] text-black/40">Profile</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <script>lucide.createIcons();</script>
+</body>
+</html>

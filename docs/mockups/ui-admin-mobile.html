@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IPSSA Mobile App Admin — All Screens</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
+<style>
+  * { font-family: 'Inter', sans-serif; box-sizing: border-box; }
+  body { background: #E2E8F0; padding: 32px; display: flex; flex-direction: column; gap: 24px; }
+  .label { font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: #64748B; margin-bottom: 8px; }
+  .frame { width: 1280px; height: 740px; background: #F1F5F9; border-radius: 12px; overflow: hidden; box-shadow: 0 8px 32px rgba(0,0,0,.18); display: flex; flex-shrink: 0; }
+  .scroll-row { display: flex; flex-direction: row; gap: 32px; overflow-x: auto; padding-bottom: 8px; }
+
+  /* Sidebar — teal accent for mobile admin */
+  .sidebar { width: 220px; background: #0F172A; display: flex; flex-direction: column; flex-shrink: 0; }
+  .sidebar-logo { padding: 20px 18px 16px; border-bottom: 1px solid rgba(255,255,255,.07); }
+  .sidebar-logo .app { font-size: 15px; font-weight: 700; color: #F8FAFC; }
+  .sidebar-logo .sub { font-size: 10px; color: #64748B; margin-top: 2px; }
+  .nav-section { padding: 16px 0 4px; }
+  .nav-section-label { font-size: 9px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #475569; padding: 0 18px; margin-bottom: 4px; }
+  .nav-item { display: flex; align-items: center; gap: 10px; padding: 8px 18px; font-size: 13px; color: #94A3B8; cursor: pointer; border-left: 3px solid transparent; }
+  .nav-item.active { color: #E2E8F0; background: rgba(20,184,166,.12); border-left-color: #14B8A6; }
+  .nav-item i { width: 16px; height: 16px; flex-shrink: 0; }
+  .sidebar-footer { margin-top: auto; padding: 14px 18px; border-top: 1px solid rgba(255,255,255,.07); display: flex; align-items: center; gap: 10px; }
+  .sidebar-footer .avatar { width: 30px; height: 30px; border-radius: 50%; background: #334155; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: #CBD5E1; }
+  .sidebar-footer .name { font-size: 12px; color: #CBD5E1; font-weight: 500; }
+  .sidebar-footer .role { font-size: 10px; color: #475569; }
+
+  /* Content */
+  .content { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+  .topbar { height: 56px; background: #fff; border-bottom: 1px solid #E2E8F0; display: flex; align-items: center; padding: 0 24px; gap: 16px; flex-shrink: 0; }
+  .topbar-title { font-size: 16px; font-weight: 600; color: #0F172A; flex: 1; }
+  .topbar-badge { font-size: 11px; padding: 3px 10px; border-radius: 20px; font-weight: 600; }
+  .badge-teal { background: #CCFBF1; color: #115E59; }
+  .topbar-btn { display: flex; align-items: center; gap: 6px; padding: 7px 14px; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer; border: none; }
+  .btn-primary { background: #14B8A6; color: #fff; }
+  .btn-outline { background: #fff; color: #374151; border: 1px solid #D1D5DB; }
+  .btn-red { background: #EF4444; color: #fff; }
+  .main { flex: 1; overflow-y: auto; padding: 24px; }
+
+  .stat-card { background: #fff; border-radius: 10px; padding: 18px 20px; border: 1px solid #E2E8F0; }
+  .stat-val { font-size: 26px; font-weight: 700; color: #0F172A; line-height: 1; }
+  .stat-label { font-size: 12px; color: #64748B; margin-top: 4px; }
+  .stat-delta { font-size: 11px; font-weight: 600; margin-top: 6px; }
+  .delta-up { color: #059669; }
+  .delta-down { color: #DC2626; }
+  .delta-neutral { color: #64748B; }
+
+  .panel { background: #fff; border-radius: 10px; border: 1px solid #E2E8F0; overflow: hidden; }
+  .panel-header { padding: 14px 18px; border-bottom: 1px solid #F1F5F9; display: flex; align-items: center; justify-content: space-between; }
+  .panel-title { font-size: 14px; font-weight: 600; color: #0F172A; }
+  .panel-action { font-size: 12px; color: #14B8A6; font-weight: 500; cursor: pointer; }
+
+  table { width: 100%; border-collapse: collapse; }
+  th { font-size: 11px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: #64748B; padding: 10px 16px; text-align: left; background: #F8FAFC; border-bottom: 1px solid #E2E8F0; }
+  td { font-size: 13px; color: #374151; padding: 11px 16px; border-bottom: 1px solid #F1F5F9; }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: #F8FAFC; }
+
+  .badge { display: inline-flex; align-items: center; gap: 4px; padding: 2px 8px; border-radius: 20px; font-size: 11px; font-weight: 600; }
+  .badge-green { background: #DCFCE7; color: #166534; }
+  .badge-red { background: #FEE2E2; color: #991B1B; }
+  .badge-yellow { background: #FEF9C3; color: #854D0E; }
+  .badge-blue { background: #DBEAFE; color: #1E40AF; }
+  .badge-purple { background: #EDE9FE; color: #5B21B6; }
+  .badge-gray { background: #F1F5F9; color: #475569; }
+  .badge-teal2 { background: #CCFBF1; color: #115E59; }
+  .badge-orange { background: #FED7AA; color: #9A3412; }
+
+  .prog-track { height: 6px; background: #E2E8F0; border-radius: 3px; overflow: hidden; }
+  .prog-fill { height: 100%; border-radius: 3px; }
+
+  .bar-chart { display: flex; align-items: flex-end; gap: 5px; }
+  .bar { flex: 1; border-radius: 3px 3px 0 0; min-height: 4px; }
+
+  code { font-family: 'Courier New', monospace; font-size: 12px; background: #F1F5F9; padding: 1px 5px; border-radius: 4px; color: #374151; }
+  .search-bar { display: flex; align-items: center; gap: 8px; background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 8px; padding: 7px 12px; }
+  .search-bar input { border: none; background: transparent; outline: none; font-size: 13px; color: #374151; flex: 1; }
+  .filter-chip { display: inline-flex; align-items: center; gap: 4px; padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 500; border: 1px solid #D1D5DB; color: #374151; background: #fff; cursor: pointer; }
+  .filter-chip.active { background: #CCFBF1; border-color: #14B8A6; color: #115E59; }
+
+  /* Mini phone frame */
+  .phone-mini { width: 140px; height: 280px; background: #fff; border-radius: 18px; border: 3px solid #0F172A; box-shadow: 0 4px 16px rgba(0,0,0,.2); overflow: hidden; flex-shrink: 0; }
+  .phone-mini-screen { width: 100%; height: 100%; overflow: hidden; }
+</style>
+</head>
+<body>
+
+<!-- SCREEN 1: App Dashboard -->
+<div class="label">S1 — App Dashboard (DAU/MAU)</div>
+<div class="scroll-row">
+<div class="frame">
+  <div class="sidebar">
+    <div class="sidebar-logo"><div class="app">IPSSA</div><div class="sub">Mobile App Admin</div></div>
+    <div class="nav-section"><div class="nav-section-label">Overview</div><div class="nav-item active"><i data-lucide="layout-dashboard"></i>App Dashboard</div><div class="nav-item"><i data-lucide="smartphone"></i>App Versions</div></div>
+    <div class="nav-section"><div class="nav-section-label">Users</div><div class="nav-item"><i data-lucide="users"></i>Member Mgmt</div><div class="nav-item"><i data-lucide="shield"></i>Coverage Monitor</div><div class="nav-item"><i data-lucide="star"></i>Rating Moderation</div></div>
+    <div class="nav-section"><div class="nav-section-label">Community</div><div class="nav-item"><i data-lucide="building-2"></i>Chapter Admin</div><div class="nav-item"><i data-lucide="flag"></i>Content Moderation</div></div>
+    <div class="nav-section"><div class="nav-section-label">Content</div><div class="nav-item"><i data-lucide="book-open"></i>Prep Lab CMS</div><div class="nav-item"><i data-lucide="bell"></i>Push Notifications</div></div>
+    <div class="nav-section"><div class="nav-section-label">Reports</div><div class="nav-item"><i data-lucide="download"></i>Reports & Export</div></div>
+    <div class="sidebar-footer"><div class="avatar">JK</div><div><div class="name">Jamie Kim</div><div class="role">App Admin</div></div></div>
+  </div>
+  <div class="content">
+    <div class="topbar">
+      <div class="topbar-title">App Dashboard</div>
+      <div class="topbar-badge badge-teal">v2.4.1 Live</div>
+      <div style="flex:1;"></div>
+      <div style="display:flex;gap:4px;background:#F1F5F9;border-radius:8px;padding:3px;">
+        <button class="topbar-btn" style="background:#fff;color:#374151;font-size:12px;padding:4px 12px;border:1px solid #E2E8F0;border-radius:6px;">7d</button>
+        <button class="topbar-btn btn-primary" style="font-size:12px;padding:4px 12px;">30d</button>
+        <button class="topbar-btn" style="background:#fff;color:#374151;font-size:12px;padding:4px 12px;border:1px solid #E2E8F0;border-radius:6px;">90d</button>
+      </div>
+    </div>
+    <div class="main">
+      <!-- KPI Row -->
+      <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-bottom:20px;">
+        <div class="stat-card">
+          <div class="stat-val">1,847</div>
+          <div class="stat-label">DAU (today)</div>
+          <div class="stat-delta delta-up">↑ 12% vs last week</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-val">2,490</div>
+          <div class="stat-label">MAU (30 days)</div>
+          <div class="stat-delta delta-up">↑ 8.4% vs last month</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-val">74.2%</div>
+          <div class="stat-label">DAU/MAU Ratio</div>
+          <div class="stat-delta delta-up">↑ Best ever</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-val">6.8<span style="font-size:14px;color:#64748B;">min</span></div>
+          <div class="stat-label">Avg Session Length</div>
+          <div class="stat-delta delta-up">↑ 0.4 min</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-val">4.8★</div>
+          <div class="stat-label">App Store Rating</div>
+          <div class="stat-delta delta-neutral">1,240 reviews</div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:2fr 1fr;gap:16px;margin-bottom:16px;">
+        <!-- DAU Chart -->
+        <div class="panel">
+          <div class="panel-header"><div class="panel-title">Daily Active Users — Last 30 Days</div><div style="display:flex;gap:12px;font-size:11px;"><span style="color:#14B8A6;">● DAU</span><span style="color:#6366F1;">● New Users</span></div></div>
+          <div style="padding:16px 18px;">
+            <div class="bar-chart" style="height:100px;">
+              <div class="bar" style="height:55%;background:#14B8A6;"></div><div class="bar" style="height:60%;background:#14B8A6;"></div><div class="bar" style="height:52%;background:#14B8A6;"></div><div class="bar" style="height:65%;background:#14B8A6;"></div><div class="bar" style="height:70%;background:#14B8A6;"></div><div class="bar" style="height:68%;background:#14B8A6;"></div><div class="bar" style="height:75%;background:#14B8A6;"></div><div class="bar" style="height:80%;background:#14B8A6;"></div><div class="bar" style="height:72%;background:#14B8A6;"></div><div class="bar" style="height:85%;background:#14B8A6;"></div><div class="bar" style="height:88%;background:#14B8A6;"></div><div class="bar" style="height:82%;background:#14B8A6;"></div><div class="bar" style="height:90%;background:#14B8A6;"></div><div class="bar" style="height:95%;background:#14B8A6;"></div><div class="bar" style="height:88%;background:#14B8A6;"></div><div class="bar" style="height:92%;background:#14B8A6;"></div><div class="bar" style="height:98%;background:#14B8A6;"></div><div class="bar" style="height:100%;background:#14B8A6;"></div><div class="bar" style="height:96%;background:#14B8A6;"></div><div class="bar" style="height:92%;background:#14B8A6;"></div><div class="bar" style="height:88%;background:#14B8A6;"></div><div class="bar" style="height:84%;background:#14B8A6;"></div><div class="bar" style="height:90%;background:#14B8A6;"></div><div class="bar" style="height:88%;background:#14B8A6;"></div><div class="bar" style="height:94%;background:#14B8A6;"></div><div class="bar" style="height:92%;background:#14B8A6;"></div><div class="bar" style="height:96%;background:#14B8A6;"></div><div class="bar" style="height:100%;background:#14B8A6;"></div><div class="bar" style="height:98%;background:#14B8A6;"></div><div class="bar" style="height:94%;background:#14B8A6;"></div>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:10px;color:#94A3B8;margin-top:6px;"><span>Apr 1</span><span>Apr 8</span><span>Apr 15</span><span>Apr 22</span><span>Apr 24</span></div>
+          </div>
+        </div>
+        <!-- OS / Platform split -->
+        <div class="panel">
+          <div class="panel-header"><div class="panel-title">Platform Breakdown</div></div>
+          <div style="padding:20px;">
+            <div style="display:flex;flex-direction:column;gap:12px;">
+              <div><div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px;"><span style="font-weight:500;">iOS</span><span style="color:#64748B;">54% · 1,345 users</span></div><div class="prog-track"><div class="prog-fill" style="width:54%;background:#14B8A6;"></div></div></div>
+              <div><div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px;"><span style="font-weight:500;">Android</span><span style="color:#64748B;">44% · 1,096 users</span></div><div class="prog-track"><div class="prog-fill" style="width:44%;background:#6366F1;"></div></div></div>
+              <div><div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px;"><span style="font-weight:500;">Web</span><span style="color:#64748B;">2% · 49 users</span></div><div class="prog-track"><div class="prog-fill" style="width:2%;background:#94A3B8;"></div></div></div>
+            </div>
+            <div style="margin-top:16px;padding:12px;background:#F8FAFC;border-radius:8px;">
+              <div style="font-size:11px;font-weight:600;color:#374151;">Top OS Version</div>
+              <div style="font-size:13px;margin-top:2px;">iOS 18.3 · <span style="color:#64748B;">62% of iOS users</span></div>
+              <div style="font-size:13px;">Android 15 · <span style="color:#64748B;">48% of Android users</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Feature Engagement + Crash stats -->
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;">
+        <div class="panel">
+          <div class="panel-header"><div class="panel-title">Feature Usage (30d)</div></div>
+          <div style="padding:14px 18px;display:flex;flex-direction:column;gap:8px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;"><span style="font-size:12px;">CoverageMatch</span><div style="display:flex;align-items:center;gap:8px;"><div class="prog-track" style="width:100px;"><div class="prog-fill" style="width:82%;background:#14B8A6;"></div></div><span style="font-size:12px;color:#64748B;">82%</span></div></div>
+            <div style="display:flex;justify-content:space-between;align-items:center;"><span style="font-size:12px;">Community Hub</span><div style="display:flex;align-items:center;gap:8px;"><div class="prog-track" style="width:100px;"><div class="prog-fill" style="width:71%;background:#14B8A6;"></div></div><span style="font-size:12px;color:#64748B;">71%</span></div></div>
+            <div style="display:flex;justify-content:space-between;align-items:center;"><span style="font-size:12px;">Prep Lab</span><div style="display:flex;align-items:center;gap:8px;"><div class="prog-track" style="width:100px;"><div class="prog-fill" style="width:58%;background:#14B8A6;"></div></div><span style="font-size:12px;color:#64748B;">58%</span></div></div>
+            <div style="display:flex;justify-content:space-between;align-items:center;"><span style="font-size:12px;">Leaderboard</span><div style="display:flex;align-items:center;gap:8px;"><div class="prog-track" style="width:100px;"><div class="prog-fill" style="width:44%;background:#14B8A6;"></div></div><span style="font-size:12px;color:#64748B;">44%</span></div></div>
+            <div style="display:flex;justify-content:space-between;align-items:center;"><span style="font-size:12px;">Member Directory</span><div style="display:flex;align-items:center;gap:8px;"><div class="prog-track" style="width:100px;"><div class="prog-fill" style="width:38%;background:#14B8A6;"></div></div><span style="font-size:12px;color:#64748B;">38%</span></div></div>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="panel-header"><div class="panel-title">Crash & ANR Rate</div></div>
+          <div style="padding:18px;display:flex;flex-direction:column;gap:10px;">
+            <div style="display:flex;justify-content:space-between;"><span style="font-size:12px;">Crash-free sessions (iOS)</span><span style="font-size:13px;font-weight:700;color:#059669;">99.92%</span></div>
+            <div style="display:flex;justify-content:space-between;"><span style="font-size:12px;">Crash-free sessions (Android)</span><span style="font-size:13px;font-weight:700;color:#059669;">99.87%</span></div>
+            <div style="display:flex;justify-content:space-between;"><span style="font-size:12px;">ANR rate (Android)</span><span style="font-size:13px;font-weight:700;color:#059669;">0.04%</span></div>
+            <div style="display:flex;justify-content:space-between;"><span style="font-size:12px;">Open bug reports</span><span style="font-size:13px;font-weight:700;color:#F59E0B;">12</span></div>
+            <div style="margin-top:6px;padding:10px;background:#DCFCE7;border-radius:6px;"><span style="font-size:12px;font-weight:600;color:#166534;">All targets met this week</span></div>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="panel-header"><div class="panel-title">Funnel — Coverage Flow</div></div>
+          <div style="padding:18px;display:flex;flex-direction:column;gap:8px;">
+            <div style="display:flex;justify-content:space-between;font-size:12px;"><span>Opened app</span><span style="font-weight:600;">1,847</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:12px;"><span>Tapped CoverageMatch</span><span style="font-weight:600;">1,513 <span style="color:#64748B;">(82%)</span></span></div>
+            <div style="display:flex;justify-content:space-between;font-size:12px;"><span>Selected mode</span><span style="font-weight:600;">1,204 <span style="color:#64748B;">(65%)</span></span></div>
+            <div style="display:flex;justify-content:space-between;font-size:12px;"><span>Matched successfully</span><span style="font-weight:600;">1,134 <span style="color:#64748B;">94%</span></span></div>
+            <div style="display:flex;justify-content:space-between;font-size:12px;"><span>Rated after job</span><span style="font-weight:600;">981 <span style="color:#64748B;">86%</span></span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- SCREEN 2: Member Management -->
+<div class="label">S2 — Member Management</div>
+<div class="scroll-row">
+<div class="frame">
+  <div class="sidebar">
+    <div class="sidebar-logo"><div class="app">IPSSA</div><div class="sub">Mobile App Admin</div></div>
+    <div class="nav-section"><div class="nav-section-label">Overview</div><div class="nav-item"><i data-lucide="layout-dashboard"></i>App Dashboard</div><div class="nav-item"><i data-lucide="smartphone"></i>App Versions</div></div>
+    <div class="nav-section"><div class="nav-section-label">Users</div><div class="nav-item active"><i data-lucide="users"></i>Member Mgmt</div><div class="nav-item"><i data-lucide="shield"></i>Coverage Monitor</div><div class="nav-item"><i data-lucide="star"></i>Rating Moderation</div></div>
+    <div class="nav-section"><div class="nav-section-label">Community</div><div class="nav-item"><i data-lucide="building-2"></i>Chapter Admin</div><div class="nav-item"><i data-lucide="flag"></i>Content Moderation</div></div>
+    <div class="nav-section"><div class="nav-section-label">Content</div><div class="nav-item"><i data-lucide="book-open"></i>Prep Lab CMS</div><div class="nav-item"><i data-lucide="bell"></i>Push Notifications</div></div>
+    <div class="nav-section"><div class="nav-section-label">Reports</div><div class="nav-item"><i data-lucide="download"></i>Reports & Export</div></div>
+    <div class="sidebar-footer"><div class="avatar">JK</div><div><div class="name">Jamie Kim</div><div class="role">App Admin</div></div></div>
+  </div>
+  <div class="content">
+    <div class="topbar">
+      <div class="topbar-title">Member Management</div>
+      <div class="topbar-badge badge-teal">2,741 members</div>
+      <div style="flex:1;"></div>
+      <div class="search-bar" style="width:230px;"><i data-lucide="search" style="width:14px;height:14px;color:#94A3B8;"></i><input placeholder="Search name, email…"></div>
+      <button class="topbar-btn btn-outline"><i data-lucide="filter" style="width:14px;height:14px;"></i> Filter</button>
+    </div>
+    <div class="main">
+      <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;">
+        <div class="filter-chip active">All (2,741)</div>
+        <div class="filter-chip">Active (2,490)</div>
+        <div class="filter-chip">Cert Required (189)</div>
+        <div class="filter-chip">Suspended (38)</div>
+        <div class="filter-chip">New this month (124)</div>
+        <div style="margin-left:auto;">
+          <select style="font-size:12px;border:1px solid #D1D5DB;border-radius:8px;padding:5px 10px;background:#fff;">
+            <option>Chapter: All</option><option selected>San Diego 7</option>
+          </select>
+        </div>
+      </div>
+      <!-- Member detail panel + list -->
+      <div style="display:grid;grid-template-columns:1fr 320px;gap:16px;">
+        <div class="panel">
+          <table>
+            <thead><tr><th>Member</th><th>Chapter</th><th>Tier</th><th>Last Active</th><th>App Version</th><th>Device</th><th>Status</th><th>Actions</th></tr></thead>
+            <tbody>
+              <tr style="background:#F0FDFA;">
+                <td><div style="display:flex;align-items:center;gap:10px;"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=32&h=32&fit=crop" style="width:32px;height:32px;border-radius:50%;object-fit:cover;"><div><div style="font-weight:600;font-size:13px;">Mike Sandoval</div><div style="font-size:11px;color:#64748B;">mem_0041</div></div></div></td>
+                <td>SD 7</td><td><div class="badge badge-blue">Route Protector</div></td><td style="color:#64748B;">2 min ago</td><td><div class="badge badge-teal2">v2.4.1</div></td><td style="font-size:12px;color:#64748B;">iPhone 16 Pro</td><td><div class="badge badge-green">Active</div></td>
+                <td style="display:flex;gap:4px;"><button class="topbar-btn btn-outline" style="padding:3px 8px;font-size:11px;">Profile</button><button class="topbar-btn btn-outline" style="padding:3px 8px;font-size:11px;color:#DC2626;">Suspend</button></td>
+              </tr>
+              <tr>
+                <td><div style="display:flex;align-items:center;gap:10px;"><img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=32&h=32&fit=crop" style="width:32px;height:32px;border-radius:50%;object-fit:cover;"><div><div style="font-weight:600;font-size:13px;">James Rivera</div><div style="font-size:11px;color:#64748B;">mem_0089</div></div></div></td>
+                <td>SD 7</td><td><div class="badge badge-blue">Route Protector</div></td><td style="color:#64748B;">25 min ago</td><td><div class="badge badge-teal2">v2.4.1</div></td><td style="font-size:12px;color:#64748B;">Pixel 9</td><td><div class="badge badge-green">Active</div></td>
+                <td style="display:flex;gap:4px;"><button class="topbar-btn btn-outline" style="padding:3px 8px;font-size:11px;">Profile</button><button class="topbar-btn btn-outline" style="padding:3px 8px;font-size:11px;color:#DC2626;">Suspend</button></td>
+              </tr>
+              <tr>
+                <td><div style="display:flex;align-items:center;gap:10px;"><img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=32&h=32&fit=crop" style="width:32px;height:32px;border-radius:50%;object-fit:cover;"><div><div style="font-weight:600;font-size:13px;">Sarah Chen</div><div style="font-size:11px;color:#64748B;">mem_0112</div></div></div></td>
+                <td>SD 7</td><td><div class="badge badge-purple">Chapter Elite</div></td><td style="color:#64748B;">1 hr ago</td><td><div class="badge badge-teal2">v2.4.1</div></td><td style="font-size:12px;color:#64748B;">iPhone 15</td><td><div class="badge badge-green">Active</div></td>
+                <td style="display:flex;gap:4px;"><button class="topbar-btn btn-outline" style="padding:3px 8px;font-size:11px;">Profile</button><button class="topbar-btn btn-outline" style="padding:3px 8px;font-size:11px;color:#DC2626;">Suspend</button></td>
+              </tr>
+              <tr>
+                <td><div style="display:flex;align-items:center;gap:10px;"><img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=32&h=32&fit=crop" style="width:32px;height:32px;border-radius:50%;object-fit:cover;"><div><div style="font-weight:600;font-size:13px;">David Park</div><div style="font-size:11px;color:#64748B;">mem_0301</div></div></div></td>
+                <td>SD 7</td><td><div class="badge badge-gray">Pool Rookie</div></td><td style="color:#64748B;">3 hr ago</td><td><div class="badge badge-yellow">v2.3.0</div></td><td style="font-size:12px;color:#64748B;">Samsung S24</td><td><div class="badge badge-yellow">Cert Required</div></td>
+                <td style="display:flex;gap:4px;"><button class="topbar-btn btn-outline" style="padding:3px 8px;font-size:11px;">Profile</button><button class="topbar-btn btn-outline" style="padding:3px 8px;font-size:11px;">Nudge</button></td>
+              </tr>
+              <tr>
+                <td><div style="display:flex;align-items:center;gap:10px;"><div style="width:32px;height:32px;border-radius:50%;background:#FEE2E2;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#991B1B;">TW</div><div><div style="font-weight:600;font-size:13px;">Tom Wallace</div><div style="font-size:11px;color:#64748B;">mem_0048</div></div></div></td>
+                <td>SD 7</td><td><div class="badge badge-blue">Route Protector</div></td><td style="color:#94A3B8;">Apr 1</td><td style="color:#94A3B8;">—</td><td style="font-size:12px;color:#94A3B8;">—</td><td><div class="badge badge-red">Suspended</div></td>
+                <td style="display:flex;gap:4px;"><button class="topbar-btn btn-outline" style="padding:3px 8px;font-size:11px;">Review</button><button class="topbar-btn btn-outline" style="padding:3px 8px;font-size:11px;color:#059669;">Reinstate</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- Member detail side panel -->
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <div class="panel">
+            <div class="panel-header"><div class="panel-title">Mike Sandoval</div><div class="badge badge-green">Active</div></div>
+            <div style="padding:16px;">
+              <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=52&h=52&fit=crop" style="width:52px;height:52px;border-radius:50%;object-fit:cover;">
+                <div><div style="font-size:14px;font-weight:600;">Sandoval Pool Care</div><div style="font-size:12px;color:#64748B;">mike@sandovalpoolcare.com</div><div style="font-size:12px;color:#64748B;">+1 (619) 555-0182</div></div>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:6px;font-size:12px;">
+                <div style="display:flex;justify-content:space-between;"><span style="color:#64748B;">Tier</span><div class="badge badge-blue">Route Protector</div></div>
+                <div style="display:flex;justify-content:space-between;"><span style="color:#64748B;">CoverageScore</span><span style="font-weight:600;">4.8 ★</span></div>
+                <div style="display:flex;justify-content:space-between;"><span style="color:#64748B;">App Version</span><span>v2.4.1 (iOS)</span></div>
+                <div style="display:flex;justify-content:space-between;"><span style="color:#64748B;">Device</span><span>iPhone 16 Pro</span></div>
+                <div style="display:flex;justify-content:space-between;"><span style="color:#64748B;">Push Enabled</span><span style="color:#059669;">Yes</span></div>
+                <div style="display:flex;justify-content:space-between;"><span style="color:#64748B;">Sessions (30d)</span><span>44</span></div>
+              </div>
+              <div style="display:flex;gap:6px;margin-top:12px;">
+                <button class="topbar-btn btn-outline" style="font-size:12px;flex:1;padding:6px;">Send Push</button>
+                <button class="topbar-btn btn-outline" style="font-size:12px;flex:1;padding:6px;color:#DC2626;">Suspend</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- SCREEN 3: Coverage Monitoring -->
+<div class="label">S3 — Coverage Monitoring</div>
+<div class="scroll-row">
+<div class="frame">
+  <div class="sidebar">
+    <div class="sidebar-logo"><div class="app">IPSSA</div><div class="sub">Mobile App Admin</div></div>
+    <div class="nav-section"><div class="nav-section-label">Overview</div><div class="nav-item"><i data-lucide="layout-dashboard"></i>App Dashboard</div><div class="nav-item"><i data-lucide="smartphone"></i>App Versions</div></div>
+    <div class="nav-section"><div class="nav-section-label">Users</div><div class="nav-item"><i data-lucide="users"></i>Member Mgmt</div><div class="nav-item active"><i data-lucide="shield"></i>Coverage Monitor</div><div class="nav-item"><i data-lucide="star"></i>Rating Moderation</div></div>
+    <div class="nav-section"><div class="nav-section-label">Community</div><div class="nav-item"><i data-lucide="building-2"></i>Chapter Admin</div><div class="nav-item"><i data-lucide="flag"></i>Content Moderation</div></div>
+    <div class="nav-section"><div class="nav-section-label">Content</div><div class="nav-item"><i data-lucide="book-open"></i>Prep Lab CMS</div><div class="nav-item"><i data-lucide="bell"></i>Push Notifications</div></div>
+    <div class="nav-section"><div class="nav-section-label">Reports</div><div class="nav-item"><i data-lucide="download"></i>Reports & Export</div></div>
+    <div class="sidebar-footer"><div class="avatar">JK</div><div><div class="name">Jamie Kim</div><div class="role">App Admin</div></div></div>
+  </div>
+  <div class="content">
+    <div class="topbar">
+      <div class="topbar-title">Coverage Monitoring</div>
+      <div class="topbar-badge" style="background:#FEE2E2;color:#991B1B;">2 Unmatched — Action Required</div>
+      <div style="flex:1;"></div>
+      <button class="topbar-btn btn-outline">Auto-Refresh: ON</button>
+    </div>
+    <div class="main">
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:18px;">
+        <div class="stat-card"><div class="stat-val" style="color:#3B82F6;">8</div><div class="stat-label">Active Now</div><div class="stat-delta delta-up">Coverage in progress</div></div>
+        <div class="stat-card"><div class="stat-val" style="color:#F59E0B;">3</div><div class="stat-label">Pending Match</div><div class="stat-delta delta-neutral">Searching…</div></div>
+        <div class="stat-card"><div class="stat-val" style="color:#EF4444;">2</div><div class="stat-label">Unmatched</div><div class="stat-delta delta-down">Need escalation</div></div>
+        <div class="stat-card"><div class="stat-val">47</div><div class="stat-label">Completed Today</div><div class="stat-delta delta-up">↑ 12 vs avg</div></div>
+      </div>
+      <div style="display:grid;grid-template-columns:3fr 2fr;gap:16px;">
+        <!-- Live event table -->
+        <div class="panel">
+          <div class="panel-header"><div class="panel-title">Live Coverage Events</div><div class="panel-action">View All</div></div>
+          <table>
+            <thead><tr><th>Event</th><th>Type</th><th>Requestor</th><th>Pools</th><th>Status</th><th>Time</th><th>Actions</th></tr></thead>
+            <tbody>
+              <tr style="background:#FFF7ED;">
+                <td><code>cv_8824</code></td>
+                <td><div class="badge badge-red">Emergency</div></td>
+                <td><div style="font-weight:500;">Nina Scott</div><div style="font-size:11px;color:#64748B;">SD 7</div></td>
+                <td>9 pools</td>
+                <td><div style="display:flex;align-items:center;gap:6px;"><div style="width:8px;height:8px;border-radius:50%;background:#F59E0B;"></div><span style="font-size:12px;">Searching…</span></div></td>
+                <td style="color:#64748B;font-size:12px;">3 min ago</td>
+                <td><button class="topbar-btn btn-outline" style="padding:3px 8px;font-size:11px;color:#DC2626;">Escalate</button></td>
+              </tr>
+              <tr style="background:#FEF2F2;">
+                <td><code>cv_8823</code></td>
+                <td><div class="badge badge-red">Emergency</div></td>
+                <td><div style="font-weight:500;">Carlos Ruiz</div><div style="font-size:11px;color:#64748B;">LA 3</div></td>
+                <td>6 pools</td>
+                <td><div style="display:flex;align-items:center;gap:6px;"><div style="width:8px;height:8px;border-radius:50%;background:#EF4444;"></div><span style="font-size:12px;color:#DC2626;">Unmatched 18min</span></div></td>
+                <td style="color:#DC2626;font-weight:600;font-size:12px;">18 min</td>
+                <td><button class="topbar-btn btn-red" style="padding:3px 8px;font-size:11px;">Broadcast</button></td>
+              </tr>
+              <tr>
+                <td><code>cv_8822</code></td>
+                <td><div class="badge badge-yellow">Sick Day</div></td>
+                <td><div style="font-weight:500;">Linda Marsh</div><div style="font-size:11px;color:#64748B;">SD 7</div></td>
+                <td>12 pools</td>
+                <td><div style="display:flex;align-items:center;gap:6px;"><div style="width:8px;height:8px;border-radius:50%;background:#3B82F6;"></div><span style="font-size:12px;">In Progress</span></div></td>
+                <td style="color:#64748B;font-size:12px;">8 min ago</td>
+                <td><button class="topbar-btn btn-outline" style="padding:3px 8px;font-size:11px;">View</button></td>
+              </tr>
+              <tr>
+                <td><code>cv_8821</code></td>
+                <td><div class="badge badge-red">Emergency</div></td>
+                <td><div style="font-weight:500;">Mike Sandoval</div><div style="font-size:11px;color:#64748B;">SD 7</div></td>
+                <td>7 pools</td>
+                <td><div style="display:flex;align-items:center;gap:6px;"><div style="width:8px;height:8px;border-radius:50%;background:#3B82F6;"></div><span style="font-size:12px;">In Progress</span></div></td>
+                <td style="color:#64748B;font-size:12px;">24 min ago</td>
+                <td><button class="topbar-btn btn-outline" style="padding:3px 8px;font-size:11px;">View</button></td>
+              </tr>
+              <tr>
+                <td><code>cv_8820</code></td>
+                <td><div class="badge badge-purple">Vacation</div></td>
+                <td><div style="font-weight:500;">Sarah Chen</div><div style="font-size:11px;color:#64748B;">SD 7</div></td>
+                <td>14 pools</td>
+                <td><div style="display:flex;align-items:center;gap:6px;"><div style="width:8px;height:8px;border-radius:50%;background:#10B981;"></div><span style="font-size:12px;color:#059669;">Matched</span></div></td>
+                <td style="color:#64748B;font-size:12px;">1 hr ago</td>
+                <td><button class="topbar-btn btn-outline" style="padding:3px 8px;font-size:11px;">View</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- Stats + Escalation panel -->
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <div class="panel" style="border-color:#FECACA;">
+            <div class="panel-header" style="background:#FEF2F2;"><div class="panel-title" style="color:#991B1B;">Unmatched — Needs Action</div></div>
+            <div style="padding:14px;">
+              <div style="background:#FFF5F5;border:1px solid #FECACA;border-radius:8px;padding:12px;margin-bottom:10px;">
+                <div style="font-size:13px;font-weight:600;color:#991B1B;">cv_8823 — Emergency</div>
+                <div style="font-size:12px;color:#374151;margin-top:4px;">Carlos Ruiz · LA Chapter 3 · 6 pools</div>
+                <div style="font-size:12px;color:#DC2626;margin-top:2px;">Unmatched for 18 minutes</div>
+                <div style="display:flex;gap:6px;margin-top:10px;">
+                  <button class="topbar-btn btn-red" style="font-size:12px;flex:1;padding:7px;">Emergency Broadcast</button>
+                </div>
+                <div style="display:flex;gap:6px;margin-top:6px;">
+                  <button class="topbar-btn btn-outline" style="font-size:12px;flex:1;padding:6px;">Contact Chapter Lead</button>
+                </div>
+              </div>
+              <div style="font-size:11px;color:#64748B;">Broadcast sends push to all available members within 50mi radius.</div>
+            </div>
+          </div>
+          <div class="panel">
+            <div class="panel-header"><div class="panel-title">Match Rate (Today)</div></div>
+            <div style="padding:16px 18px;">
+              <div style="text-align:center;"><div style="font-size:36px;font-weight:700;color:#14B8A6;">94.2%</div><div style="font-size:12px;color:#64748B;margin-top:4px;">47 of 50 events matched</div></div>
+              <div class="prog-track" style="margin-top:12px;height:10px;border-radius:5px;"><div class="prog-fill" style="width:94%;background:#14B8A6;height:10px;border-radius:5px;"></div></div>
+              <div style="display:flex;justify-content:space-between;font-size:11px;color:#64748B;margin-top:4px;"><span>0%</span><span>Target: 95%</span><span>100%</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- SCREEN 4: Chapter Admin -->
+<div class="label">S4 — Chapter Admin</div>
+<div class="scroll-row">
+<div class="frame">
+  <div class="sidebar">
+    <div class="sidebar-logo"><div class="app">IPSSA</div><div class="sub">Mobile App Admin</div></div>
+    <div class="nav-section"><div class="nav-section-label">Overview</div><div class="nav-item"><i data-lucide="layout-dashboard"></i>App Dashboard</div><div class="nav-item"><i data-lucide="smartphone"></i>App Versions</div></div>
+    <div class="nav-section"><div class="nav-section-label">Users</div><div class="nav-item"><i data-lucide="users"></i>Member Mgmt</div><div class="nav-item"><i data-lucide="shield"></i>Coverage Monitor</div><div class="nav-item"><i data-lucide="star"></i>Rating Moderation</div></div>
+    <div class="nav-section"><div class="nav-section-label">Community</div><div class="nav-item active"><i data-lucide="building-2"></i>Chapter Admin</div><div class="nav-item"><i data-lucide="flag"></i>Content Moderation</div></div>
+    <div class="nav-section"><div class="nav-section-label">Content</div><div class="nav-item"><i data-lucide="book-open"></i>Prep Lab CMS</div><div class="nav-item"><i data-lucide="bell"></i>Push Notifications</div></div>
+    <div class="nav-section"><div class="nav-section-label">Reports</div><div class="nav-item"><i data-lucide="download"></i>Reports & Export</div></div>
+    <div class="sidebar-footer"><div class="avatar">JK</div><div><div class="name">Jamie Kim</div><div class="role">App Admin</div></div></div>
+  </div>
+  <div class="content">
+    <div class="topbar">
+      <div class="topbar-title">Chapter Admin</div>
+      <div style="flex:1;"></div>
+      <button class="topbar-btn btn-primary"><i data-lucide="plus" style="width:14px;height:14px;"></i> New Chapter</button>
+    </div>
+    <div class="main">
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:18px;">
+        <div class="stat-card"><div class="stat-val">12</div><div class="stat-label">Active Chapters</div></div>
+        <div class="stat-card"><div class="stat-val">2,741</div><div class="stat-label">Total Members</div></div>
+        <div class="stat-card"><div class="stat-val">SD 7</div><div class="stat-label">Largest Chapter</div></div>
+        <div class="stat-card"><div class="stat-val">94.2%</div><div class="stat-label">Avg Match Rate</div></div>
+      </div>
+      <div class="panel">
+        <table>
+          <thead><tr><th>Chapter</th><th>Region</th><th>Lead</th><th>Members</th><th>Active MAU</th><th>Events (30d)</th><th>Match Rate</th><th>Avg Rating</th><th>Status</th><th>Actions</th></tr></thead>
+          <tbody>
+            <tr><td style="font-weight:600;">San Diego 7</td><td>Southern CA</td><td>Robert Martinez</td><td><strong>312</strong></td><td>288</td><td>312</td><td><span style="color:#059669;font-weight:600;">96.2%</span></td><td>4.81</td><td><div class="badge badge-green">Active</div></td><td><button class="topbar-btn btn-outline" style="padding:3px 8px;font-size:11px;">Manage</button></td></tr>
+            <tr><td style="font-weight:600;">Los Angeles 3</td><td>Southern CA</td><td>Diana Lopez</td><td><strong>287</strong></td><td>241</td><td>284</td><td><span style="color:#059669;font-weight:600;">92.4%</span></td><td>4.74</td><td><div class="badge badge-green">Active</div></td><td><button class="topbar-btn btn-outline" style="padding:3px 8px;font-size:11px;">Manage</button></td></tr>
+            <tr><td style="font-weight:600;">Orange County 12</td><td>Southern CA</td><td>Tom Baker</td><td><strong>198</strong></td><td>167</td><td>199</td><td><span style="color:#059669;font-weight:600;">94.0%</span></td><td>4.77</td><td><div class="badge badge-green">Active</div></td><td><button class="topbar-btn btn-outline" style="padding:3px 8px;font-size:11px;">Manage</button></td></tr>
+            <tr><td style="font-weight:600;">Phoenix 5</td><td>Arizona</td><td>Gary Kim</td><td><strong>176</strong></td><td>144</td><td>168</td><td><span style="color:#D97706;font-weight:600;">88.1%</span></td><td>4.60</td><td><div class="badge badge-green">Active</div></td><td><button class="topbar-btn btn-outline" style="padding:3px 8px;font-size:11px;">Manage</button></td></tr>
+            <tr><td style="font-weight:600;">Las Vegas 9</td><td>Nevada</td><td>Vacant</td><td><strong>142</strong></td><td>98</td><td>112</td><td><span style="color:#DC2626;font-weight:600;">78.6%</span></td><td>4.51</td><td><div class="badge badge-yellow">Lead Needed</div></td><td><button class="topbar-btn btn-outline" style="padding:3px 8px;font-size:11px;color:#DC2626;">Appoint Lead</button></td></tr>
+            <tr><td style="font-weight:600;">Inland Empire 2</td><td>Southern CA</td><td>Angela Ross</td><td><strong>128</strong></td><td>105</td><td>130</td><td><span style="color:#059669;font-weight:600;">95.4%</span></td><td>4.79</td><td><div class="badge badge-green">Active</div></td><td><button class="topbar-btn btn-outline" style="padding:3px 8px;font-size:11px;">Manage</button></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- SCREEN 5: Prep Lab CMS -->
+<div class="label">S5 — Prep Lab CMS</div>
+<div class="scroll-row">
+<div class="frame">
+  <div class="sidebar">
+    <div class="sidebar-logo"><div class="app">IPSSA</div><div class="sub">Mobile App Admin</div></div>
+    <div class="nav-section"><div class="nav-section-label">Overview</div><div class="nav-item"><i data-lucide="layout-dashboard"></i>App Dashboard</div><div class="nav-item"><i data-lucide="smartphone"></i>App Versions</div></div>
+    <div class="nav-section"><div class="nav-section-label">Users</div><div class="nav-item"><i data-lucide="users"></i>Member Mgmt</div><div class="nav-item"><i data-lucide="shield"></i>Coverage Monitor</div><div class="nav-item"><i data-lucide="star"></i>Rating Moderation</div></div>
+    <div class="nav-section"><div class="nav-section-label">Community</div><div class="nav-item"><i data-lucide="building-2"></i>Chapter Admin</div><div class="nav-item"><i data-lucide="flag"></i>Content Moderation</div></div>
+    <div class="nav-section"><div class="nav-section-label">Content</div><div class="nav-item active"><i data-lucide="book-open"></i>Prep Lab CMS</div><div class="nav-item"><i data-lucide="bell"></i>Push Notifications</div></div>
+    <div class="nav-section"><div class="nav-section-label">Reports</div><div class="nav-item"><i data-lucide="download"></i>Reports & Export</div></div>
+    <div class="sidebar-footer"><div class="avatar">JK</div><div><div class="name">Jamie Kim</div><div class="role">App Admin</div></div></div>
+  </div>
+  <div class="content">
+    <div class="topbar">
+      <div class="topbar-title">Prep Lab CMS</div>
+      <div style="flex:1;"></div>
+      <button class="topbar-btn btn-outline"><i data-lucide="plus" style="width:14px;height:14px;"></i> New Question</button>
+      <button class="topbar-btn btn-primary"><i data-lucide="plus" style="width:14px;height:14px;"></i> New Track</button>
+    </div>
+    <div class="main">
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:18px;">
+        <div class="stat-card"><div class="stat-val">4</div><div class="stat-label">Exam Tracks</div></div>
+        <div class="stat-card"><div class="stat-val">648</div><div class="stat-label">Questions Total</div></div>
+        <div class="stat-card"><div class="stat-val">82%</div><div class="stat-label">Avg Pass Rate</div></div>
+        <div class="stat-card"><div class="stat-val">12</div><div class="stat-label">Questions Flagged</div></div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+        <!-- Tracks -->
+        <div class="panel">
+          <div class="panel-header"><div class="panel-title">Exam Tracks</div></div>
+          <div style="padding:0;">
+            <div style="padding:14px 18px;border-bottom:1px solid #F1F5F9;display:flex;align-items:center;gap:14px;">
+              <div style="width:40px;height:40px;border-radius:10px;background:#DCFCE7;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><i data-lucide="award" style="width:20px;height:20px;color:#166534;"></i></div>
+              <div style="flex:1;"><div style="font-size:14px;font-weight:600;">CPO — Certified Pool Operator</div><div style="font-size:12px;color:#64748B;">182 questions · 88% pass rate</div><div class="prog-track" style="margin-top:4px;"><div class="prog-fill" style="width:88%;background:#10B981;"></div></div></div>
+              <div style="display:flex;flex-direction:column;gap:4px;align-items:flex-end;"><div class="badge badge-green">Required</div><button class="topbar-btn btn-outline" style="padding:4px 10px;font-size:11px;">Edit</button></div>
+            </div>
+            <div style="padding:14px 18px;border-bottom:1px solid #F1F5F9;display:flex;align-items:center;gap:14px;">
+              <div style="width:40px;height:40px;border-radius:10px;background:#DBEAFE;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><i data-lucide="flask-conical" style="width:20px;height:20px;color:#1E40AF;"></i></div>
+              <div style="flex:1;"><div style="font-size:14px;font-weight:600;">PST — Pool Service Technician</div><div style="font-size:12px;color:#64748B;">164 questions · 79% pass rate</div><div class="prog-track" style="margin-top:4px;"><div class="prog-fill" style="width:79%;background:#3B82F6;"></div></div></div>
+              <div style="display:flex;flex-direction:column;gap:4px;align-items:flex-end;"><div class="badge badge-blue">Elective</div><button class="topbar-btn btn-outline" style="padding:4px 10px;font-size:11px;">Edit</button></div>
+            </div>
+            <div style="padding:14px 18px;border-bottom:1px solid #F1F5F9;display:flex;align-items:center;gap:14px;">
+              <div style="width:40px;height:40px;border-radius:10px;background:#EDE9FE;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><i data-lucide="shield" style="width:20px;height:20px;color:#5B21B6;"></i></div>
+              <div style="flex:1;"><div style="font-size:14px;font-weight:600;">BioShield — Bio Safety</div><div style="font-size:12px;color:#64748B;">148 questions · 84% pass rate</div><div class="prog-track" style="margin-top:4px;"><div class="prog-fill" style="width:84%;background:#8B5CF6;"></div></div></div>
+              <div style="display:flex;flex-direction:column;gap:4px;align-items:flex-end;"><div class="badge badge-blue">Elective</div><button class="topbar-btn btn-outline" style="padding:4px 10px;font-size:11px;">Edit</button></div>
+            </div>
+            <div style="padding:14px 18px;display:flex;align-items:center;gap:14px;">
+              <div style="width:40px;height:40px;border-radius:10px;background:#FEF9C3;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><i data-lucide="leaf" style="width:20px;height:20px;color:#854D0E;"></i></div>
+              <div style="flex:1;"><div style="font-size:14px;font-weight:600;">AquaPlant — Aquatic Plants</div><div style="font-size:12px;color:#64748B;">154 questions · 76% pass rate</div><div class="prog-track" style="margin-top:4px;"><div class="prog-fill" style="width:76%;background:#F59E0B;"></div></div></div>
+              <div style="display:flex;flex-direction:column;gap:4px;align-items:flex-end;"><div class="badge badge-blue">Elective</div><button class="topbar-btn btn-outline" style="padding:4px 10px;font-size:11px;">Edit</button></div>
+            </div>
+          </div>
+        </div>
+        <!-- Flagged questions -->
+        <div class="panel">
+          <div class="panel-header"><div class="panel-title">Flagged Questions</div><div class="topbar-badge" style="background:#FEF9C3;color:#854D0E;">12 pending</div></div>
+          <div style="padding:14px;">
+            <div style="padding:12px;background:#FFFBEB;border:1px solid #FDE68A;border-radius:8px;margin-bottom:10px;">
+              <div style="font-size:12px;font-weight:600;color:#92400E;margin-bottom:6px;">CPO · Q047 — 3 reports</div>
+              <div style="font-size:13px;color:#374151;margin-bottom:8px;">"What is the minimum free chlorine level in a commercial pool?"</div>
+              <div style="font-size:11px;color:#64748B;margin-bottom:8px;">Reports: "Answer B is ambiguous between 1.0 and 2.0 ppm depending on jurisdiction."</div>
+              <div style="display:flex;gap:6px;">
+                <button class="topbar-btn btn-outline" style="font-size:11px;padding:4px 10px;">Edit Answer</button>
+                <button class="topbar-btn btn-outline" style="font-size:11px;padding:4px 10px;">Dismiss</button>
+              </div>
+            </div>
+            <div style="padding:12px;background:#FFFBEB;border:1px solid #FDE68A;border-radius:8px;">
+              <div style="font-size:12px;font-weight:600;color:#92400E;margin-bottom:6px;">PST · Q112 — 2 reports</div>
+              <div style="font-size:13px;color:#374151;margin-bottom:8px;">"Which chemical neutralizes excess cyanuric acid?"</div>
+              <div style="font-size:11px;color:#64748B;margin-bottom:8px;">Reports: "None of the provided options are correct. Correct answer is partial water drain."</div>
+              <div style="display:flex;gap:6px;">
+                <button class="topbar-btn btn-outline" style="font-size:11px;padding:4px 10px;">Edit Answer</button>
+                <button class="topbar-btn btn-outline" style="font-size:11px;padding:4px 10px;">Dismiss</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- SCREEN 6: Push Notifications -->
+<div class="label">S6 — Push Notifications</div>
+<div class="scroll-row">
+<div class="frame">
+  <div class="sidebar">
+    <div class="sidebar-logo"><div class="app">IPSSA</div><div class="sub">Mobile App Admin</div></div>
+    <div class="nav-section"><div class="nav-section-label">Overview</div><div class="nav-item"><i data-lucide="layout-dashboard"></i>App Dashboard</div><div class="nav-item"><i data-lucide="smartphone"></i>App Versions</div></div>
+    <div class="nav-section"><div class="nav-section-label">Users</div><div class="nav-item"><i data-lucide="users"></i>Member Mgmt</div><div class="nav-item"><i data-lucide="shield"></i>Coverage Monitor</div><div class="nav-item"><i data-lucide="star"></i>Rating Moderation</div></div>
+    <div class="nav-section"><div class="nav-section-label">Community</div><div class="nav-item"><i data-lucide="building-2"></i>Chapter Admin</div><div class="nav-item"><i data-lucide="flag"></i>Content Moderation</div></div>
+    <div class="nav-section"><div class="nav-section-label">Content</div><div class="nav-item"><i data-lucide="book-open"></i>Prep Lab CMS</div><div class="nav-item active"><i data-lucide="bell"></i>Push Notifications</div></div>
+    <div class="nav-section"><div class="nav-section-label">Reports</div><div class="nav-item"><i data-lucide="download"></i>Reports & Export</div></div>
+    <div class="sidebar-footer"><div class="avatar">JK</div><div><div class="name">Jamie Kim</div><div class="role">App Admin</div></div></div>
+  </div>
+  <div class="content">
+    <div class="topbar">
+      <div class="topbar-title">Push Notifications</div>
+      <div style="flex:1;"></div>
+      <button class="topbar-btn btn-primary"><i data-lucide="send" style="width:14px;height:14px;"></i> New Campaign</button>
+    </div>
+    <div class="main">
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:18px;">
+        <div class="stat-card"><div class="stat-val">2,312</div><div class="stat-label">Push Enabled Users</div></div>
+        <div class="stat-card"><div class="stat-val">84.3%</div><div class="stat-label">Delivery Rate</div></div>
+        <div class="stat-card"><div class="stat-val">32.1%</div><div class="stat-label">Open Rate (30d)</div></div>
+        <div class="stat-card"><div class="stat-val">3</div><div class="stat-label">Scheduled Campaigns</div></div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+        <!-- Compose -->
+        <div class="panel">
+          <div class="panel-header"><div class="panel-title">Compose Notification</div></div>
+          <div style="padding:18px;display:flex;flex-direction:column;gap:12px;">
+            <div><div style="font-size:12px;font-weight:500;margin-bottom:4px;">Title</div><input style="width:100%;border:1px solid #D1D5DB;border-radius:8px;padding:8px 12px;font-size:13px;" value="New CPO Study Session Available"></div>
+            <div><div style="font-size:12px;font-weight:500;margin-bottom:4px;">Body</div><textarea style="width:100%;border:1px solid #D1D5DB;border-radius:8px;padding:8px 12px;font-size:13px;resize:none;height:70px;">Sharpen your skills — a new CPO prep module just dropped in the Prep Lab. 🎓</textarea></div>
+            <div><div style="font-size:12px;font-weight:500;margin-bottom:4px;">Audience</div>
+              <select style="width:100%;border:1px solid #D1D5DB;border-radius:8px;padding:8px 12px;font-size:13px;background:#fff;"><option>All Members (2,312)</option><option selected>Pending CPO Cert (189)</option><option>Chapter: San Diego 7 (288)</option><option>Tier: Pool Rookie (914)</option></select>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+              <div><div style="font-size:12px;font-weight:500;margin-bottom:4px;">Deep Link</div><input style="width:100%;border:1px solid #D1D5DB;border-radius:8px;padding:8px 12px;font-size:13px;" value="ipssa://prep-lab/cpo"></div>
+              <div><div style="font-size:12px;font-weight:500;margin-bottom:4px;">Send Time</div><input type="datetime-local" style="width:100%;border:1px solid #D1D5DB;border-radius:8px;padding:7px 12px;font-size:13px;" value="2026-04-25T08:00"></div>
+            </div>
+            <div style="display:flex;gap:8px;">
+              <button class="topbar-btn btn-outline" style="flex:1;">Preview</button>
+              <button class="topbar-btn" style="flex:1;background:#14B8A6;color:#fff;">Schedule</button>
+              <button class="topbar-btn btn-outline" style="flex:1;color:#6366F1;">Send Now</button>
+            </div>
+          </div>
+        </div>
+        <!-- Recent campaigns -->
+        <div class="panel">
+          <div class="panel-header"><div class="panel-title">Recent Campaigns</div></div>
+          <div style="padding:0;">
+            <div style="padding:12px 16px;border-bottom:1px solid #F1F5F9;">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:4px;">
+                <div style="font-size:13px;font-weight:600;">Weekly Coverage Reminder</div>
+                <div class="badge badge-green">Sent</div>
+              </div>
+              <div style="font-size:12px;color:#64748B;">All Members · Apr 21 · 2,298 delivered</div>
+              <div style="display:flex;gap:16px;margin-top:6px;font-size:12px;">
+                <span>Opens: <strong>34.2%</strong></span>
+                <span>Taps: <strong>18.4%</strong></span>
+              </div>
+            </div>
+            <div style="padding:12px 16px;border-bottom:1px solid #F1F5F9;">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:4px;">
+                <div style="font-size:13px;font-weight:600;">New BioShield Track</div>
+                <div class="badge badge-green">Sent</div>
+              </div>
+              <div style="font-size:12px;color:#64748B;">Route Protector+ · Apr 14 · 820 delivered</div>
+              <div style="display:flex;gap:16px;margin-top:6px;font-size:12px;">
+                <span>Opens: <strong>41.8%</strong></span>
+                <span>Taps: <strong>29.1%</strong></span>
+              </div>
+            </div>
+            <div style="padding:12px 16px;border-bottom:1px solid #F1F5F9;">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:4px;">
+                <div style="font-size:13px;font-weight:600;">Leaderboard Reset Alert</div>
+                <div class="badge badge-yellow">Scheduled</div>
+              </div>
+              <div style="font-size:12px;color:#64748B;">All Members · May 1 · 8:00 AM</div>
+            </div>
+            <div style="padding:12px 16px;">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:4px;">
+                <div style="font-size:13px;font-weight:600;">CPO Study Nudge</div>
+                <div class="badge badge-yellow">Scheduled</div>
+              </div>
+              <div style="font-size:12px;color:#64748B;">Pending CPO · Apr 25 · 8:00 AM</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- SCREEN 7: App Versions -->
+<div class="label">S7 — App Versions</div>
+<div class="scroll-row">
+<div class="frame">
+  <div class="sidebar">
+    <div class="sidebar-logo"><div class="app">IPSSA</div><div class="sub">Mobile App Admin</div></div>
+    <div class="nav-section"><div class="nav-section-label">Overview</div><div class="nav-item"><i data-lucide="layout-dashboard"></i>App Dashboard</div><div class="nav-item active"><i data-lucide="smartphone"></i>App Versions</div></div>
+    <div class="nav-section"><div class="nav-section-label">Users</div><div class="nav-item"><i data-lucide="users"></i>Member Mgmt</div><div class="nav-item"><i data-lucide="shield"></i>Coverage Monitor</div><div class="nav-item"><i data-lucide="star"></i>Rating Moderation</div></div>
+    <div class="nav-section"><div class="nav-section-label">Community</div><div class="nav-item"><i data-lucide="building-2"></i>Chapter Admin</div><div class="nav-item"><i data-lucide="flag"></i>Content Moderation</div></div>
+    <div class="nav-section"><div class="nav-section-label">Content</div><div class="nav-item"><i data-lucide="book-open"></i>Prep Lab CMS</div><div class="nav-item"><i data-lucide="bell"></i>Push Notifications</div></div>
+    <div class="nav-section"><div class="nav-section-label">Reports</div><div class="nav-item"><i data-lucide="download"></i>Reports & Export</div></div>
+    <div class="sidebar-footer"><div class="avatar">JK</div><div><div class="name">Jamie Kim</div><div class="role">App Admin</div></div></div>
+  </div>
+  <div class="content">
+    <div class="topbar">
+      <div class="topbar-title">App Versions</div>
+      <div class="topbar-badge badge-teal">v2.4.1 Live</div>
+      <div style="flex:1;"></div>
+    </div>
+    <div class="main">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;">
+        <!-- iOS -->
+        <div class="panel">
+          <div class="panel-header"><div class="panel-title">iOS — App Store</div><div class="badge badge-teal2">Live: v2.4.1</div></div>
+          <div style="padding:16px;">
+            <table style="margin-bottom:0;">
+              <thead><tr><th>Version</th><th>Status</th><th>Users</th><th>Crash-Free</th><th>Released</th><th>Actions</th></tr></thead>
+              <tbody>
+                <tr style="background:#F0FDFA;"><td style="font-weight:700;">v2.4.1</td><td><div class="badge badge-green">Live</div></td><td>1,022</td><td style="color:#059669;font-weight:600;">99.92%</td><td style="color:#64748B;">Apr 10, 2026</td><td><button class="topbar-btn btn-outline" style="padding:2px 8px;font-size:11px;">Changelog</button></td></tr>
+                <tr><td>v2.4.0</td><td><div class="badge badge-gray">Retired</div></td><td>142</td><td style="color:#059669;">99.81%</td><td style="color:#64748B;">Mar 14, 2026</td><td><button class="topbar-btn btn-outline" style="padding:2px 8px;font-size:11px;">Force Update</button></td></tr>
+                <tr><td>v2.3.1</td><td><div class="badge badge-gray">Retired</div></td><td>68</td><td style="color:#D97706;">99.12%</td><td style="color:#64748B;">Feb 1, 2026</td><td><button class="topbar-btn btn-outline" style="padding:2px 8px;font-size:11px;color:#DC2626;">Force Update</button></td></tr>
+                <tr><td>v2.3.0</td><td><div class="badge badge-red">EOL</div></td><td>18</td><td style="color:#DC2626;">98.4%</td><td style="color:#64748B;">Dec 2025</td><td><button class="topbar-btn btn-red" style="padding:2px 8px;font-size:11px;">Block</button></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <!-- Android -->
+        <div class="panel">
+          <div class="panel-header"><div class="panel-title">Android — Play Store</div><div class="badge badge-teal2">Live: v2.4.1</div></div>
+          <div style="padding:16px;">
+            <table>
+              <thead><tr><th>Version</th><th>Status</th><th>Users</th><th>Crash-Free</th><th>Released</th><th>Actions</th></tr></thead>
+              <tbody>
+                <tr style="background:#F0FDFA;"><td style="font-weight:700;">v2.4.1</td><td><div class="badge badge-green">Live</div></td><td>844</td><td style="color:#059669;font-weight:600;">99.87%</td><td style="color:#64748B;">Apr 12, 2026</td><td><button class="topbar-btn btn-outline" style="padding:2px 8px;font-size:11px;">Changelog</button></td></tr>
+                <tr><td>v2.4.0</td><td><div class="badge badge-gray">Retired</div></td><td>168</td><td style="color:#059669;">99.71%</td><td style="color:#64748B;">Mar 16, 2026</td><td><button class="topbar-btn btn-outline" style="padding:2px 8px;font-size:11px;">Force Update</button></td></tr>
+                <tr><td>v2.3.0</td><td><div class="badge badge-red">EOL</div></td><td>48</td><td style="color:#DC2626;">97.9%</td><td style="color:#64748B;">Dec 2025</td><td><button class="topbar-btn btn-red" style="padding:2px 8px;font-size:11px;">Block</button></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <!-- Upcoming release -->
+      <div class="panel">
+        <div class="panel-header"><div class="panel-title">v2.5.0 — In Development</div><div class="badge badge-yellow">Beta · Apr 28 target</div></div>
+        <div style="padding:18px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;">
+          <div><div style="font-size:12px;font-weight:600;color:#374151;margin-bottom:8px;">Planned Features</div>
+            <ul style="list-style:disc;padding-left:16px;font-size:12px;color:#374151;line-height:1.8;">
+              <li>Coverage Map view (satellite)</li>
+              <li>In-app video for proof of service</li>
+              <li>Multi-chapter membership</li>
+              <li>Improved match algorithm (AI)</li>
+            </ul>
+          </div>
+          <div><div style="font-size:12px;font-weight:600;color:#374151;margin-bottom:8px;">Release Checklist</div>
+            <div style="display:flex;flex-direction:column;gap:6px;font-size:12px;">
+              <div style="display:flex;align-items:center;gap:6px;"><div style="width:14px;height:14px;border-radius:3px;background:#10B981;display:flex;align-items:center;justify-content:center;"><i data-lucide="check" style="width:10px;height:10px;color:#fff;"></i></div>Feature complete</div>
+              <div style="display:flex;align-items:center;gap:6px;"><div style="width:14px;height:14px;border-radius:3px;background:#10B981;display:flex;align-items:center;justify-content:center;"><i data-lucide="check" style="width:10px;height:10px;color:#fff;"></i></div>QA pass (regression)</div>
+              <div style="display:flex;align-items:center;gap:6px;"><div style="width:14px;height:14px;border-radius:3px;background:#F1F5F9;border:1px solid #D1D5DB;"></div>Beta user testing</div>
+              <div style="display:flex;align-items:center;gap:6px;"><div style="width:14px;height:14px;border-radius:3px;background:#F1F5F9;border:1px solid #D1D5DB;"></div>App Store review</div>
+              <div style="display:flex;align-items:center;gap:6px;"><div style="width:14px;height:14px;border-radius:3px;background:#F1F5F9;border:1px solid #D1D5DB;"></div>Staged rollout (10%)</div>
+            </div>
+          </div>
+          <div><div style="font-size:12px;font-weight:600;color:#374151;margin-bottom:8px;">Beta Testers</div>
+            <div style="display:flex;flex-direction:column;gap:6px;font-size:12px;color:#374151;">
+              <div>Sarah Chen (Chapter Elite)</div>
+              <div>James Rivera (Route Protector)</div>
+              <div>Mike Sandoval (Route Protector)</div>
+              <div style="color:#14B8A6;cursor:pointer;">+ Add Beta Tester</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- SCREEN 8: Content Moderation -->
+<div class="label">S8 — Content Moderation</div>
+<div class="scroll-row">
+<div class="frame">
+  <div class="sidebar">
+    <div class="sidebar-logo"><div class="app">IPSSA</div><div class="sub">Mobile App Admin</div></div>
+    <div class="nav-section"><div class="nav-section-label">Overview</div><div class="nav-item"><i data-lucide="layout-dashboard"></i>App Dashboard</div><div class="nav-item"><i data-lucide="smartphone"></i>App Versions</div></div>
+    <div class="nav-section"><div class="nav-section-label">Users</div><div class="nav-item"><i data-lucide="users"></i>Member Mgmt</div><div class="nav-item"><i data-lucide="shield"></i>Coverage Monitor</div><div class="nav-item"><i data-lucide="star"></i>Rating Moderation</div></div>
+    <div class="nav-section"><div class="nav-section-label">Community</div><div class="nav-item"><i data-lucide="building-2"></i>Chapter Admin</div><div class="nav-item active"><i data-lucide="flag"></i>Content Moderation</div></div>
+    <div class="nav-section"><div class="nav-section-label">Content</div><div class="nav-item"><i data-lucide="book-open"></i>Prep Lab CMS</div><div class="nav-item"><i data-lucide="bell"></i>Push Notifications</div></div>
+    <div class="nav-section"><div class="nav-section-label">Reports</div><div class="nav-item"><i data-lucide="download"></i>Reports & Export</div></div>
+    <div class="sidebar-footer"><div class="avatar">JK</div><div><div class="name">Jamie Kim</div><div class="role">App Admin</div></div></div>
+  </div>
+  <div class="content">
+    <div class="topbar">
+      <div class="topbar-title">Content Moderation</div>
+      <div class="topbar-badge" style="background:#FEF9C3;color:#854D0E;">7 Pending</div>
+      <div style="flex:1;"></div>
+      <div style="display:flex;gap:4px;">
+        <button class="topbar-btn filter-chip active" style="border-radius:20px;">All (7)</button>
+        <button class="topbar-btn filter-chip" style="border-radius:20px;">Posts (4)</button>
+        <button class="topbar-btn filter-chip" style="border-radius:20px;">Images (2)</button>
+        <button class="topbar-btn filter-chip" style="border-radius:20px;">Profiles (1)</button>
+      </div>
+    </div>
+    <div class="main">
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:18px;">
+        <div class="stat-card"><div class="stat-val">7</div><div class="stat-label">Pending Review</div></div>
+        <div class="stat-card"><div class="stat-val">24</div><div class="stat-label">Removed (30d)</div></div>
+        <div class="stat-card"><div class="stat-val">3</div><div class="stat-label">Members Warned</div></div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px;">
+        <!-- Item 1 -->
+        <div class="panel">
+          <div style="padding:16px 18px;display:grid;grid-template-columns:auto 1fr auto;gap:14px;align-items:start;">
+            <div class="badge badge-red">Post</div>
+            <div>
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+                <div style="font-size:13px;font-weight:600;">Community Hub · #general · David Park</div>
+                <div style="font-size:11px;color:#64748B;">Apr 24, 09:18</div>
+                <div class="badge badge-orange">3 Reports</div>
+              </div>
+              <div style="font-size:13px;color:#374151;background:#FEF2F2;padding:10px 12px;border-radius:8px;">"Don't hire James Rivera — he poached 3 of my clients while covering my route. He's a total scammer."</div>
+              <div style="font-size:11px;color:#64748B;margin-top:6px;">Reported by: James Rivera, Mike Sandoval, Sarah Chen — Reason: Personal attack / defamation</div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:6px;">
+              <button class="topbar-btn btn-red" style="font-size:12px;padding:5px 14px;">Remove Post</button>
+              <button class="topbar-btn btn-outline" style="font-size:12px;padding:5px 14px;">Warn Member</button>
+              <button class="topbar-btn btn-outline" style="font-size:12px;padding:5px 14px;">Dismiss</button>
+            </div>
+          </div>
+        </div>
+        <!-- Item 2 -->
+        <div class="panel">
+          <div style="padding:16px 18px;display:grid;grid-template-columns:auto 1fr auto;gap:14px;align-items:start;">
+            <div class="badge badge-yellow">Image</div>
+            <div>
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+                <div style="font-size:13px;font-weight:600;">Proof-of-Service Photo · cv_8801 · David Park</div>
+                <div style="font-size:11px;color:#64748B;">Apr 20</div>
+                <div class="badge badge-yellow">1 Report</div>
+              </div>
+              <div style="display:flex;gap:10px;align-items:flex-start;">
+                <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=120&h=90&fit=crop" style="border-radius:8px;width:120px;height:90px;object-fit:cover;">
+                <div style="font-size:12px;color:#64748B;">Report reason: "This is not a photo of my pools — image appears to be stock photo, not actual service documentation."</div>
+              </div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:6px;">
+              <button class="topbar-btn btn-red" style="font-size:12px;padding:5px 14px;">Remove Image</button>
+              <button class="topbar-btn btn-outline" style="font-size:12px;padding:5px 14px;">Request New</button>
+              <button class="topbar-btn btn-outline" style="font-size:12px;padding:5px 14px;">Dismiss</button>
+            </div>
+          </div>
+        </div>
+        <!-- Item 3 -->
+        <div class="panel">
+          <div style="padding:16px 18px;display:grid;grid-template-columns:auto 1fr auto;gap:14px;align-items:start;">
+            <div class="badge badge-blue">Profile</div>
+            <div>
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+                <div style="font-size:13px;font-weight:600;">Member Profile Bio · Tom Wallace</div>
+                <div style="font-size:11px;color:#64748B;">Apr 22</div>
+                <div class="badge badge-yellow">1 Report</div>
+              </div>
+              <div style="font-size:13px;color:#374151;background:#F8FAFC;padding:10px 12px;border-radius:8px;">"Best pool guy in SD — I'll take on any job faster and cheaper than those IPSSA snobs. DM me directly to skip the app fee."</div>
+              <div style="font-size:11px;color:#64748B;margin-top:6px;">Reported reason: Advertising to bypass platform, potentially soliciting off-platform transactions.</div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:6px;">
+              <button class="topbar-btn btn-red" style="font-size:12px;padding:5px 14px;">Edit & Warn</button>
+              <button class="topbar-btn btn-outline" style="font-size:12px;padding:5px 14px;">Suspend</button>
+              <button class="topbar-btn btn-outline" style="font-size:12px;padding:5px 14px;">Dismiss</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- SCREEN 9: Rating Moderation -->
+<div class="label">S9 — Rating Moderation</div>
+<div class="scroll-row">
+<div class="frame">
+  <div class="sidebar">
+    <div class="sidebar-logo"><div class="app">IPSSA</div><div class="sub">Mobile App Admin</div></div>
+    <div class="nav-section"><div class="nav-section-label">Overview</div><div class="nav-item"><i data-lucide="layout-dashboard"></i>App Dashboard</div><div class="nav-item"><i data-lucide="smartphone"></i>App Versions</div></div>
+    <div class="nav-section"><div class="nav-section-label">Users</div><div class="nav-item"><i data-lucide="users"></i>Member Mgmt</div><div class="nav-item"><i data-lucide="shield"></i>Coverage Monitor</div><div class="nav-item active"><i data-lucide="star"></i>Rating Moderation</div></div>
+    <div class="nav-section"><div class="nav-section-label">Community</div><div class="nav-item"><i data-lucide="building-2"></i>Chapter Admin</div><div class="nav-item"><i data-lucide="flag"></i>Content Moderation</div></div>
+    <div class="nav-section"><div class="nav-section-label">Content</div><div class="nav-item"><i data-lucide="book-open"></i>Prep Lab CMS</div><div class="nav-item"><i data-lucide="bell"></i>Push Notifications</div></div>
+    <div class="nav-section"><div class="nav-section-label">Reports</div><div class="nav-item"><i data-lucide="download"></i>Reports & Export</div></div>
+    <div class="sidebar-footer"><div class="avatar">JK</div><div><div class="name">Jamie Kim</div><div class="role">App Admin</div></div></div>
+  </div>
+  <div class="content">
+    <div class="topbar">
+      <div class="topbar-title">Rating Moderation</div>
+      <div class="topbar-badge" style="background:#FEF9C3;color:#854D0E;">5 Flagged</div>
+      <div style="flex:1;"></div>
+    </div>
+    <div class="main">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+        <div>
+          <div style="display:flex;flex-direction:column;gap:12px;">
+            <div class="panel">
+              <div style="padding:14px 18px;">
+                <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;"><div style="font-size:13px;font-weight:600;">cv_8816 — 1 Star Dispute</div><div class="badge badge-red">1 ★</div></div>
+                <div style="font-size:12px;color:#64748B;margin-bottom:8px;">Sarah Chen rated Tom Wallace · Apr 22</div>
+                <div style="font-size:13px;background:#FEF9C3;padding:10px;border-radius:6px;margin-bottom:10px;">"Did not show up to 3 of my pools. Left chemicals unchecked. Completely unreliable."</div>
+                <div style="font-size:12px;color:#374151;background:#F1F5F9;padding:8px;border-radius:6px;margin-bottom:10px;"><strong>Tom's response:</strong> "I was there. Sarah never communicated pool locations clearly. This is unfair."</div>
+                <div style="display:flex;gap:6px;">
+                  <button class="topbar-btn btn-outline" style="font-size:12px;flex:1;padding:6px;">Keep Rating</button>
+                  <button class="topbar-btn btn-red" style="font-size:12px;flex:1;padding:6px;">Remove</button>
+                  <button class="topbar-btn btn-outline" style="font-size:12px;flex:1;padding:6px;color:#6366F1;">Mediate</button>
+                </div>
+              </div>
+            </div>
+            <div class="panel">
+              <div style="padding:14px 18px;">
+                <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;"><div style="font-size:13px;font-weight:600;">cv_8798 — Suspicious 5 Star</div><div class="badge badge-green">5 ★</div></div>
+                <div style="font-size:12px;color:#64748B;margin-bottom:8px;">Anonymous rated James Rivera · Apr 19</div>
+                <div style="font-size:13px;background:#EFF6FF;padding:10px;border-radius:6px;margin-bottom:8px;">"Amazing work! Best in SD. Five stars all day."</div>
+                <div style="font-size:11px;color:#D97706;background:#FFFBEB;padding:8px;border-radius:6px;margin-bottom:10px;">⚠ Auto-flagged: Rating submitted 4 minutes after job — possible self-review</div>
+                <div style="display:flex;gap:6px;">
+                  <button class="topbar-btn btn-outline" style="font-size:12px;flex:1;padding:6px;">Keep</button>
+                  <button class="topbar-btn btn-red" style="font-size:12px;flex:1;padding:6px;">Remove</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Stats panel -->
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <div class="panel">
+            <div class="panel-header"><div class="panel-title">Rating Health</div></div>
+            <div style="padding:18px;">
+              <div style="text-align:center;margin-bottom:16px;"><div style="font-size:36px;font-weight:700;color:#0F172A;">4.72</div><div style="font-size:12px;color:#64748B;">Platform average · 8,441 ratings</div></div>
+              <div style="display:flex;flex-direction:column;gap:8px;">
+                <div style="display:flex;align-items:center;gap:10px;"><div style="width:24px;font-size:12px;">5★</div><div class="prog-track" style="flex:1;"><div class="prog-fill" style="width:68%;background:#10B981;"></div></div><div style="width:32px;font-size:12px;text-align:right;color:#64748B;">68%</div></div>
+                <div style="display:flex;align-items:center;gap:10px;"><div style="width:24px;font-size:12px;">4★</div><div class="prog-track" style="flex:1;"><div class="prog-fill" style="width:20%;background:#84CC16;"></div></div><div style="width:32px;font-size:12px;text-align:right;color:#64748B;">20%</div></div>
+                <div style="display:flex;align-items:center;gap:10px;"><div style="width:24px;font-size:12px;">3★</div><div class="prog-track" style="flex:1;"><div class="prog-fill" style="width:7%;background:#F59E0B;"></div></div><div style="width:32px;font-size:12px;text-align:right;color:#64748B;">7%</div></div>
+                <div style="display:flex;align-items:center;gap:10px;"><div style="width:24px;font-size:12px;">2★</div><div class="prog-track" style="flex:1;"><div class="prog-fill" style="width:3%;background:#F97316;"></div></div><div style="width:32px;font-size:12px;text-align:right;color:#64748B;">3%</div></div>
+                <div style="display:flex;align-items:center;gap:10px;"><div style="width:24px;font-size:12px;">1★</div><div class="prog-track" style="flex:1;"><div class="prog-fill" style="width:2%;background:#EF4444;"></div></div><div style="width:32px;font-size:12px;text-align:right;color:#64748B;">2%</div></div>
+              </div>
+            </div>
+          </div>
+          <div class="panel">
+            <div class="panel-header"><div class="panel-title">At-Risk Members</div></div>
+            <div style="padding:12px 16px;display:flex;flex-direction:column;gap:8px;">
+              <div style="display:flex;align-items:center;justify-content:space-between;padding:8px;background:#FEF2F2;border-radius:6px;">
+                <div><div style="font-size:13px;font-weight:600;">Tom Wallace</div><div style="font-size:11px;color:#64748B;">Avg: 2.8 ★ (4 ratings)</div></div>
+                <div style="display:flex;gap:6px;"><div class="badge badge-red">Below 3.0</div><button class="topbar-btn btn-outline" style="padding:2px 8px;font-size:11px;">Review</button></div>
+              </div>
+              <div style="display:flex;align-items:center;justify-content:space-between;padding:8px;background:#FFFBEB;border-radius:6px;">
+                <div><div style="font-size:13px;font-weight:600;">Pete Morgan</div><div style="font-size:11px;color:#64748B;">Avg: 3.2 ★ (6 ratings)</div></div>
+                <div style="display:flex;gap:6px;"><div class="badge badge-yellow">Watch</div><button class="topbar-btn btn-outline" style="padding:2px 8px;font-size:11px;">Review</button></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- SCREEN 10: Reports & Export -->
+<div class="label">S10 — Reports & Export</div>
+<div class="scroll-row">
+<div class="frame">
+  <div class="sidebar">
+    <div class="sidebar-logo"><div class="app">IPSSA</div><div class="sub">Mobile App Admin</div></div>
+    <div class="nav-section"><div class="nav-section-label">Overview</div><div class="nav-item"><i data-lucide="layout-dashboard"></i>App Dashboard</div><div class="nav-item"><i data-lucide="smartphone"></i>App Versions</div></div>
+    <div class="nav-section"><div class="nav-section-label">Users</div><div class="nav-item"><i data-lucide="users"></i>Member Mgmt</div><div class="nav-item"><i data-lucide="shield"></i>Coverage Monitor</div><div class="nav-item"><i data-lucide="star"></i>Rating Moderation</div></div>
+    <div class="nav-section"><div class="nav-section-label">Community</div><div class="nav-item"><i data-lucide="building-2"></i>Chapter Admin</div><div class="nav-item"><i data-lucide="flag"></i>Content Moderation</div></div>
+    <div class="nav-section"><div class="nav-section-label">Content</div><div class="nav-item"><i data-lucide="book-open"></i>Prep Lab CMS</div><div class="nav-item"><i data-lucide="bell"></i>Push Notifications</div></div>
+    <div class="nav-section"><div class="nav-section-label">Reports</div><div class="nav-item active"><i data-lucide="download"></i>Reports & Export</div></div>
+    <div class="sidebar-footer"><div class="avatar">JK</div><div><div class="name">Jamie Kim</div><div class="role">App Admin</div></div></div>
+  </div>
+  <div class="content">
+    <div class="topbar">
+      <div class="topbar-title">Reports & Export</div>
+      <div style="flex:1;"></div>
+      <div style="display:flex;gap:4px;background:#F1F5F9;border-radius:8px;padding:3px;">
+        <button class="topbar-btn btn-primary" style="font-size:12px;padding:4px 12px;">Apr 2026</button>
+        <button class="topbar-btn" style="background:#fff;color:#374151;font-size:12px;padding:4px 12px;border:1px solid #E2E8F0;border-radius:6px;">Mar 2026</button>
+        <button class="topbar-btn" style="background:#fff;color:#374151;font-size:12px;padding:4px 12px;border:1px solid #E2E8F0;border-radius:6px;">Custom</button>
+      </div>
+    </div>
+    <div class="main">
+      <div style="display:grid;grid-template-columns:2fr 1fr;gap:16px;margin-bottom:16px;">
+        <!-- Report templates -->
+        <div class="panel">
+          <div class="panel-header"><div class="panel-title">Available Reports</div></div>
+          <div style="padding:0;">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:0;">
+              <div style="padding:16px 18px;border-right:1px solid #F1F5F9;border-bottom:1px solid #F1F5F9;">
+                <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;"><div style="width:36px;height:36px;border-radius:8px;background:#CCFBF1;display:flex;align-items:center;justify-content:center;"><i data-lucide="users" style="width:18px;height:18px;color:#115E59;"></i></div><div style="font-size:13px;font-weight:600;">Member Summary</div></div>
+                <div style="font-size:12px;color:#64748B;margin-bottom:10px;">Total members, new joins, churned, tier breakdown by chapter</div>
+                <div style="display:flex;gap:6px;"><button class="topbar-btn btn-outline" style="font-size:11px;padding:4px 10px;">Preview</button><button class="topbar-btn btn-primary" style="font-size:11px;padding:4px 10px;background:#14B8A6;">Export CSV</button></div>
+              </div>
+              <div style="padding:16px 18px;border-bottom:1px solid #F1F5F9;">
+                <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;"><div style="width:36px;height:36px;border-radius:8px;background:#DBEAFE;display:flex;align-items:center;justify-content:center;"><i data-lucide="shield" style="width:18px;height:18px;color:#1E40AF;"></i></div><div style="font-size:13px;font-weight:600;">Coverage Events</div></div>
+                <div style="font-size:12px;color:#64748B;margin-bottom:10px;">All coverage events, match rates, unmatched list, avg match time</div>
+                <div style="display:flex;gap:6px;"><button class="topbar-btn btn-outline" style="font-size:11px;padding:4px 10px;">Preview</button><button class="topbar-btn btn-primary" style="font-size:11px;padding:4px 10px;background:#14B8A6;">Export CSV</button></div>
+              </div>
+              <div style="padding:16px 18px;border-right:1px solid #F1F5F9;border-bottom:1px solid #F1F5F9;">
+                <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;"><div style="width:36px;height:36px;border-radius:8px;background:#EDE9FE;display:flex;align-items:center;justify-content:center;"><i data-lucide="star" style="width:18px;height:18px;color:#5B21B6;"></i></div><div style="font-size:13px;font-weight:600;">Rating Analysis</div></div>
+                <div style="font-size:12px;color:#64748B;margin-bottom:10px;">Rating distribution, flagged items, moderation actions log</div>
+                <div style="display:flex;gap:6px;"><button class="topbar-btn btn-outline" style="font-size:11px;padding:4px 10px;">Preview</button><button class="topbar-btn btn-primary" style="font-size:11px;padding:4px 10px;background:#14B8A6;">Export CSV</button></div>
+              </div>
+              <div style="padding:16px 18px;border-bottom:1px solid #F1F5F9;">
+                <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;"><div style="width:36px;height:36px;border-radius:8px;background:#FEF9C3;display:flex;align-items:center;justify-content:center;"><i data-lucide="smartphone" style="width:18px;height:18px;color:#854D0E;"></i></div><div style="font-size:13px;font-weight:600;">App Engagement</div></div>
+                <div style="font-size:12px;color:#64748B;margin-bottom:10px;">DAU/MAU, session lengths, feature usage, retention cohorts</div>
+                <div style="display:flex;gap:6px;"><button class="topbar-btn btn-outline" style="font-size:11px;padding:4px 10px;">Preview</button><button class="topbar-btn btn-primary" style="font-size:11px;padding:4px 10px;background:#14B8A6;">Export CSV</button></div>
+              </div>
+              <div style="padding:16px 18px;border-right:1px solid #F1F5F9;">
+                <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;"><div style="width:36px;height:36px;border-radius:8px;background:#DCFCE7;display:flex;align-items:center;justify-content:center;"><i data-lucide="book-open" style="width:18px;height:18px;color:#166534;"></i></div><div style="font-size:13px;font-weight:600;">Prep Lab Performance</div></div>
+                <div style="font-size:12px;color:#64748B;margin-bottom:10px;">Question pass rates, flagged Q&amp;A, completion funnels per track</div>
+                <div style="display:flex;gap:6px;"><button class="topbar-btn btn-outline" style="font-size:11px;padding:4px 10px;">Preview</button><button class="topbar-btn btn-primary" style="font-size:11px;padding:4px 10px;background:#14B8A6;">Export CSV</button></div>
+              </div>
+              <div style="padding:16px 18px;">
+                <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;"><div style="width:36px;height:36px;border-radius:8px;background:#F1F5F9;display:flex;align-items:center;justify-content:center;"><i data-lucide="building-2" style="width:18px;height:18px;color:#475569;"></i></div><div style="font-size:13px;font-weight:600;">Chapter Scorecard</div></div>
+                <div style="font-size:12px;color:#64748B;margin-bottom:10px;">Per-chapter stats: members, activity, match rate, avg rating</div>
+                <div style="display:flex;gap:6px;"><button class="topbar-btn btn-outline" style="font-size:11px;padding:4px 10px;">Preview</button><button class="topbar-btn btn-primary" style="font-size:11px;padding:4px 10px;background:#14B8A6;">Export CSV</button></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Scheduled exports + recent -->
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <div class="panel">
+            <div class="panel-header"><div class="panel-title">Scheduled Exports</div><button class="topbar-btn btn-outline" style="padding:3px 10px;font-size:11px;"><i data-lucide="plus" style="width:12px;height:12px;"></i> Add</button></div>
+            <div style="padding:12px 16px;display:flex;flex-direction:column;gap:8px;">
+              <div style="padding:10px;background:#F8FAFC;border-radius:8px;"><div style="font-size:12px;font-weight:600;">Monthly Member Summary</div><div style="font-size:11px;color:#64748B;">1st of month · CSV → admin@ipssa.org</div></div>
+              <div style="padding:10px;background:#F8FAFC;border-radius:8px;"><div style="font-size:12px;font-weight:600;">Weekly Coverage Report</div><div style="font-size:11px;color:#64748B;">Mondays 7:00 AM · CSV → ops@ipssa.org</div></div>
+              <div style="padding:10px;background:#F8FAFC;border-radius:8px;"><div style="font-size:12px;font-weight:600;">Daily App Metrics</div><div style="font-size:11px;color:#64748B;">Daily 6:00 AM · Slack #metrics-daily</div></div>
+            </div>
+          </div>
+          <div class="panel">
+            <div class="panel-header"><div class="panel-title">Recent Exports</div></div>
+            <div style="padding:12px 16px;display:flex;flex-direction:column;gap:6px;font-size:12px;">
+              <div style="display:flex;justify-content:space-between;align-items:center;"><span>Member Summary (Apr)</span><div style="display:flex;align-items:center;gap:6px;"><span style="color:#64748B;">Apr 24</span><button class="topbar-btn btn-outline" style="padding:2px 8px;font-size:11px;">↓</button></div></div>
+              <div style="display:flex;justify-content:space-between;align-items:center;"><span>Coverage Events (Apr wk3)</span><div style="display:flex;align-items:center;gap:6px;"><span style="color:#64748B;">Apr 21</span><button class="topbar-btn btn-outline" style="padding:2px 8px;font-size:11px;">↓</button></div></div>
+              <div style="display:flex;justify-content:space-between;align-items:center;"><span>Rating Analysis (Mar)</span><div style="display:flex;align-items:center;gap:6px;"><span style="color:#64748B;">Apr 1</span><button class="topbar-btn btn-outline" style="padding:2px 8px;font-size:11px;">↓</button></div></div>
+              <div style="display:flex;justify-content:space-between;align-items:center;"><span>Chapter Scorecard (Q1)</span><div style="display:flex;align-items:center;gap:6px;"><span style="color:#64748B;">Mar 31</span><button class="topbar-btn btn-outline" style="padding:2px 8px;font-size:11px;">↓</button></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<script>lucide.createIcons();</script>
+</body>
+</html>

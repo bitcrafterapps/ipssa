@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IPSSA API Admin — All Screens</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
+<style>
+  * { font-family: 'Inter', sans-serif; box-sizing: border-box; }
+  body { background: #E2E8F0; padding: 32px; display: flex; flex-direction: column; gap: 24px; }
+  .label { font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: #64748B; margin-bottom: 8px; }
+  .frame { width: 1280px; height: 740px; background: #F1F5F9; border-radius: 12px; overflow: hidden; box-shadow: 0 8px 32px rgba(0,0,0,.18); display: flex; flex-shrink: 0; }
+  .scroll-row { display: flex; flex-direction: row; gap: 32px; overflow-x: auto; padding-bottom: 8px; }
+
+  /* Sidebar */
+  .sidebar { width: 220px; background: #0F172A; display: flex; flex-direction: column; flex-shrink: 0; }
+  .sidebar-logo { padding: 20px 18px 16px; border-bottom: 1px solid rgba(255,255,255,.07); }
+  .sidebar-logo .app { font-size: 15px; font-weight: 700; color: #F8FAFC; }
+  .sidebar-logo .sub { font-size: 10px; color: #64748B; margin-top: 2px; }
+  .nav-section { padding: 16px 0 4px; }
+  .nav-section-label { font-size: 9px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #475569; padding: 0 18px; margin-bottom: 4px; }
+  .nav-item { display: flex; align-items: center; gap: 10px; padding: 8px 18px; font-size: 13px; color: #94A3B8; cursor: pointer; border-left: 3px solid transparent; transition: all .15s; }
+  .nav-item:hover { color: #E2E8F0; background: rgba(255,255,255,.04); }
+  .nav-item.active { color: #E2E8F0; background: rgba(99,102,241,.12); border-left-color: #6366F1; }
+  .nav-item i { width: 16px; height: 16px; flex-shrink: 0; }
+  .sidebar-footer { margin-top: auto; padding: 14px 18px; border-top: 1px solid rgba(255,255,255,.07); display: flex; align-items: center; gap: 10px; }
+  .sidebar-footer .avatar { width: 30px; height: 30px; border-radius: 50%; background: #334155; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: #CBD5E1; }
+  .sidebar-footer .name { font-size: 12px; color: #CBD5E1; font-weight: 500; }
+  .sidebar-footer .role { font-size: 10px; color: #475569; }
+
+  /* Content */
+  .content { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+  .topbar { height: 56px; background: #fff; border-bottom: 1px solid #E2E8F0; display: flex; align-items: center; padding: 0 24px; gap: 16px; flex-shrink: 0; }
+  .topbar-title { font-size: 16px; font-weight: 600; color: #0F172A; flex: 1; }
+  .topbar-badge { font-size: 11px; background: #EFF6FF; color: #2563EB; padding: 3px 10px; border-radius: 20px; font-weight: 600; }
+  .topbar-btn { display: flex; align-items: center; gap: 6px; padding: 7px 14px; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer; border: none; }
+  .btn-primary { background: #6366F1; color: #fff; }
+  .btn-outline { background: #fff; color: #374151; border: 1px solid #D1D5DB; }
+  .main { flex: 1; overflow-y: auto; padding: 24px; }
+
+  /* Cards */
+  .stat-card { background: #fff; border-radius: 10px; padding: 18px 20px; border: 1px solid #E2E8F0; }
+  .stat-val { font-size: 26px; font-weight: 700; color: #0F172A; line-height: 1; }
+  .stat-label { font-size: 12px; color: #64748B; margin-top: 4px; }
+  .stat-delta { font-size: 11px; font-weight: 600; margin-top: 6px; }
+  .delta-up { color: #059669; }
+  .delta-down { color: #DC2626; }
+  .panel { background: #fff; border-radius: 10px; border: 1px solid #E2E8F0; overflow: hidden; }
+  .panel-header { padding: 14px 18px; border-bottom: 1px solid #F1F5F9; display: flex; align-items: center; justify-content: space-between; }
+  .panel-title { font-size: 14px; font-weight: 600; color: #0F172A; }
+  .panel-action { font-size: 12px; color: #6366F1; font-weight: 500; cursor: pointer; }
+
+  /* Table */
+  table { width: 100%; border-collapse: collapse; }
+  th { font-size: 11px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: #64748B; padding: 10px 16px; text-align: left; background: #F8FAFC; border-bottom: 1px solid #E2E8F0; }
+  td { font-size: 13px; color: #374151; padding: 11px 16px; border-bottom: 1px solid #F1F5F9; }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: #F8FAFC; }
+
+  /* Status badges */
+  .badge { display: inline-flex; align-items: center; gap: 4px; padding: 2px 8px; border-radius: 20px; font-size: 11px; font-weight: 600; }
+  .badge-green { background: #DCFCE7; color: #166534; }
+  .badge-red { background: #FEE2E2; color: #991B1B; }
+  .badge-yellow { background: #FEF9C3; color: #854D0E; }
+  .badge-blue { background: #DBEAFE; color: #1E40AF; }
+  .badge-purple { background: #EDE9FE; color: #5B21B6; }
+  .badge-gray { background: #F1F5F9; color: #475569; }
+
+  /* Charts (CSS-only) */
+  .bar-chart { display: flex; align-items: flex-end; gap: 6px; height: 80px; }
+  .bar { flex: 1; background: #6366F1; border-radius: 3px 3px 0 0; opacity: .85; min-height: 4px; }
+  .bar.dim { background: #C7D2FE; }
+  .sparkline { display: flex; align-items: flex-end; gap: 2px; height: 32px; }
+  .spark { flex: 1; background: #6366F1; border-radius: 2px 2px 0 0; min-height: 2px; }
+  .spark.green { background: #10B981; }
+  .spark.red { background: #EF4444; }
+
+  /* Search / filter bar */
+  .search-bar { display: flex; align-items: center; gap: 8px; background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 8px; padding: 7px 12px; }
+  .search-bar input { border: none; background: transparent; outline: none; font-size: 13px; color: #374151; flex: 1; }
+  .filter-chip { display: inline-flex; align-items: center; gap: 4px; padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 500; border: 1px solid #D1D5DB; color: #374151; background: #fff; cursor: pointer; }
+  .filter-chip.active { background: #EDE9FE; border-color: #6366F1; color: #6366F1; }
+
+  /* Method badges */
+  .method { display: inline-block; padding: 2px 7px; border-radius: 4px; font-size: 10px; font-weight: 700; font-family: monospace; }
+  .method-get { background: #DCFCE7; color: #166534; }
+  .method-post { background: #DBEAFE; color: #1E40AF; }
+  .method-put { background: #FEF9C3; color: #854D0E; }
+  .method-delete { background: #FEE2E2; color: #991B1B; }
+  .method-patch { background: #EDE9FE; color: #5B21B6; }
+
+  code { font-family: 'Courier New', monospace; font-size: 12px; background: #F1F5F9; padding: 1px 5px; border-radius: 4px; color: #374151; }
+
+  /* Log line */
+  .log-line { font-family: 'Courier New', monospace; font-size: 11px; padding: 5px 16px; border-bottom: 1px solid #F1F5F9; display: flex; gap: 12px; }
+  .log-ts { color: #94A3B8; flex-shrink: 0; }
+  .log-level-info { color: #2563EB; font-weight: 700; flex-shrink: 0; }
+  .log-level-warn { color: #D97706; font-weight: 700; flex-shrink: 0; }
+  .log-level-error { color: #DC2626; font-weight: 700; flex-shrink: 0; }
+  .log-msg { color: #374151; }
+
+  /* Progress bar */
+  .prog-track { height: 6px; background: #E2E8F0; border-radius: 3px; overflow: hidden; }
+  .prog-fill { height: 100%; border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<!-- SCREEN 1: API Dashboard -->
+<div class="label">S1 — API Dashboard</div>
+<div class="scroll-row">
+<div class="frame">
+  <div class="sidebar">
+    <div class="sidebar-logo"><div class="app">IPSSA</div><div class="sub">API Admin Console</div></div>
+    <div class="nav-section">
+      <div class="nav-section-label">Overview</div>
+      <div class="nav-item active"><i data-lucide="layout-dashboard"></i>Dashboard</div>
+      <div class="nav-item"><i data-lucide="activity"></i>API Health</div>
+    </div>
+    <div class="nav-section">
+      <div class="nav-section-label">Access</div>
+      <div class="nav-item"><i data-lucide="key"></i>API Keys</div>
+      <div class="nav-item"><i data-lucide="webhook"></i>Webhooks</div>
+    </div>
+    <div class="nav-section">
+      <div class="nav-section-label">Data</div>
+      <div class="nav-item"><i data-lucide="users"></i>Members</div>
+      <div class="nav-item"><i data-lucide="shield"></i>Coverage Events</div>
+      <div class="nav-item"><i data-lucide="star"></i>Ratings</div>
+      <div class="nav-item"><i data-lucide="building-2"></i>Chapters</div>
+    </div>
+    <div class="nav-section">
+      <div class="nav-section-label">System</div>
+      <div class="nav-item"><i data-lucide="bar-chart-2"></i>Analytics</div>
+      <div class="nav-item"><i data-lucide="file-text"></i>Audit Log</div>
+      <div class="nav-item"><i data-lucide="settings"></i>Settings</div>
+    </div>
+    <div class="sidebar-footer"><div class="avatar">AT</div><div><div class="name">Alex Torres</div><div class="role">Super Admin</div></div></div>
+  </div>
+  <div class="content">
+    <div class="topbar">
+      <div class="topbar-title">API Dashboard</div>
+      <div class="topbar-badge">All Systems Operational</div>
+      <div style="font-size:12px;color:#64748B;">Last updated: 2 min ago</div>
+    </div>
+    <div class="main">
+      <!-- Stat row -->
+      <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-bottom:20px;">
+        <div class="stat-card">
+          <div class="stat-val">4.2M</div>
+          <div class="stat-label">Requests Today</div>
+          <div class="stat-delta delta-up">↑ 8.3% vs yesterday</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-val">98.7<span style="font-size:14px;color:#64748B;">ms</span></div>
+          <div class="stat-label">Avg Latency (P50)</div>
+          <div class="stat-delta delta-up">↓ 12ms improved</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-val">99.98<span style="font-size:14px;color:#64748B;">%</span></div>
+          <div class="stat-label">Uptime (30 days)</div>
+          <div class="stat-delta delta-up">↑ SLA met</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-val">0.12<span style="font-size:14px;color:#64748B;">%</span></div>
+          <div class="stat-label">Error Rate</div>
+          <div class="stat-delta delta-up">↓ 0.04% lower</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-val">142</div>
+          <div class="stat-label">Active API Keys</div>
+          <div class="stat-delta" style="color:#64748B;">7 created this week</div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:2fr 1fr;gap:16px;margin-bottom:16px;">
+        <!-- Request Volume Chart -->
+        <div class="panel">
+          <div class="panel-header"><div class="panel-title">Request Volume — Last 24 Hours</div><div style="display:flex;gap:12px;font-size:11px;"><span style="color:#6366F1;">● Requests</span><span style="color:#10B981;">● Success</span><span style="color:#EF4444;">● Errors</span></div></div>
+          <div style="padding:16px 18px;">
+            <div class="bar-chart" style="height:100px;">
+              <div class="bar" style="height:45%;"></div><div class="bar" style="height:52%;"></div><div class="bar" style="height:38%;"></div><div class="bar" style="height:60%;"></div><div class="bar" style="height:72%;"></div><div class="bar" style="height:85%;"></div><div class="bar" style="height:78%;"></div><div class="bar" style="height:90%;"></div><div class="bar" style="height:95%;"></div><div class="bar" style="height:88%;"></div><div class="bar" style="height:76%;"></div><div class="bar" style="height:83%;"></div><div class="bar" style="height:92%;"></div><div class="bar" style="height:100%;"></div><div class="bar" style="height:94%;"></div><div class="bar" style="height:87%;"></div><div class="bar dim" style="height:65%;"></div><div class="bar dim" style="height:55%;"></div><div class="bar dim" style="height:50%;"></div><div class="bar dim" style="height:40%;"></div><div class="bar dim" style="height:35%;"></div><div class="bar dim" style="height:30%;"></div><div class="bar dim" style="height:28%;"></div><div class="bar dim" style="height:25%;"></div>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:10px;color:#94A3B8;margin-top:6px;"><span>00:00</span><span>06:00</span><span>12:00</span><span>18:00</span><span>24:00</span></div>
+          </div>
+        </div>
+        <!-- Endpoint Breakdown -->
+        <div class="panel">
+          <div class="panel-header"><div class="panel-title">Top Endpoints</div></div>
+          <div style="padding:12px 0;">
+            <div style="display:flex;align-items:center;gap:10px;padding:8px 16px;">
+              <code style="font-size:11px;flex:1;">/api/v1/coverage/match</code>
+              <div style="font-size:12px;font-weight:600;color:#0F172A;">1.2M</div>
+              <div class="badge badge-green">28%</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;padding:8px 16px;">
+              <code style="font-size:11px;flex:1;">/api/v1/members</code>
+              <div style="font-size:12px;font-weight:600;color:#0F172A;">980K</div>
+              <div class="badge badge-blue">23%</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;padding:8px 16px;">
+              <code style="font-size:11px;flex:1;">/api/v1/ratings</code>
+              <div style="font-size:12px;font-weight:600;color:#0F172A;">720K</div>
+              <div class="badge badge-purple">17%</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;padding:8px 16px;">
+              <code style="font-size:11px;flex:1;">/api/v1/chapters</code>
+              <div style="font-size:12px;font-weight:600;color:#0F172A;">430K</div>
+              <div class="badge badge-yellow">10%</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;padding:8px 16px;">
+              <code style="font-size:11px;flex:1;">/api/v1/prep-lab</code>
+              <div style="font-size:12px;font-weight:600;color:#0F172A;">310K</div>
+              <div class="badge badge-gray">7%</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Service Health + Recent Errors -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+        <div class="panel">
+          <div class="panel-header"><div class="panel-title">Service Health</div></div>
+          <div style="padding:8px 0;">
+            <div style="display:flex;align-items:center;gap:12px;padding:10px 16px;border-bottom:1px solid #F1F5F9;">
+              <div style="width:8px;height:8px;border-radius:50%;background:#10B981;flex-shrink:0;"></div>
+              <div style="flex:1;font-size:13px;font-weight:500;">Coverage Matching Engine</div>
+              <div style="font-size:11px;color:#64748B;">P99: 210ms</div>
+              <div class="badge badge-green">Healthy</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px;padding:10px 16px;border-bottom:1px solid #F1F5F9;">
+              <div style="width:8px;height:8px;border-radius:50%;background:#10B981;flex-shrink:0;"></div>
+              <div style="flex:1;font-size:13px;font-weight:500;">Auth / JWT Service</div>
+              <div style="font-size:11px;color:#64748B;">P99: 45ms</div>
+              <div class="badge badge-green">Healthy</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px;padding:10px 16px;border-bottom:1px solid #F1F5F9;">
+              <div style="width:8px;height:8px;border-radius:50%;background:#F59E0B;flex-shrink:0;"></div>
+              <div style="flex:1;font-size:13px;font-weight:500;">Push Notifications (FCM)</div>
+              <div style="font-size:11px;color:#64748B;">P99: 890ms</div>
+              <div class="badge badge-yellow">Degraded</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px;padding:10px 16px;border-bottom:1px solid #F1F5F9;">
+              <div style="width:8px;height:8px;border-radius:50%;background:#10B981;flex-shrink:0;"></div>
+              <div style="flex:1;font-size:13px;font-weight:500;">Database (PostgreSQL)</div>
+              <div style="font-size:11px;color:#64748B;">P99: 18ms</div>
+              <div class="badge badge-green">Healthy</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px;padding:10px 16px;">
+              <div style="width:8px;height:8px;border-radius:50%;background:#10B981;flex-shrink:0;"></div>
+              <div style="flex:1;font-size:13px;font-weight:500;">File Storage (S3)</div>
+              <div style="font-size:11px;color:#64748B;">P99: 120ms</div>
+              <div class="badge badge-green">Healthy</div>
+            </div>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="panel-header"><div class="panel-title">Recent Errors</div><div class="panel-action">View All</div></div>
+          <div style="padding:0;">
+            <div class="log-line"><span class="log-ts">14:32:07</span><span class="log-level-error">ERROR</span><span class="log-msg">Coverage match timeout — job_id: cv_8821 after 5s</span></div>
+            <div class="log-line"><span class="log-ts">14:28:44</span><span class="log-level-warn">WARN</span><span class="log-msg">FCM delivery failed: token expired for member_id: 4490</span></div>
+            <div class="log-line"><span class="log-ts">14:21:11</span><span class="log-level-error">ERROR</span><span class="log-msg">Rating submit 422 — invalid stars value: null</span></div>
+            <div class="log-line"><span class="log-ts">14:15:03</span><span class="log-level-warn">WARN</span><span class="log-msg">Rate limit hit: key ak_prod_7f3a (2000/min exceeded)</span></div>
+            <div class="log-line"><span class="log-ts">13:58:29</span><span class="log-level-error">ERROR</span><span class="log-msg">DB connection pool exhausted — retrying (attempt 2/3)</span></div>
+            <div class="log-line"><span class="log-ts">13:44:17</span><span class="log-level-warn">WARN</span><span class="log-msg">Image upload failed: file size 8.2MB exceeds 5MB limit</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- SCREEN 2: API Keys -->
+<div class="label">S2 — API Keys</div>
+<div class="scroll-row">
+<div class="frame">
+  <div class="sidebar">
+    <div class="sidebar-logo"><div class="app">IPSSA</div><div class="sub">API Admin Console</div></div>
+    <div class="nav-section"><div class="nav-section-label">Overview</div><div class="nav-item"><i data-lucide="layout-dashboard"></i>Dashboard</div><div class="nav-item"><i data-lucide="activity"></i>API Health</div></div>
+    <div class="nav-section"><div class="nav-section-label">Access</div><div class="nav-item active"><i data-lucide="key"></i>API Keys</div><div class="nav-item"><i data-lucide="webhook"></i>Webhooks</div></div>
+    <div class="nav-section"><div class="nav-section-label">Data</div><div class="nav-item"><i data-lucide="users"></i>Members</div><div class="nav-item"><i data-lucide="shield"></i>Coverage Events</div><div class="nav-item"><i data-lucide="star"></i>Ratings</div><div class="nav-item"><i data-lucide="building-2"></i>Chapters</div></div>
+    <div class="nav-section"><div class="nav-section-label">System</div><div class="nav-item"><i data-lucide="bar-chart-2"></i>Analytics</div><div class="nav-item"><i data-lucide="file-text"></i>Audit Log</div><div class="nav-item"><i data-lucide="settings"></i>Settings</div></div>
+    <div class="sidebar-footer"><div class="avatar">AT</div><div><div class="name">Alex Torres</div><div class="role">Super Admin</div></div></div>
+  </div>
+  <div class="content">
+    <div class="topbar">
+      <div class="topbar-title">API Keys</div>
+      <div style="flex:1;"></div>
+      <button class="topbar-btn btn-outline" style="font-size:13px;"><i data-lucide="filter" style="width:14px;height:14px;"></i> Filter</button>
+      <button class="topbar-btn btn-primary"><i data-lucide="plus" style="width:14px;height:14px;"></i> Create Key</button>
+    </div>
+    <div class="main">
+      <!-- Stats -->
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px;">
+        <div class="stat-card"><div class="stat-val">142</div><div class="stat-label">Total Keys</div></div>
+        <div class="stat-card"><div class="stat-val">128</div><div class="stat-label">Active</div></div>
+        <div class="stat-card"><div class="stat-val">9</div><div class="stat-label">Revoked This Month</div></div>
+        <div class="stat-card"><div class="stat-val">4.2M</div><div class="stat-label">Requests Today</div></div>
+      </div>
+
+      <!-- Create Key Banner -->
+      <div style="background:#EDE9FE;border:1px solid #C4B5FD;border-radius:10px;padding:14px 18px;margin-bottom:16px;display:flex;align-items:center;gap:12px;">
+        <i data-lucide="info" style="color:#6366F1;width:16px;height:16px;flex-shrink:0;"></i>
+        <div style="flex:1;font-size:13px;color:#4C1D95;">A new key was created on Apr 22. <strong>ak_prod_9f2e…</strong> — visible once, copy it now.</div>
+        <code style="font-size:12px;background:#DDD6FE;padding:4px 10px;border-radius:6px;color:#4C1D95;">ak_prod_9f2e4a…</code>
+        <button class="topbar-btn" style="background:#6366F1;color:#fff;font-size:12px;padding:5px 12px;">Copy</button>
+      </div>
+
+      <div class="panel">
+        <table>
+          <thead><tr><th>Name</th><th>Key (masked)</th><th>Environment</th><th>Permissions</th><th>Rate Limit</th><th>Requests (24h)</th><th>Last Used</th><th>Status</th><th>Actions</th></tr></thead>
+          <tbody>
+            <tr><td style="font-weight:600;">iOS App Production</td><td><code>ak_prod_7f3a…ee21</code></td><td><div class="badge badge-green">Production</div></td><td>read, write</td><td>2,000/min</td><td><div class="sparkline"><div class="spark" style="height:60%;"></div><div class="spark" style="height:80%;"></div><div class="spark" style="height:100%;"></div><div class="spark" style="height:90%;"></div></div> 890K</td><td style="color:#64748B;">2 min ago</td><td><div class="badge badge-green">Active</div></td><td style="display:flex;gap:6px;"><button class="topbar-btn btn-outline" style="padding:4px 10px;font-size:12px;">Rotate</button><button style="border:none;background:none;color:#DC2626;cursor:pointer;font-size:12px;">Revoke</button></td></tr>
+            <tr><td style="font-weight:600;">Android App Production</td><td><code>ak_prod_c21b…7f4a</code></td><td><div class="badge badge-green">Production</div></td><td>read, write</td><td>2,000/min</td><td><div class="sparkline"><div class="spark" style="height:50%;"></div><div class="spark" style="height:70%;"></div><div class="spark" style="height:85%;"></div><div class="spark" style="height:100%;"></div></div> 740K</td><td style="color:#64748B;">5 min ago</td><td><div class="badge badge-green">Active</div></td><td style="display:flex;gap:6px;"><button class="topbar-btn btn-outline" style="padding:4px 10px;font-size:12px;">Rotate</button><button style="border:none;background:none;color:#DC2626;cursor:pointer;font-size:12px;">Revoke</button></td></tr>
+            <tr><td style="font-weight:600;">Public Website</td><td><code>ak_prod_aa3c…1d9e</code></td><td><div class="badge badge-green">Production</div></td><td>read</td><td>500/min</td><td><div class="sparkline"><div class="spark" style="height:30%;"></div><div class="spark" style="height:45%;"></div><div class="spark" style="height:60%;"></div><div class="spark" style="height:50%;"></div></div> 280K</td><td style="color:#64748B;">12 min ago</td><td><div class="badge badge-green">Active</div></td><td style="display:flex;gap:6px;"><button class="topbar-btn btn-outline" style="padding:4px 10px;font-size:12px;">Rotate</button><button style="border:none;background:none;color:#DC2626;cursor:pointer;font-size:12px;">Revoke</button></td></tr>
+            <tr><td style="font-weight:600;">Chapter Portal — SD7</td><td><code>ak_chap_f81e…22c0</code></td><td><div class="badge badge-blue">Chapter</div></td><td>read, chapter:write</td><td>200/min</td><td><div class="sparkline"><div class="spark" style="height:20%;"></div><div class="spark" style="height:35%;"></div><div class="spark" style="height:25%;"></div><div class="spark" style="height:40%;"></div></div> 18K</td><td style="color:#64748B;">1 hr ago</td><td><div class="badge badge-green">Active</div></td><td style="display:flex;gap:6px;"><button class="topbar-btn btn-outline" style="padding:4px 10px;font-size:12px;">Rotate</button><button style="border:none;background:none;color:#DC2626;cursor:pointer;font-size:12px;">Revoke</button></td></tr>
+            <tr><td style="font-weight:600;">Staging — QA</td><td><code>ak_stg_b33d…9911</code></td><td><div class="badge badge-yellow">Staging</div></td><td>read, write, admin</td><td>1,000/min</td><td><div class="sparkline"><div class="spark" style="height:15%;"></div><div class="spark" style="height:20%;"></div><div class="spark" style="height:10%;"></div><div class="spark" style="height:18%;"></div></div> 12K</td><td style="color:#64748B;">3 hr ago</td><td><div class="badge badge-green">Active</div></td><td style="display:flex;gap:6px;"><button class="topbar-btn btn-outline" style="padding:4px 10px;font-size:12px;">Rotate</button><button style="border:none;background:none;color:#DC2626;cursor:pointer;font-size:12px;">Revoke</button></td></tr>
+            <tr><td style="font-weight:600;color:#94A3B8;">Legacy Partner Feed</td><td><code>ak_prod_0011…abcd</code></td><td><div class="badge badge-gray">Production</div></td><td>read</td><td>100/min</td><td>—</td><td style="color:#94A3B8;">Apr 1, 2026</td><td><div class="badge badge-red">Revoked</div></td><td><button class="topbar-btn btn-outline" style="padding:4px 10px;font-size:12px;color:#94A3B8;">View Log</button></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- SCREEN 3: Members Database -->
+<div class="label">S3 — Members Database</div>
+<div class="scroll-row">
+<div class="frame">
+  <div class="sidebar">
+    <div class="sidebar-logo"><div class="app">IPSSA</div><div class="sub">API Admin Console</div></div>
+    <div class="nav-section"><div class="nav-section-label">Overview</div><div class="nav-item"><i data-lucide="layout-dashboard"></i>Dashboard</div><div class="nav-item"><i data-lucide="activity"></i>API Health</div></div>
+    <div class="nav-section"><div class="nav-section-label">Access</div><div class="nav-item"><i data-lucide="key"></i>API Keys</div><div class="nav-item"><i data-lucide="webhook"></i>Webhooks</div></div>
+    <div class="nav-section"><div class="nav-section-label">Data</div><div class="nav-item active"><i data-lucide="users"></i>Members</div><div class="nav-item"><i data-lucide="shield"></i>Coverage Events</div><div class="nav-item"><i data-lucide="star"></i>Ratings</div><div class="nav-item"><i data-lucide="building-2"></i>Chapters</div></div>
+    <div class="nav-section"><div class="nav-section-label">System</div><div class="nav-item"><i data-lucide="bar-chart-2"></i>Analytics</div><div class="nav-item"><i data-lucide="file-text"></i>Audit Log</div><div class="nav-item"><i data-lucide="settings"></i>Settings</div></div>
+    <div class="sidebar-footer"><div class="avatar">AT</div><div><div class="name">Alex Torres</div><div class="role">Super Admin</div></div></div>
+  </div>
+  <div class="content">
+    <div class="topbar">
+      <div class="topbar-title">Members Database</div>
+      <div class="topbar-badge">2,741 total</div>
+      <div style="flex:1;"></div>
+      <div class="search-bar" style="width:240px;"><i data-lucide="search" style="width:14px;height:14px;color:#94A3B8;"></i><input placeholder="Search name, email, ID…"></div>
+      <button class="topbar-btn btn-outline" style="font-size:13px;"><i data-lucide="download" style="width:14px;height:14px;"></i> Export CSV</button>
+    </div>
+    <div class="main">
+      <!-- Filters -->
+      <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;">
+        <div class="filter-chip active">All Members</div>
+        <div class="filter-chip">Active (2,490)</div>
+        <div class="filter-chip">Suspended (38)</div>
+        <div class="filter-chip">Pending Review (24)</div>
+        <div class="filter-chip">Chapter Elite+</div>
+        <div class="filter-chip">New (last 30d)</div>
+        <div style="margin-left:auto;display:flex;gap:8px;">
+          <select style="font-size:12px;border:1px solid #D1D5DB;border-radius:8px;padding:5px 10px;background:#fff;color:#374151;">
+            <option>Chapter: All</option><option selected>San Diego 7</option>
+          </select>
+          <select style="font-size:12px;border:1px solid #D1D5DB;border-radius:8px;padding:5px 10px;background:#fff;color:#374151;">
+            <option>Sort: Join Date ↓</option>
+          </select>
+        </div>
+      </div>
+      <div class="panel">
+        <table>
+          <thead><tr><th>Member</th><th>ID</th><th>Chapter</th><th>Tier</th><th>CoverageScore</th><th>Jobs (lifetime)</th><th>Certs</th><th>Status</th><th>Joined</th><th>Actions</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><div style="display:flex;align-items:center;gap:10px;"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=32&h=32&fit=crop" style="width:32px;height:32px;border-radius:50%;object-fit:cover;"><div><div style="font-weight:600;font-size:13px;">Mike Sandoval</div><div style="font-size:11px;color:#64748B;">mike@sandovalpoolcare.com</div></div></div></td>
+              <td><code>mem_0041</code></td><td>San Diego 7</td><td><div class="badge badge-blue">Route Protector</div></td><td><strong>4.8</strong></td><td>22</td><td>CPO, BioShield</td><td><div class="badge badge-green">Active</div></td><td style="color:#64748B;">Jan 2024</td>
+              <td><button class="topbar-btn btn-outline" style="padding:4px 10px;font-size:12px;">View</button></td>
+            </tr>
+            <tr>
+              <td><div style="display:flex;align-items:center;gap:10px;"><img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=32&h=32&fit=crop" style="width:32px;height:32px;border-radius:50%;object-fit:cover;"><div><div style="font-weight:600;font-size:13px;">James Rivera</div><div style="font-size:11px;color:#64748B;">james@riveraaqua.com</div></div></div></td>
+              <td><code>mem_0089</code></td><td>San Diego 7</td><td><div class="badge badge-blue">Route Protector</div></td><td><strong>4.8</strong></td><td>31</td><td>CPO, PST</td><td><div class="badge badge-green">Active</div></td><td style="color:#64748B;">Aug 2023</td>
+              <td><button class="topbar-btn btn-outline" style="padding:4px 10px;font-size:12px;">View</button></td>
+            </tr>
+            <tr>
+              <td><div style="display:flex;align-items:center;gap:10px;"><img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=32&h=32&fit=crop" style="width:32px;height:32px;border-radius:50%;object-fit:cover;"><div><div style="font-weight:600;font-size:13px;">Sarah Chen</div><div style="font-size:11px;color:#64748B;">sarah@crystalclear.com</div></div></div></td>
+              <td><code>mem_0112</code></td><td>San Diego 7</td><td><div class="badge badge-purple">Chapter Elite</div></td><td><strong>4.9</strong></td><td>38</td><td>CPO, PST, BioShield</td><td><div class="badge badge-green">Active</div></td><td style="color:#64748B;">Mar 2023</td>
+              <td><button class="topbar-btn btn-outline" style="padding:4px 10px;font-size:12px;">View</button></td>
+            </tr>
+            <tr>
+              <td><div style="display:flex;align-items:center;gap:10px;"><img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=32&h=32&fit=crop" style="width:32px;height:32px;border-radius:50%;object-fit:cover;"><div><div style="font-weight:600;font-size:13px;">David Park</div><div style="font-size:11px;color:#64748B;">david@parkpoolpro.com</div></div></div></td>
+              <td><code>mem_0301</code></td><td>San Diego 7</td><td><div class="badge badge-gray">Pool Rookie</div></td><td>—</td><td>0</td><td>Pending CPO</td><td><div class="badge badge-yellow">Cert Required</div></td><td style="color:#64748B;">Apr 2026</td>
+              <td><button class="topbar-btn btn-outline" style="padding:4px 10px;font-size:12px;">View</button></td>
+            </tr>
+            <tr>
+              <td><div style="display:flex;align-items:center;gap:10px;"><div style="width:32px;height:32px;border-radius:50%;background:#FEE2E2;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#991B1B;">TW</div><div><div style="font-weight:600;font-size:13px;">Tom Wallace</div><div style="font-size:11px;color:#64748B;">tom.w@example.com</div></div></div></td>
+              <td><code>mem_0048</code></td><td>San Diego 7</td><td><div class="badge badge-blue">Route Protector</div></td><td><strong>3.1</strong></td><td>8</td><td>CPO</td><td><div class="badge badge-red">Suspended</div></td><td style="color:#64748B;">Jun 2023</td>
+              <td><button class="topbar-btn btn-outline" style="padding:4px 10px;font-size:12px;">Review</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-top:14px;">
+        <div style="font-size:12px;color:#64748B;">Showing 5 of 2,741 members</div>
+        <div style="display:flex;gap:4px;">
+          <button class="topbar-btn btn-outline" style="padding:5px 12px;font-size:12px;">← Prev</button>
+          <button class="topbar-btn btn-primary" style="padding:5px 12px;font-size:12px;">1</button>
+          <button class="topbar-btn btn-outline" style="padding:5px 12px;font-size:12px;">2</button>
+          <button class="topbar-btn btn-outline" style="padding:5px 12px;font-size:12px;">3</button>
+          <button class="topbar-btn btn-outline" style="padding:5px 12px;font-size:12px;">Next →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- SCREEN 4: Coverage Events Log -->
+<div class="label">S4 — Coverage Events Log</div>
+<div class="scroll-row">
+<div class="frame">
+  <div class="sidebar">
+    <div class="sidebar-logo"><div class="app">IPSSA</div><div class="sub">API Admin Console</div></div>
+    <div class="nav-section"><div class="nav-section-label">Overview</div><div class="nav-item"><i data-lucide="layout-dashboard"></i>Dashboard</div></div>
+    <div class="nav-section"><div class="nav-section-label">Access</div><div class="nav-item"><i data-lucide="key"></i>API Keys</div><div class="nav-item"><i data-lucide="webhook"></i>Webhooks</div></div>
+    <div class="nav-section"><div class="nav-section-label">Data</div><div class="nav-item"><i data-lucide="users"></i>Members</div><div class="nav-item active"><i data-lucide="shield"></i>Coverage Events</div><div class="nav-item"><i data-lucide="star"></i>Ratings</div><div class="nav-item"><i data-lucide="building-2"></i>Chapters</div></div>
+    <div class="nav-section"><div class="nav-section-label">System</div><div class="nav-item"><i data-lucide="bar-chart-2"></i>Analytics</div><div class="nav-item"><i data-lucide="file-text"></i>Audit Log</div><div class="nav-item"><i data-lucide="settings"></i>Settings</div></div>
+    <div class="sidebar-footer"><div class="avatar">AT</div><div><div class="name">Alex Torres</div><div class="role">Super Admin</div></div></div>
+  </div>
+  <div class="content">
+    <div class="topbar">
+      <div class="topbar-title">Coverage Events</div>
+      <div class="topbar-badge">1,204 this month</div>
+      <div style="flex:1;"></div>
+      <select style="font-size:12px;border:1px solid #D1D5DB;border-radius:8px;padding:6px 10px;background:#fff;">
+        <option>All Types</option><option>Sick Day</option><option>Emergency</option><option>Vacation</option>
+      </select>
+      <select style="font-size:12px;border:1px solid #D1D5DB;border-radius:8px;padding:6px 10px;background:#fff;">
+        <option>All Status</option><option>Matched</option><option>Pending</option><option>Cancelled</option>
+      </select>
+      <button class="topbar-btn btn-outline" style="font-size:13px;"><i data-lucide="download" style="width:14px;height:14px;"></i> Export</button>
+    </div>
+    <div class="main">
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px;">
+        <div class="stat-card"><div class="stat-val">1,204</div><div class="stat-label">Events This Month</div><div class="stat-delta delta-up">↑ 18% vs last month</div></div>
+        <div class="stat-card"><div class="stat-val">94.2%</div><div class="stat-label">Match Rate</div><div class="stat-delta delta-up">↑ 2.1% improved</div></div>
+        <div class="stat-card"><div class="stat-val">8.4<span style="font-size:14px;color:#64748B;"> min</span></div><div class="stat-label">Avg Time to Match</div><div class="stat-delta delta-up">↓ 1.2 min faster</div></div>
+        <div class="stat-card"><div class="stat-val">71</div><div class="stat-label">Unmatched (all time)</div><div class="stat-delta delta-down">↑ 3 this week</div></div>
+      </div>
+      <div class="panel">
+        <table>
+          <thead><tr><th>Event ID</th><th>Requestor</th><th>Type</th><th>Date/Time</th><th>Chapter</th><th>Matched To</th><th>Pools</th><th>Match Time</th><th>Status</th><th>Actions</th></tr></thead>
+          <tbody>
+            <tr><td><code>cv_8821</code></td><td style="font-weight:500;">Mike Sandoval</td><td><div class="badge badge-red">Emergency</div></td><td style="color:#64748B;">Apr 24, 14:28</td><td>SD 7</td><td style="font-weight:500;">James Rivera</td><td>7 pools</td><td>4 min</td><td><div class="badge badge-blue">In Progress</div></td><td><button class="topbar-btn btn-outline" style="padding:3px 8px;font-size:11px;">View</button></td></tr>
+            <tr><td><code>cv_8820</code></td><td style="font-weight:500;">Linda Marsh</td><td><div class="badge badge-yellow">Sick Day</div></td><td style="color:#64748B;">Apr 24, 09:15</td><td>SD 7</td><td style="font-weight:500;">Sarah Chen</td><td>12 pools</td><td>6 min</td><td><div class="badge badge-green">Completed</div></td><td><button class="topbar-btn btn-outline" style="padding:3px 8px;font-size:11px;">View</button></td></tr>
+            <tr><td><code>cv_8819</code></td><td style="font-weight:500;">Carlos Ruiz</td><td><div class="badge badge-purple">Vacation</div></td><td style="color:#64748B;">Apr 23, 16:00</td><td>LA 3</td><td style="font-weight:500;">Paul Nguyen</td><td>18 pools</td><td>12 min</td><td><div class="badge badge-green">Completed</div></td><td><button class="topbar-btn btn-outline" style="padding:3px 8px;font-size:11px;">View</button></td></tr>
+            <tr><td><code>cv_8818</code></td><td style="font-weight:500;">Nina Scott</td><td><div class="badge badge-red">Emergency</div></td><td style="color:#64748B;">Apr 23, 11:42</td><td>SD 7</td><td>—</td><td>9 pools</td><td>—</td><td><div class="badge badge-red">Unmatched</div></td><td><button class="topbar-btn btn-outline" style="padding:3px 8px;font-size:11px;">Escalate</button></td></tr>
+            <tr><td><code>cv_8817</code></td><td style="font-weight:500;">James Rivera</td><td><div class="badge badge-yellow">Sick Day</div></td><td style="color:#64748B;">Apr 23, 07:30</td><td>SD 7</td><td style="font-weight:500;">Mike Sandoval</td><td>5 pools</td><td>3 min</td><td><div class="badge badge-green">Completed</div></td><td><button class="topbar-btn btn-outline" style="padding:3px 8px;font-size:11px;">View</button></td></tr>
+            <tr><td><code>cv_8816</code></td><td style="font-weight:500;">Sarah Chen</td><td><div class="badge badge-purple">Vacation</div></td><td style="color:#64748B;">Apr 22, 14:00</td><td>SD 7</td><td style="font-weight:500;">Tom Wallace</td><td>14 pools</td><td>18 min</td><td><div class="badge badge-yellow">Disputed</div></td><td><button class="topbar-btn btn-outline" style="padding:3px 8px;font-size:11px;">Review</button></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- SCREEN 5: Rating Moderation -->
+<div class="label">S5 — Rating Moderation Queue</div>
+<div class="scroll-row">
+<div class="frame">
+  <div class="sidebar">
+    <div class="sidebar-logo"><div class="app">IPSSA</div><div class="sub">API Admin Console</div></div>
+    <div class="nav-section"><div class="nav-section-label">Overview</div><div class="nav-item"><i data-lucide="layout-dashboard"></i>Dashboard</div></div>
+    <div class="nav-section"><div class="nav-section-label">Access</div><div class="nav-item"><i data-lucide="key"></i>API Keys</div><div class="nav-item"><i data-lucide="webhook"></i>Webhooks</div></div>
+    <div class="nav-section"><div class="nav-section-label">Data</div><div class="nav-item"><i data-lucide="users"></i>Members</div><div class="nav-item"><i data-lucide="shield"></i>Coverage Events</div><div class="nav-item active"><i data-lucide="star"></i>Ratings</div><div class="nav-item"><i data-lucide="building-2"></i>Chapters</div></div>
+    <div class="nav-section"><div class="nav-section-label">System</div><div class="nav-item"><i data-lucide="bar-chart-2"></i>Analytics</div><div class="nav-item"><i data-lucide="file-text"></i>Audit Log</div><div class="nav-item"><i data-lucide="settings"></i>Settings</div></div>
+    <div class="sidebar-footer"><div class="avatar">AT</div><div><div class="name">Alex Torres</div><div class="role">Super Admin</div></div></div>
+  </div>
+  <div class="content">
+    <div class="topbar">
+      <div class="topbar-title">Rating Moderation</div>
+      <div class="topbar-badge" style="background:#FEF9C3;color:#854D0E;">12 Pending Review</div>
+      <div style="flex:1;"></div>
+      <button class="topbar-btn btn-outline" style="font-size:13px;">Flagged Only</button>
+    </div>
+    <div class="main">
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px;">
+        <div class="stat-card"><div class="stat-val">12</div><div class="stat-label">Pending Review</div></div>
+        <div class="stat-card"><div class="stat-val">4.72</div><div class="stat-label">Platform Avg Rating</div></div>
+        <div class="stat-card"><div class="stat-val">8</div><div class="stat-label">Flagged This Week</div></div>
+        <div class="stat-card"><div class="stat-val">3</div><div class="stat-label">Removed (30 days)</div></div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+        <!-- Pending queue -->
+        <div class="panel">
+          <div class="panel-header"><div class="panel-title">Pending Review</div></div>
+          <div style="padding:0;">
+            <div style="padding:14px 16px;border-bottom:1px solid #F1F5F9;">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
+                <div><div style="font-size:13px;font-weight:600;">cv_8816 — Disputed</div><div style="font-size:11px;color:#64748B;">Sarah Chen → Tom Wallace · Apr 22</div></div>
+                <div class="badge badge-red">1 Star</div>
+              </div>
+              <div style="font-size:13px;color:#374151;background:#FEF9C3;padding:8px 10px;border-radius:6px;margin-bottom:10px;">"Did not show up to 3 of my pools. Left chemicals unchecked. Completely unreliable."</div>
+              <div style="display:flex;gap:6px;">
+                <button class="topbar-btn btn-outline" style="font-size:12px;padding:5px 12px;">Keep</button>
+                <button class="topbar-btn" style="background:#EF4444;color:#fff;font-size:12px;padding:5px 12px;">Remove</button>
+                <button class="topbar-btn btn-outline" style="font-size:12px;padding:5px 12px;color:#6366F1;">Flag Member</button>
+              </div>
+            </div>
+            <div style="padding:14px 16px;border-bottom:1px solid #F1F5F9;">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
+                <div><div style="font-size:13px;font-weight:600;">cv_8801 — Auto-flagged</div><div style="font-size:11px;color:#64748B;">David Park → Mike Sandoval · Apr 20</div></div>
+                <div class="badge badge-yellow">2 Stars</div>
+              </div>
+              <div style="font-size:13px;color:#374151;background:#F8FAFC;padding:8px 10px;border-radius:6px;margin-bottom:10px;">"OK service. Could be better. [keyword: scam flagged by AI]"</div>
+              <div style="display:flex;gap:6px;">
+                <button class="topbar-btn btn-outline" style="font-size:12px;padding:5px 12px;">Keep</button>
+                <button class="topbar-btn" style="background:#EF4444;color:#fff;font-size:12px;padding:5px 12px;">Remove</button>
+                <button class="topbar-btn btn-outline" style="font-size:12px;padding:5px 12px;">Dismiss Flag</button>
+              </div>
+            </div>
+            <div style="padding:14px 16px;">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
+                <div><div style="font-size:13px;font-weight:600;">cv_8798 — Reported</div><div style="font-size:11px;color:#64748B;">Anonymous → James Rivera · Apr 19</div></div>
+                <div class="badge badge-green">5 Stars</div>
+              </div>
+              <div style="font-size:13px;color:#374151;background:#F8FAFC;padding:8px 10px;border-radius:6px;margin-bottom:10px;">"Suspicious 5-star: submitted 4 min after job — possible self-review. Flagged by system."</div>
+              <div style="display:flex;gap:6px;">
+                <button class="topbar-btn btn-outline" style="font-size:12px;padding:5px 12px;">Keep</button>
+                <button class="topbar-btn" style="background:#EF4444;color:#fff;font-size:12px;padding:5px 12px;">Remove</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Rating Distribution -->
+        <div class="panel">
+          <div class="panel-header"><div class="panel-title">Rating Distribution (All Time)</div></div>
+          <div style="padding:20px;">
+            <div style="display:flex;flex-direction:column;gap:10px;">
+              <div style="display:flex;align-items:center;gap:10px;"><div style="width:32px;font-size:12px;color:#374151;font-weight:500;">5 ★</div><div class="prog-track" style="flex:1;"><div class="prog-fill" style="width:68%;background:#10B981;"></div></div><div style="width:40px;font-size:12px;color:#64748B;text-align:right;">68%</div></div>
+              <div style="display:flex;align-items:center;gap:10px;"><div style="width:32px;font-size:12px;color:#374151;font-weight:500;">4 ★</div><div class="prog-track" style="flex:1;"><div class="prog-fill" style="width:20%;background:#84CC16;"></div></div><div style="width:40px;font-size:12px;color:#64748B;text-align:right;">20%</div></div>
+              <div style="display:flex;align-items:center;gap:10px;"><div style="width:32px;font-size:12px;color:#374151;font-weight:500;">3 ★</div><div class="prog-track" style="flex:1;"><div class="prog-fill" style="width:7%;background:#F59E0B;"></div></div><div style="width:40px;font-size:12px;color:#64748B;text-align:right;">7%</div></div>
+              <div style="display:flex;align-items:center;gap:10px;"><div style="width:32px;font-size:12px;color:#374151;font-weight:500;">2 ★</div><div class="prog-track" style="flex:1;"><div class="prog-fill" style="width:3%;background:#F97316;"></div></div><div style="width:40px;font-size:12px;color:#64748B;text-align:right;">3%</div></div>
+              <div style="display:flex;align-items:center;gap:10px;"><div style="width:32px;font-size:12px;color:#374151;font-weight:500;">1 ★</div><div class="prog-track" style="flex:1;"><div class="prog-fill" style="width:2%;background:#EF4444;"></div></div><div style="width:40px;font-size:12px;color:#64748B;text-align:right;">2%</div></div>
+            </div>
+            <div style="margin-top:20px;padding:14px;background:#F8FAFC;border-radius:8px;">
+              <div style="font-size:28px;font-weight:700;color:#0F172A;text-align:center;">4.72</div>
+              <div style="font-size:12px;color:#64748B;text-align:center;margin-top:4px;">Platform average · 8,441 ratings</div>
+            </div>
+            <div style="margin-top:16px;padding:12px;background:#FEF9C3;border-radius:8px;border:1px solid #FDE047;">
+              <div style="font-size:12px;font-weight:600;color:#854D0E;margin-bottom:4px;">Members Below Threshold</div>
+              <div style="font-size:12px;color:#374151;">3 members have avg below 3.0 → review flagged</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- SCREEN 6: Chapter Config -->
+<div class="label">S6 — Chapter Configuration</div>
+<div class="scroll-row">
+<div class="frame">
+  <div class="sidebar">
+    <div class="sidebar-logo"><div class="app">IPSSA</div><div class="sub">API Admin Console</div></div>
+    <div class="nav-section"><div class="nav-section-label">Overview</div><div class="nav-item"><i data-lucide="layout-dashboard"></i>Dashboard</div></div>
+    <div class="nav-section"><div class="nav-section-label">Access</div><div class="nav-item"><i data-lucide="key"></i>API Keys</div><div class="nav-item"><i data-lucide="webhook"></i>Webhooks</div></div>
+    <div class="nav-section"><div class="nav-section-label">Data</div><div class="nav-item"><i data-lucide="users"></i>Members</div><div class="nav-item"><i data-lucide="shield"></i>Coverage Events</div><div class="nav-item"><i data-lucide="star"></i>Ratings</div><div class="nav-item active"><i data-lucide="building-2"></i>Chapters</div></div>
+    <div class="nav-section"><div class="nav-section-label">System</div><div class="nav-item"><i data-lucide="bar-chart-2"></i>Analytics</div><div class="nav-item"><i data-lucide="file-text"></i>Audit Log</div><div class="nav-item"><i data-lucide="settings"></i>Settings</div></div>
+    <div class="sidebar-footer"><div class="avatar">AT</div><div><div class="name">Alex Torres</div><div class="role">Super Admin</div></div></div>
+  </div>
+  <div class="content">
+    <div class="topbar">
+      <div class="topbar-title">Chapter Configuration</div>
+      <div style="flex:1;"></div>
+      <select style="font-size:13px;border:1px solid #D1D5DB;border-radius:8px;padding:7px 12px;background:#fff;font-weight:500;">
+        <option selected>San Diego Chapter 7</option>
+        <option>Los Angeles 3</option><option>Orange County 12</option>
+      </select>
+      <button class="topbar-btn btn-primary"><i data-lucide="save" style="width:14px;height:14px;"></i> Save Changes</button>
+    </div>
+    <div class="main">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+        <!-- Chapter Details -->
+        <div class="panel">
+          <div class="panel-header"><div class="panel-title">Chapter Details</div></div>
+          <div style="padding:18px;display:flex;flex-direction:column;gap:14px;">
+            <div><div style="font-size:12px;font-weight:500;color:#374151;margin-bottom:4px;">Chapter Name</div><input style="width:100%;border:1px solid #D1D5DB;border-radius:8px;padding:8px 12px;font-size:13px;" value="San Diego Chapter 7"></div>
+            <div><div style="font-size:12px;font-weight:500;color:#374151;margin-bottom:4px;">Chapter Lead</div><input style="width:100%;border:1px solid #D1D5DB;border-radius:8px;padding:8px 12px;font-size:13px;" value="Robert Martinez"></div>
+            <div><div style="font-size:12px;font-weight:500;color:#374151;margin-bottom:4px;">Region</div><input style="width:100%;border:1px solid #D1D5DB;border-radius:8px;padding:8px 12px;font-size:13px;" value="Southern California"></div>
+            <div><div style="font-size:12px;font-weight:500;color:#374151;margin-bottom:4px;">Service Area</div><textarea style="width:100%;border:1px solid #D1D5DB;border-radius:8px;padding:8px 12px;font-size:13px;resize:none;height:60px;">San Diego, El Cajon, Chula Vista, Escondido, La Mesa, Santee</textarea></div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+              <div><div style="font-size:12px;font-weight:500;color:#374151;margin-bottom:4px;">Founded</div><input style="width:100%;border:1px solid #D1D5DB;border-radius:8px;padding:8px 12px;font-size:13px;" value="1978"></div>
+              <div><div style="font-size:12px;font-weight:500;color:#374151;margin-bottom:4px;">Max Members</div><input style="width:100%;border:1px solid #D1D5DB;border-radius:8px;padding:8px 12px;font-size:13px;" value="300"></div>
+            </div>
+          </div>
+        </div>
+        <!-- Feature Flags + Matching Config -->
+        <div style="display:flex;flex-direction:column;gap:16px;">
+          <div class="panel">
+            <div class="panel-header"><div class="panel-title">Feature Flags</div></div>
+            <div style="padding:14px 18px;display:flex;flex-direction:column;gap:10px;">
+              <div style="display:flex;align-items:center;justify-content:space-between;"><div><div style="font-size:13px;font-weight:500;">CoverageMatch — Sick Day</div><div style="font-size:11px;color:#64748B;">Enable same-day sick day requests</div></div><div style="width:40px;height:22px;background:#6366F1;border-radius:11px;position:relative;cursor:pointer;"><div style="position:absolute;right:3px;top:3px;width:16px;height:16px;background:#fff;border-radius:50%;"></div></div></div>
+              <div style="display:flex;align-items:center;justify-content:space-between;"><div><div style="font-size:13px;font-weight:500;">CoverageMatch — Emergency</div><div style="font-size:11px;color:#64748B;">Emergency broadcast within 2 hours</div></div><div style="width:40px;height:22px;background:#6366F1;border-radius:11px;position:relative;cursor:pointer;"><div style="position:absolute;right:3px;top:3px;width:16px;height:16px;background:#fff;border-radius:50%;"></div></div></div>
+              <div style="display:flex;align-items:center;justify-content:space-between;"><div><div style="font-size:13px;font-weight:500;">Vacation Planning</div><div style="font-size:11px;color:#64748B;">Planned coverage up to 30 days out</div></div><div style="width:40px;height:22px;background:#6366F1;border-radius:11px;position:relative;cursor:pointer;"><div style="position:absolute;right:3px;top:3px;width:16px;height:16px;background:#fff;border-radius:50%;"></div></div></div>
+              <div style="display:flex;align-items:center;justify-content:space-between;"><div><div style="font-size:13px;font-weight:500;">Community Hub</div><div style="font-size:11px;color:#64748B;">Chapter messaging channels</div></div><div style="width:40px;height:22px;background:#6366F1;border-radius:11px;position:relative;cursor:pointer;"><div style="position:absolute;right:3px;top:3px;width:16px;height:16px;background:#fff;border-radius:50%;"></div></div></div>
+              <div style="display:flex;align-items:center;justify-content:space-between;"><div><div style="font-size:13px;font-weight:500;">Leaderboard</div><div style="font-size:11px;color:#64748B;">Gamification visible to members</div></div><div style="width:40px;height:22px;background:#E2E8F0;border-radius:11px;position:relative;cursor:pointer;"><div style="position:absolute;left:3px;top:3px;width:16px;height:16px;background:#fff;border-radius:50%;"></div></div></div>
+            </div>
+          </div>
+          <div class="panel">
+            <div class="panel-header"><div class="panel-title">Match Radius Settings</div></div>
+            <div style="padding:14px 18px;display:flex;flex-direction:column;gap:10px;">
+              <div style="display:flex;align-items:center;justify-content:space-between;"><div style="font-size:13px;">Sick Day radius</div><div style="display:flex;align-items:center;gap:8px;"><input style="width:60px;border:1px solid #D1D5DB;border-radius:6px;padding:5px 8px;font-size:13px;text-align:center;" value="15"><span style="font-size:12px;color:#64748B;">miles</span></div></div>
+              <div style="display:flex;align-items:center;justify-content:space-between;"><div style="font-size:13px;">Emergency radius</div><div style="display:flex;align-items:center;gap:8px;"><input style="width:60px;border:1px solid #D1D5DB;border-radius:6px;padding:5px 8px;font-size:13px;text-align:center;" value="25"><span style="font-size:12px;color:#64748B;">miles</span></div></div>
+              <div style="display:flex;align-items:center;justify-content:space-between;"><div style="font-size:13px;">Vacation radius</div><div style="display:flex;align-items:center;gap:8px;"><input style="width:60px;border:1px solid #D1D5DB;border-radius:6px;padding:5px 8px;font-size:13px;text-align:center;" value="30"><span style="font-size:12px;color:#64748B;">miles</span></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- SCREEN 7: Analytics -->
+<div class="label">S7 — Analytics Dashboard</div>
+<div class="scroll-row">
+<div class="frame">
+  <div class="sidebar">
+    <div class="sidebar-logo"><div class="app">IPSSA</div><div class="sub">API Admin Console</div></div>
+    <div class="nav-section"><div class="nav-section-label">Overview</div><div class="nav-item"><i data-lucide="layout-dashboard"></i>Dashboard</div></div>
+    <div class="nav-section"><div class="nav-section-label">Access</div><div class="nav-item"><i data-lucide="key"></i>API Keys</div><div class="nav-item"><i data-lucide="webhook"></i>Webhooks</div></div>
+    <div class="nav-section"><div class="nav-section-label">Data</div><div class="nav-item"><i data-lucide="users"></i>Members</div><div class="nav-item"><i data-lucide="shield"></i>Coverage Events</div><div class="nav-item"><i data-lucide="star"></i>Ratings</div><div class="nav-item"><i data-lucide="building-2"></i>Chapters</div></div>
+    <div class="nav-section"><div class="nav-section-label">System</div><div class="nav-item active"><i data-lucide="bar-chart-2"></i>Analytics</div><div class="nav-item"><i data-lucide="file-text"></i>Audit Log</div><div class="nav-item"><i data-lucide="settings"></i>Settings</div></div>
+    <div class="sidebar-footer"><div class="avatar">AT</div><div><div class="name">Alex Torres</div><div class="role">Super Admin</div></div></div>
+  </div>
+  <div class="content">
+    <div class="topbar">
+      <div class="topbar-title">Analytics</div>
+      <div style="flex:1;"></div>
+      <div style="display:flex;gap:4px;background:#F1F5F9;border-radius:8px;padding:3px;">
+        <button class="topbar-btn" style="background:#fff;color:#374151;font-size:12px;padding:4px 12px;border:1px solid #E2E8F0;border-radius:6px;">7d</button>
+        <button class="topbar-btn btn-primary" style="font-size:12px;padding:4px 12px;">30d</button>
+        <button class="topbar-btn" style="background:#fff;color:#374151;font-size:12px;padding:4px 12px;border:1px solid #E2E8F0;border-radius:6px;">90d</button>
+      </div>
+      <button class="topbar-btn btn-outline" style="font-size:13px;"><i data-lucide="download" style="width:14px;height:14px;"></i> Export</button>
+    </div>
+    <div class="main">
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:18px;">
+        <div class="stat-card"><div class="stat-val">2,741</div><div class="stat-label">Total Members</div><div class="stat-delta delta-up">↑ 124 this month</div></div>
+        <div class="stat-card"><div class="stat-val">1,204</div><div class="stat-label">Coverage Events</div><div class="stat-delta delta-up">↑ 18% vs prior</div></div>
+        <div class="stat-card"><div class="stat-val">94.2%</div><div class="stat-label">Match Rate</div><div class="stat-delta delta-up">↑ 2.1 pts</div></div>
+        <div class="stat-card"><div class="stat-val">4.72</div><div class="stat-label">Avg Rating</div><div class="stat-delta" style="color:#64748B;">Stable</div></div>
+      </div>
+      <div style="display:grid;grid-template-columns:2fr 1fr;gap:16px;margin-bottom:16px;">
+        <div class="panel">
+          <div class="panel-header"><div class="panel-title">Member Growth (30 days)</div></div>
+          <div style="padding:16px 18px;">
+            <div class="bar-chart" style="height:120px;">
+              <div class="bar" style="height:30%;"></div><div class="bar" style="height:35%;"></div><div class="bar" style="height:38%;"></div><div class="bar" style="height:42%;"></div><div class="bar" style="height:45%;"></div><div class="bar" style="height:40%;"></div><div class="bar" style="height:50%;"></div><div class="bar" style="height:55%;"></div><div class="bar" style="height:52%;"></div><div class="bar" style="height:60%;"></div><div class="bar" style="height:65%;"></div><div class="bar" style="height:58%;"></div><div class="bar" style="height:70%;"></div><div class="bar" style="height:75%;"></div><div class="bar" style="height:80%;"></div><div class="bar" style="height:72%;"></div><div class="bar" style="height:85%;"></div><div class="bar" style="height:88%;"></div><div class="bar" style="height:82%;"></div><div class="bar" style="height:90%;"></div><div class="bar" style="height:95%;"></div><div class="bar" style="height:88%;"></div><div class="bar" style="height:100%;"></div><div class="bar" style="height:92%;"></div><div class="bar" style="height:96%;"></div><div class="bar" style="height:88%;"></div><div class="bar" style="height:84%;"></div><div class="bar" style="height:90%;"></div><div class="bar" style="height:88%;"></div><div class="bar" style="height:94%;"></div>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:10px;color:#94A3B8;margin-top:6px;"><span>Apr 1</span><span>Apr 8</span><span>Apr 15</span><span>Apr 22</span><span>Apr 24</span></div>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="panel-header"><div class="panel-title">Coverage by Type</div></div>
+          <div style="padding:18px;display:flex;flex-direction:column;gap:12px;">
+            <div><div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px;"><span style="font-weight:500;">Sick Day</span><span style="color:#64748B;">512 · 43%</span></div><div class="prog-track"><div class="prog-fill" style="width:43%;background:#6366F1;"></div></div></div>
+            <div><div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px;"><span style="font-weight:500;">Vacation / Planned</span><span style="color:#64748B;">418 · 35%</span></div><div class="prog-track"><div class="prog-fill" style="width:35%;background:#10B981;"></div></div></div>
+            <div><div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px;"><span style="font-weight:500;">Emergency</span><span style="color:#64748B;">274 · 23%</span></div><div class="prog-track"><div class="prog-fill" style="width:23%;background:#EF4444;"></div></div></div>
+            <div style="margin-top:8px;padding:12px;background:#F8FAFC;border-radius:8px;">
+              <div style="font-size:11px;color:#64748B;">Top Chapter by Volume</div>
+              <div style="font-size:14px;font-weight:600;margin-top:2px;">San Diego 7</div>
+              <div style="font-size:12px;color:#6366F1;">312 events · 26% of total</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;">
+        <div class="panel"><div class="panel-header"><div class="panel-title">Tier Distribution</div></div>
+          <div style="padding:14px 18px;display:flex;flex-direction:column;gap:8px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;"><span style="font-size:12px;">IPSSA Legend</span><div style="display:flex;align-items:center;gap:8px;"><div class="prog-track" style="width:120px;"><div class="prog-fill" style="width:2%;background:#F59E0B;"></div></div><span style="font-size:12px;color:#64748B;">48</span></div></div>
+            <div style="display:flex;justify-content:space-between;align-items:center;"><span style="font-size:12px;">Chapter Elite</span><div style="display:flex;align-items:center;gap:8px;"><div class="prog-track" style="width:120px;"><div class="prog-fill" style="width:8%;background:#8B5CF6;"></div></div><span style="font-size:12px;color:#64748B;">218</span></div></div>
+            <div style="display:flex;justify-content:space-between;align-items:center;"><span style="font-size:12px;">Route Protector</span><div style="display:flex;align-items:center;gap:8px;"><div class="prog-track" style="width:120px;"><div class="prog-fill" style="width:22%;background:#3B82F6;"></div></div><span style="font-size:12px;color:#64748B;">602</span></div></div>
+            <div style="display:flex;justify-content:space-between;align-items:center;"><span style="font-size:12px;">Trusted Tech</span><div style="display:flex;align-items:center;gap:8px;"><div class="prog-track" style="width:120px;"><div class="prog-fill" style="width:35%;background:#10B981;"></div></div><span style="font-size:12px;color:#64748B;">959</span></div></div>
+            <div style="display:flex;justify-content:space-between;align-items:center;"><span style="font-size:12px;">Pool Rookie</span><div style="display:flex;align-items:center;gap:8px;"><div class="prog-track" style="width:120px;"><div class="prog-fill" style="width:33%;background:#94A3B8;"></div></div><span style="font-size:12px;color:#64748B;">914</span></div></div>
+          </div>
+        </div>
+        <div class="panel"><div class="panel-header"><div class="panel-title">Retention (Cohort)</div></div>
+          <div style="padding:16px 18px;display:flex;flex-direction:column;gap:6px;">
+            <div style="display:flex;justify-content:space-between;font-size:12px;"><span style="color:#64748B;">Month 1</span><span style="font-weight:600;">100%</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:12px;"><span style="color:#64748B;">Month 2</span><span style="font-weight:600;">88%</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:12px;"><span style="color:#64748B;">Month 3</span><span style="font-weight:600;">79%</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:12px;"><span style="color:#64748B;">Month 6</span><span style="font-weight:600;">71%</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:12px;"><span style="color:#64748B;">Month 12</span><span style="font-weight:600;">64%</span></div>
+            <div style="margin-top:6px;padding:10px;background:#DCFCE7;border-radius:6px;"><div style="font-size:11px;font-weight:600;color:#166534;">Above industry avg: 58%</div></div>
+          </div>
+        </div>
+        <div class="panel"><div class="panel-header"><div class="panel-title">Cert Exam Completions</div></div>
+          <div style="padding:16px 18px;display:flex;flex-direction:column;gap:8px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;"><span style="font-size:12px;">CPO</span><div style="display:flex;align-items:center;gap:8px;"><div class="prog-track" style="width:100px;"><div class="prog-fill" style="width:88%;background:#6366F1;"></div></div><span style="font-size:12px;color:#64748B;">88%</span></div></div>
+            <div style="display:flex;justify-content:space-between;align-items:center;"><span style="font-size:12px;">PST</span><div style="display:flex;align-items:center;gap:8px;"><div class="prog-track" style="width:100px;"><div class="prog-fill" style="width:62%;background:#6366F1;"></div></div><span style="font-size:12px;color:#64748B;">62%</span></div></div>
+            <div style="display:flex;justify-content:space-between;align-items:center;"><span style="font-size:12px;">BioShield</span><div style="display:flex;align-items:center;gap:8px;"><div class="prog-track" style="width:100px;"><div class="prog-fill" style="width:41%;background:#6366F1;"></div></div><span style="font-size:12px;color:#64748B;">41%</span></div></div>
+            <div style="display:flex;justify-content:space-between;align-items:center;"><span style="font-size:12px;">AquaPlant</span><div style="display:flex;align-items:center;gap:8px;"><div class="prog-track" style="width:100px;"><div class="prog-fill" style="width:28%;background:#6366F1;"></div></div><span style="font-size:12px;color:#64748B;">28%</span></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- SCREEN 8: Webhooks -->
+<div class="label">S8 — Webhooks</div>
+<div class="scroll-row">
+<div class="frame">
+  <div class="sidebar">
+    <div class="sidebar-logo"><div class="app">IPSSA</div><div class="sub">API Admin Console</div></div>
+    <div class="nav-section"><div class="nav-section-label">Overview</div><div class="nav-item"><i data-lucide="layout-dashboard"></i>Dashboard</div></div>
+    <div class="nav-section"><div class="nav-section-label">Access</div><div class="nav-item"><i data-lucide="key"></i>API Keys</div><div class="nav-item active"><i data-lucide="webhook"></i>Webhooks</div></div>
+    <div class="nav-section"><div class="nav-section-label">Data</div><div class="nav-item"><i data-lucide="users"></i>Members</div><div class="nav-item"><i data-lucide="shield"></i>Coverage Events</div><div class="nav-item"><i data-lucide="star"></i>Ratings</div><div class="nav-item"><i data-lucide="building-2"></i>Chapters</div></div>
+    <div class="nav-section"><div class="nav-section-label">System</div><div class="nav-item"><i data-lucide="bar-chart-2"></i>Analytics</div><div class="nav-item"><i data-lucide="file-text"></i>Audit Log</div><div class="nav-item"><i data-lucide="settings"></i>Settings</div></div>
+    <div class="sidebar-footer"><div class="avatar">AT</div><div><div class="name">Alex Torres</div><div class="role">Super Admin</div></div></div>
+  </div>
+  <div class="content">
+    <div class="topbar">
+      <div class="topbar-title">Webhooks</div>
+      <div style="flex:1;"></div>
+      <button class="topbar-btn btn-primary"><i data-lucide="plus" style="width:14px;height:14px;"></i> Add Endpoint</button>
+    </div>
+    <div class="main">
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:20px;">
+        <div class="stat-card"><div class="stat-val">8</div><div class="stat-label">Active Endpoints</div></div>
+        <div class="stat-card"><div class="stat-val">99.4%</div><div class="stat-label">Delivery Success</div></div>
+        <div class="stat-card"><div class="stat-val">3</div><div class="stat-label">Failed (last 24h)</div></div>
+      </div>
+      <div class="panel" style="margin-bottom:16px;">
+        <div class="panel-header"><div class="panel-title">Registered Endpoints</div></div>
+        <table>
+          <thead><tr><th>Endpoint URL</th><th>Events</th><th>Secret</th><th>Success Rate</th><th>Last Delivery</th><th>Status</th><th>Actions</th></tr></thead>
+          <tbody>
+            <tr><td><code style="font-size:11px;">https://notify.ipssa.org/webhooks/coverage</code></td><td style="font-size:12px;">coverage.matched, coverage.completed</td><td><code>wh_sec_a1…</code></td><td style="color:#059669;font-weight:600;">100%</td><td style="color:#64748B;">2 min ago</td><td><div class="badge badge-green">Active</div></td><td style="display:flex;gap:4px;"><button class="topbar-btn btn-outline" style="padding:3px 8px;font-size:11px;">Test</button><button class="topbar-btn btn-outline" style="padding:3px 8px;font-size:11px;">Edit</button></td></tr>
+            <tr><td><code style="font-size:11px;">https://crm.acme.com/ipssa/members</code></td><td style="font-size:12px;">member.created, member.updated</td><td><code>wh_sec_b2…</code></td><td style="color:#059669;font-weight:600;">99.8%</td><td style="color:#64748B;">1 hr ago</td><td><div class="badge badge-green">Active</div></td><td style="display:flex;gap:4px;"><button class="topbar-btn btn-outline" style="padding:3px 8px;font-size:11px;">Test</button><button class="topbar-btn btn-outline" style="padding:3px 8px;font-size:11px;">Edit</button></td></tr>
+            <tr><td><code style="font-size:11px;">https://analytics.ipssa.org/ingest</code></td><td style="font-size:12px;">rating.submitted, coverage.*</td><td><code>wh_sec_c3…</code></td><td style="color:#DC2626;font-weight:600;">87.2%</td><td style="color:#DC2626;">FAILED 4 hr ago</td><td><div class="badge badge-red">Failing</div></td><td style="display:flex;gap:4px;"><button class="topbar-btn btn-outline" style="padding:3px 8px;font-size:11px;">Retry</button><button class="topbar-btn btn-outline" style="padding:3px 8px;font-size:11px;">Edit</button></td></tr>
+            <tr><td><code style="font-size:11px;">https://slack-relay.ipssa.org/alerts</code></td><td style="font-size:12px;">coverage.unmatched, member.suspended</td><td><code>wh_sec_d4…</code></td><td style="color:#059669;font-weight:600;">100%</td><td style="color:#64748B;">3 hr ago</td><td><div class="badge badge-green">Active</div></td><td style="display:flex;gap:4px;"><button class="topbar-btn btn-outline" style="padding:3px 8px;font-size:11px;">Test</button><button class="topbar-btn btn-outline" style="padding:3px 8px;font-size:11px;">Edit</button></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- Recent delivery log -->
+      <div class="panel">
+        <div class="panel-header"><div class="panel-title">Recent Delivery Log</div></div>
+        <div style="padding:0;">
+          <div class="log-line"><span class="log-ts">14:32:01</span><span class="log-level-info">200</span><code style="font-size:10px;">coverage.matched</code><span class="log-msg">→ notify.ipssa.org · 142ms</span></div>
+          <div class="log-line"><span class="log-ts">14:28:12</span><span class="log-level-error">500</span><code style="font-size:10px;">rating.submitted</code><span class="log-msg">→ analytics.ipssa.org · Internal Server Error</span></div>
+          <div class="log-line"><span class="log-ts">14:21:44</span><span class="log-level-info">200</span><code style="font-size:10px;">member.updated</code><span class="log-msg">→ crm.acme.com · 88ms</span></div>
+          <div class="log-line"><span class="log-ts">14:15:02</span><span class="log-level-warn">429</span><code style="font-size:10px;">coverage.completed</code><span class="log-msg">→ analytics.ipssa.org · Rate limit exceeded, retrying…</span></div>
+          <div class="log-line"><span class="log-ts">13:58:30</span><span class="log-level-info">200</span><code style="font-size:10px;">coverage.unmatched</code><span class="log-msg">→ slack-relay.ipssa.org · 201ms</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- SCREEN 9: Audit Log -->
+<div class="label">S9 — Audit Log</div>
+<div class="scroll-row">
+<div class="frame">
+  <div class="sidebar">
+    <div class="sidebar-logo"><div class="app">IPSSA</div><div class="sub">API Admin Console</div></div>
+    <div class="nav-section"><div class="nav-section-label">Overview</div><div class="nav-item"><i data-lucide="layout-dashboard"></i>Dashboard</div></div>
+    <div class="nav-section"><div class="nav-section-label">Access</div><div class="nav-item"><i data-lucide="key"></i>API Keys</div><div class="nav-item"><i data-lucide="webhook"></i>Webhooks</div></div>
+    <div class="nav-section"><div class="nav-section-label">Data</div><div class="nav-item"><i data-lucide="users"></i>Members</div><div class="nav-item"><i data-lucide="shield"></i>Coverage Events</div><div class="nav-item"><i data-lucide="star"></i>Ratings</div><div class="nav-item"><i data-lucide="building-2"></i>Chapters</div></div>
+    <div class="nav-section"><div class="nav-section-label">System</div><div class="nav-item"><i data-lucide="bar-chart-2"></i>Analytics</div><div class="nav-item active"><i data-lucide="file-text"></i>Audit Log</div><div class="nav-item"><i data-lucide="settings"></i>Settings</div></div>
+    <div class="sidebar-footer"><div class="avatar">AT</div><div><div class="name">Alex Torres</div><div class="role">Super Admin</div></div></div>
+  </div>
+  <div class="content">
+    <div class="topbar">
+      <div class="topbar-title">Audit Log</div>
+      <div style="flex:1;"></div>
+      <div class="search-bar" style="width:220px;"><i data-lucide="search" style="width:14px;height:14px;color:#94A3B8;"></i><input placeholder="Search actor, resource…"></div>
+      <select style="font-size:12px;border:1px solid #D1D5DB;border-radius:8px;padding:7px 10px;background:#fff;">
+        <option>All Actions</option><option>member.*</option><option>key.*</option><option>config.*</option>
+      </select>
+      <button class="topbar-btn btn-outline" style="font-size:13px;"><i data-lucide="download" style="width:14px;height:14px;"></i> Export</button>
+    </div>
+    <div class="main">
+      <div class="panel">
+        <table>
+          <thead><tr><th>Timestamp</th><th>Actor</th><th>Action</th><th>Resource</th><th>Resource ID</th><th>IP Address</th><th>Result</th><th>Details</th></tr></thead>
+          <tbody>
+            <tr><td style="color:#64748B;font-size:12px;">Apr 24, 14:32:07</td><td><div style="font-weight:500;">Alex Torres</div><div style="font-size:11px;color:#64748B;">Super Admin</div></td><td><div class="badge badge-yellow">config.update</div></td><td>Chapter</td><td><code>ch_sd7</code></td><td style="font-size:12px;color:#64748B;">192.168.1.4</td><td><div class="badge badge-green">Success</div></td><td><button class="topbar-btn btn-outline" style="padding:2px 8px;font-size:11px;">View Diff</button></td></tr>
+            <tr><td style="color:#64748B;font-size:12px;">Apr 24, 14:28:44</td><td><div style="font-weight:500;">Maria Chen</div><div style="font-size:11px;color:#64748B;">Chapter Admin</div></td><td><div class="badge badge-red">member.suspend</div></td><td>Member</td><td><code>mem_0048</code></td><td style="font-size:12px;color:#64748B;">10.0.2.88</td><td><div class="badge badge-green">Success</div></td><td><button class="topbar-btn btn-outline" style="padding:2px 8px;font-size:11px;">View</button></td></tr>
+            <tr><td style="color:#64748B;font-size:12px;">Apr 24, 14:22:11</td><td><div style="font-weight:500;">Alex Torres</div><div style="font-size:11px;color:#64748B;">Super Admin</div></td><td><div class="badge badge-blue">key.create</div></td><td>API Key</td><td><code>ak_prod_9f2e</code></td><td style="font-size:12px;color:#64748B;">192.168.1.4</td><td><div class="badge badge-green">Success</div></td><td><button class="topbar-btn btn-outline" style="padding:2px 8px;font-size:11px;">View</button></td></tr>
+            <tr><td style="color:#64748B;font-size:12px;">Apr 24, 13:58:29</td><td><div style="font-weight:500;">Sys Auto</div><div style="font-size:11px;color:#64748B;">System</div></td><td><div class="badge badge-gray">rating.flag</div></td><td>Rating</td><td><code>rat_2241</code></td><td style="font-size:12px;color:#64748B;">—</td><td><div class="badge badge-green">Success</div></td><td><button class="topbar-btn btn-outline" style="padding:2px 8px;font-size:11px;">View</button></td></tr>
+            <tr><td style="color:#64748B;font-size:12px;">Apr 24, 13:44:17</td><td><div style="font-weight:500;">Alex Torres</div><div style="font-size:11px;color:#64748B;">Super Admin</div></td><td><div class="badge badge-red">key.revoke</div></td><td>API Key</td><td><code>ak_prod_0011</code></td><td style="font-size:12px;color:#64748B;">192.168.1.4</td><td><div class="badge badge-green">Success</div></td><td><button class="topbar-btn btn-outline" style="padding:2px 8px;font-size:11px;">View</button></td></tr>
+            <tr><td style="color:#64748B;font-size:12px;">Apr 24, 12:30:05</td><td><div style="font-weight:500;">Unknown</div><div style="font-size:11px;color:#64748B;">External</div></td><td><div class="badge badge-red">auth.failed</div></td><td>Auth</td><td>—</td><td style="font-size:12px;font-weight:600;color:#DC2626;">203.22.81.44</td><td><div class="badge badge-red">Blocked</div></td><td><button class="topbar-btn btn-outline" style="padding:2px 8px;font-size:11px;color:#DC2626;">Investigate</button></td></tr>
+            <tr><td style="color:#64748B;font-size:12px;">Apr 24, 11:15:22</td><td><div style="font-weight:500;">Maria Chen</div><div style="font-size:11px;color:#64748B;">Chapter Admin</div></td><td><div class="badge badge-purple">member.tier_change</div></td><td>Member</td><td><code>mem_0112</code></td><td style="font-size:12px;color:#64748B;">10.0.2.88</td><td><div class="badge badge-green">Success</div></td><td><button class="topbar-btn btn-outline" style="padding:2px 8px;font-size:11px;">View</button></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-top:14px;">
+        <div style="font-size:12px;color:#64748B;">Showing 7 of 14,821 log entries</div>
+        <div style="display:flex;gap:4px;"><button class="topbar-btn btn-outline" style="padding:5px 12px;font-size:12px;">← Prev</button><button class="topbar-btn btn-primary" style="padding:5px 12px;font-size:12px;">1</button><button class="topbar-btn btn-outline" style="padding:5px 12px;font-size:12px;">2</button><button class="topbar-btn btn-outline" style="padding:5px 12px;font-size:12px;">Next →</button></div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- SCREEN 10: System Settings -->
+<div class="label">S10 — System Settings</div>
+<div class="scroll-row">
+<div class="frame">
+  <div class="sidebar">
+    <div class="sidebar-logo"><div class="app">IPSSA</div><div class="sub">API Admin Console</div></div>
+    <div class="nav-section"><div class="nav-section-label">Overview</div><div class="nav-item"><i data-lucide="layout-dashboard"></i>Dashboard</div></div>
+    <div class="nav-section"><div class="nav-section-label">Access</div><div class="nav-item"><i data-lucide="key"></i>API Keys</div><div class="nav-item"><i data-lucide="webhook"></i>Webhooks</div></div>
+    <div class="nav-section"><div class="nav-section-label">Data</div><div class="nav-item"><i data-lucide="users"></i>Members</div><div class="nav-item"><i data-lucide="shield"></i>Coverage Events</div><div class="nav-item"><i data-lucide="star"></i>Ratings</div><div class="nav-item"><i data-lucide="building-2"></i>Chapters</div></div>
+    <div class="nav-section"><div class="nav-section-label">System</div><div class="nav-item"><i data-lucide="bar-chart-2"></i>Analytics</div><div class="nav-item"><i data-lucide="file-text"></i>Audit Log</div><div class="nav-item active"><i data-lucide="settings"></i>Settings</div></div>
+    <div class="sidebar-footer"><div class="avatar">AT</div><div><div class="name">Alex Torres</div><div class="role">Super Admin</div></div></div>
+  </div>
+  <div class="content">
+    <div class="topbar">
+      <div class="topbar-title">System Settings</div>
+      <div style="flex:1;"></div>
+      <button class="topbar-btn btn-primary"><i data-lucide="save" style="width:14px;height:14px;"></i> Save All Changes</button>
+    </div>
+    <div class="main">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+        <!-- Global Limits -->
+        <div class="panel">
+          <div class="panel-header"><div class="panel-title">Global Rate Limits</div></div>
+          <div style="padding:18px;display:flex;flex-direction:column;gap:12px;">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+              <div><div style="font-size:12px;font-weight:500;margin-bottom:4px;">Default (req/min)</div><input style="width:100%;border:1px solid #D1D5DB;border-radius:8px;padding:8px 12px;font-size:13px;" value="500"></div>
+              <div><div style="font-size:12px;font-weight:500;margin-bottom:4px;">Burst Limit</div><input style="width:100%;border:1px solid #D1D5DB;border-radius:8px;padding:8px 12px;font-size:13px;" value="1000"></div>
+            </div>
+            <div><div style="font-size:12px;font-weight:500;margin-bottom:4px;">Coverage Match timeout (seconds)</div><input style="width:100%;border:1px solid #D1D5DB;border-radius:8px;padding:8px 12px;font-size:13px;" value="5"></div>
+            <div><div style="font-size:12px;font-weight:500;margin-bottom:4px;">Max image upload (MB)</div><input style="width:100%;border:1px solid #D1D5DB;border-radius:8px;padding:8px 12px;font-size:13px;" value="5"></div>
+            <div><div style="font-size:12px;font-weight:500;margin-bottom:4px;">Session token TTL (hours)</div><input style="width:100%;border:1px solid #D1D5DB;border-radius:8px;padding:8px 12px;font-size:13px;" value="24"></div>
+          </div>
+        </div>
+        <!-- Platform Flags -->
+        <div class="panel">
+          <div class="panel-header"><div class="panel-title">Platform Feature Flags</div></div>
+          <div style="padding:14px 18px;display:flex;flex-direction:column;gap:12px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;"><div><div style="font-size:13px;font-weight:500;">Maintenance Mode</div><div style="font-size:11px;color:#64748B;">Show maintenance banner to all users</div></div><div style="width:40px;height:22px;background:#E2E8F0;border-radius:11px;position:relative;"><div style="position:absolute;left:3px;top:3px;width:16px;height:16px;background:#fff;border-radius:50%;"></div></div></div>
+            <div style="display:flex;align-items:center;justify-content:space-between;"><div><div style="font-size:13px;font-weight:500;">New Member Registration</div><div style="font-size:11px;color:#64748B;">Allow new members to register</div></div><div style="width:40px;height:22px;background:#6366F1;border-radius:11px;position:relative;"><div style="position:absolute;right:3px;top:3px;width:16px;height:16px;background:#fff;border-radius:50%;"></div></div></div>
+            <div style="display:flex;align-items:center;justify-content:space-between;"><div><div style="font-size:13px;font-weight:500;">AI Rating Flagging</div><div style="font-size:11px;color:#64748B;">Auto-flag suspicious ratings with ML</div></div><div style="width:40px;height:22px;background:#6366F1;border-radius:11px;position:relative;"><div style="position:absolute;right:3px;top:3px;width:16px;height:16px;background:#fff;border-radius:50%;"></div></div></div>
+            <div style="display:flex;align-items:center;justify-content:space-between;"><div><div style="font-size:13px;font-weight:500;">Public API Docs</div><div style="font-size:11px;color:#64748B;">Expose Swagger docs at /api/docs</div></div><div style="width:40px;height:22px;background:#E2E8F0;border-radius:11px;position:relative;"><div style="position:absolute;left:3px;top:3px;width:16px;height:16px;background:#fff;border-radius:50%;"></div></div></div>
+          </div>
+        </div>
+        <!-- Notification Settings -->
+        <div class="panel">
+          <div class="panel-header"><div class="panel-title">Admin Notifications</div></div>
+          <div style="padding:14px 18px;display:flex;flex-direction:column;gap:12px;">
+            <div><div style="font-size:12px;font-weight:500;margin-bottom:4px;">Alert Email</div><input style="width:100%;border:1px solid #D1D5DB;border-radius:8px;padding:8px 12px;font-size:13px;" value="admin-alerts@ipssa.org"></div>
+            <div><div style="font-size:12px;font-weight:500;margin-bottom:4px;">Slack Webhook for Critical Alerts</div><input style="width:100%;border:1px solid #D1D5DB;border-radius:8px;padding:8px 12px;font-size:13px;" value="https://hooks.slack.com/services/T0…"></div>
+            <div style="display:flex;align-items:center;justify-content:space-between;"><div style="font-size:13px;">Alert on unmatched coverage</div><div style="width:40px;height:22px;background:#6366F1;border-radius:11px;position:relative;"><div style="position:absolute;right:3px;top:3px;width:16px;height:16px;background:#fff;border-radius:50%;"></div></div></div>
+            <div style="display:flex;align-items:center;justify-content:space-between;"><div style="font-size:13px;">Alert on error rate &gt;1%</div><div style="width:40px;height:22px;background:#6366F1;border-radius:11px;position:relative;"><div style="position:absolute;right:3px;top:3px;width:16px;height:16px;background:#fff;border-radius:50%;"></div></div></div>
+          </div>
+        </div>
+        <!-- Danger Zone -->
+        <div class="panel" style="border-color:#FECACA;">
+          <div class="panel-header" style="background:#FEF2F2;"><div class="panel-title" style="color:#991B1B;">Danger Zone</div></div>
+          <div style="padding:18px;display:flex;flex-direction:column;gap:12px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:12px;border:1px solid #FECACA;border-radius:8px;background:#FFF5F5;">
+              <div><div style="font-size:13px;font-weight:600;color:#991B1B;">Flush Match Cache</div><div style="font-size:11px;color:#DC2626;">Clears all pending coverage match cache entries</div></div>
+              <button class="topbar-btn" style="background:#EF4444;color:#fff;font-size:12px;padding:6px 14px;">Flush</button>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:12px;border:1px solid #FECACA;border-radius:8px;background:#FFF5F5;">
+              <div><div style="font-size:13px;font-weight:600;color:#991B1B;">Revoke All API Keys</div><div style="font-size:11px;color:#DC2626;">Nuclear option — revokes every active key immediately</div></div>
+              <button class="topbar-btn" style="background:#991B1B;color:#fff;font-size:12px;padding:6px 14px;">Revoke All</button>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:12px;border:1px solid #FECACA;border-radius:8px;background:#FFF5F5;">
+              <div><div style="font-size:13px;font-weight:600;color:#991B1B;">Enable Maintenance Mode</div><div style="font-size:11px;color:#DC2626;">Takes app offline for all users immediately</div></div>
+              <button class="topbar-btn" style="background:#7F1D1D;color:#fff;font-size:12px;padding:6px 14px;">Activate</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<script>lucide.createIcons();</script>
+</body>
+</html>

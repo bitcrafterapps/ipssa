@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IPSSA App — V5: Clean White / Emerald (New Member Onboarding)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    * { font-family: 'Inter', sans-serif; box-sizing: border-box; }
+    .screen { width: 375px; height: 812px; flex-shrink: 0; overflow: hidden; position: relative; display: flex; flex-direction: column; background: #FFFFFF; }
+    .nav-icon { display: flex; flex-direction: column; align-items: center; gap: 3px; flex: 1; padding: 8px 0; cursor: pointer; }
+    .em { color: #059669; }
+    .em-bg { background: #059669; }
+    .em-light { background: #ECFDF5; }
+    .em-border { border-color: #059669; }
+  </style>
+</head>
+<body class="bg-[#F0F4F1] p-8 min-h-screen">
+
+  <div class="text-center mb-10">
+    <p class="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-1">IPSSA Mobile App · Mockup Series</p>
+    <h1 class="text-3xl font-bold text-gray-900">Variation 5 — Clean White / Emerald</h1>
+    <p class="text-gray-500 mt-2">Minimal · No Gradients · New Member Onboarding Journey</p>
+  </div>
+
+  <div class="flex items-start gap-8 overflow-x-auto pb-10">
+
+    <!-- ── SCREEN 1: WELCOME / ONBOARDING ── -->
+    <div class="flex flex-col items-center gap-3 flex-shrink-0">
+      <span class="text-xs font-semibold text-gray-400 uppercase tracking-wider">1 — Welcome</span>
+      <div class="screen rounded-3xl border border-gray-200 shadow-xl">
+        <!-- Brand bar -->
+        <div class="em-bg px-5 pt-8 pb-8 flex flex-col items-center text-center">
+          <div class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mb-4 shadow-sm">
+            <i data-lucide="waves" class="w-8 h-8 text-emerald-600"></i>
+          </div>
+          <h1 class="text-white text-2xl font-bold">IPSSA App</h1>
+          <p class="text-white/70 text-sm mt-1">Member Platform · Chapter 7</p>
+        </div>
+
+        <!-- Value props -->
+        <div class="flex-1 overflow-hidden px-6 py-6 flex flex-col justify-between">
+          <div class="flex flex-col gap-5">
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 bg-emerald-100 rounded-2xl flex items-center justify-center flex-shrink-0">
+                <i data-lucide="shield" class="w-5 h-5 text-emerald-700"></i>
+              </div>
+              <div>
+                <p class="text-black font-bold text-sm">Protect Your Route</p>
+                <p class="text-black/50 text-xs leading-relaxed mt-0.5">Find a trusted coverage partner in under 60 seconds when you're sick or injured. Tech-4-Tech, upgraded.</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 bg-emerald-100 rounded-2xl flex items-center justify-center flex-shrink-0">
+                <i data-lucide="users" class="w-5 h-5 text-emerald-700"></i>
+              </div>
+              <div>
+                <p class="text-black font-bold text-sm">Stay Connected</p>
+                <p class="text-black/50 text-xs leading-relaxed mt-0.5">Chapter announcements, field tips, and member coordination — all in one place instead of scattered text threads.</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 bg-emerald-100 rounded-2xl flex items-center justify-center flex-shrink-0">
+                <i data-lucide="award" class="w-5 h-5 text-emerald-700"></i>
+              </div>
+              <div>
+                <p class="text-black font-bold text-sm">Earn Your Reputation</p>
+                <p class="text-black/50 text-xs leading-relaxed mt-0.5">Build a CoverageScore that proves your reliability — visible to the chapter and to homeowners looking to hire.</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 bg-emerald-100 rounded-2xl flex items-center justify-center flex-shrink-0">
+                <i data-lucide="book-open" class="w-5 h-5 text-emerald-700"></i>
+              </div>
+              <div>
+                <p class="text-black font-bold text-sm">Pass Your Certification</p>
+                <p class="text-black/50 text-xs leading-relaxed mt-0.5">Bite-size Water Chemistry drills built for field breaks. Complete your first-year requirement with confidence.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex flex-col gap-3 mt-6">
+            <button class="w-full py-4 rounded-2xl font-bold text-white text-sm em-bg transition-all duration-200 active:scale-[0.98]">
+              Sign In with IPSSA
+            </button>
+            <p class="text-center text-black/35 text-xs">New to IPSSA? <span class="text-emerald-600 font-semibold">Join at ipssa.com →</span></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SCREEN 2: HOME (NEW MEMBER) ── -->
+    <div class="flex flex-col items-center gap-3 flex-shrink-0">
+      <span class="text-xs font-semibold text-gray-400 uppercase tracking-wider">2 — Home (New Member)</span>
+      <div class="screen rounded-3xl border border-gray-200 shadow-xl">
+        <!-- Header — flat, no gradient -->
+        <div class="em-bg px-5 pt-6 pb-5">
+          <div class="flex items-center justify-between mb-3">
+            <div>
+              <p class="text-white/70 text-xs">Welcome to Chapter 7</p>
+              <h2 class="text-white text-xl font-bold">David Park</h2>
+            </div>
+            <div class="flex items-center gap-3">
+              <button><i data-lucide="bell" class="w-5 h-5 text-white/70"></i></button>
+              <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&h=80&fit=crop&crop=face" class="w-10 h-10 rounded-full border-2 border-white/30 object-cover" alt="David">
+            </div>
+          </div>
+          <div class="bg-white/15 rounded-2xl p-3">
+            <div class="flex items-center gap-2">
+              <i data-lucide="info" class="w-4 h-4 text-white flex-shrink-0"></i>
+              <p class="text-white text-xs font-medium">New member · Pool Rookie tier</p>
+            </div>
+            <p class="text-white/65 text-[11px] mt-1 ml-6">Complete your first coverage job and Water Chemistry cert to build your CoverageScore.</p>
+          </div>
+        </div>
+
+        <div class="flex-1 overflow-hidden px-5 py-4 flex flex-col gap-3 bg-white">
+
+          <!-- Required action -->
+          <div class="rounded-2xl p-4 border-2 border-emerald-500 bg-emerald-50">
+            <div class="flex items-center gap-2 mb-2">
+              <i data-lucide="alert-circle" class="w-4 h-4 text-emerald-700"></i>
+              <p class="text-black font-bold text-xs uppercase tracking-wide">Required — First Year</p>
+            </div>
+            <p class="text-black font-semibold text-sm mb-0.5">Water Chemistry Exam</p>
+            <p class="text-black/50 text-xs mb-3">Required within your first year of membership. Official exam at IPSSA.com. Use the Prep Lab to study first.</p>
+            <button class="w-full py-2.5 rounded-xl font-bold text-white text-xs em-bg transition-all duration-200">Start Prep Lab →</button>
+          </div>
+
+          <!-- First steps -->
+          <div>
+            <p class="text-black text-xs font-semibold uppercase tracking-wider mb-2">Getting Started</p>
+            <div class="flex flex-col gap-2">
+              <div class="flex items-center gap-3 bg-gray-50 rounded-xl p-3 border border-gray-100">
+                <div class="w-5 h-5 rounded-full bg-emerald-100 border-2 border-emerald-400 flex items-center justify-center flex-shrink-0"><i data-lucide="check" class="w-3 h-3 text-emerald-600"></i></div>
+                <p class="text-black text-xs font-medium flex-1">Joined San Diego Chapter 7</p>
+                <i data-lucide="check-circle" class="w-4 h-4 text-emerald-500"></i>
+              </div>
+              <div class="flex items-center gap-3 bg-gray-50 rounded-xl p-3 border border-gray-100">
+                <div class="w-5 h-5 rounded-full bg-gray-200 border-2 border-gray-300 flex-shrink-0"></div>
+                <p class="text-black/60 text-xs font-medium flex-1">Complete your member profile</p>
+                <i data-lucide="chevron-right" class="w-4 h-4 text-black/25"></i>
+              </div>
+              <div class="flex items-center gap-3 bg-gray-50 rounded-xl p-3 border border-gray-100">
+                <div class="w-5 h-5 rounded-full bg-gray-200 border-2 border-gray-300 flex-shrink-0"></div>
+                <p class="text-black/60 text-xs font-medium flex-1">Mark your coverage availability</p>
+                <i data-lucide="chevron-right" class="w-4 h-4 text-black/25"></i>
+              </div>
+              <div class="flex items-center gap-3 bg-gray-50 rounded-xl p-3 border border-gray-100">
+                <div class="w-5 h-5 rounded-full bg-gray-200 border-2 border-gray-300 flex-shrink-0"></div>
+                <p class="text-black/60 text-xs font-medium flex-1">Complete your first coverage job</p>
+                <i data-lucide="chevron-right" class="w-4 h-4 text-black/25"></i>
+              </div>
+            </div>
+          </div>
+
+          <!-- Chapter welcome -->
+          <div class="bg-gray-50 rounded-2xl p-3.5 border border-gray-100 flex items-start gap-3">
+            <img src="https://images.unsplash.com/photo-1560250097-0dc05ffefdbb?w=60&h=60&fit=crop&crop=face" class="w-9 h-9 rounded-xl object-cover flex-shrink-0" alt="Lisa">
+            <div>
+              <p class="text-black font-semibold text-xs">Lisa Torres — Chapter President</p>
+              <p class="text-black/50 text-xs mt-0.5 leading-relaxed">"Welcome, David! Reach out anytime. Our monthly meeting is Thu Apr 30 — great way to meet the team."</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex items-center bg-white border-t border-gray-100 px-2" style="height:60px;">
+          <div class="nav-icon"><i data-lucide="home" class="w-5 h-5 text-emerald-600"></i><span class="text-[9px] font-bold text-emerald-600">Home</span></div>
+          <div class="nav-icon"><i data-lucide="shield" class="w-5 h-5 text-black/25"></i><span class="text-[9px] text-black/40">Coverage</span></div>
+          <div class="nav-icon"><i data-lucide="message-circle" class="w-5 h-5 text-black/25"></i><span class="text-[9px] text-black/40">Chapter</span></div>
+          <div class="nav-icon"><i data-lucide="user" class="w-5 h-5 text-black/25"></i><span class="text-[9px] text-black/40">Profile</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SCREEN 3: CHAPTER COMMUNITY (CLEAN) ── -->
+    <div class="flex flex-col items-center gap-3 flex-shrink-0">
+      <span class="text-xs font-semibold text-gray-400 uppercase tracking-wider">3 — Chapter Community</span>
+      <div class="screen rounded-3xl border border-gray-200 shadow-xl">
+        <div class="em-bg px-5 pt-6 pb-4">
+          <div class="flex items-center gap-3 mb-1">
+            <div class="flex-1">
+              <p class="text-white/60 text-xs">San Diego · Chapter 7</p>
+              <h2 class="text-white text-lg font-bold">Community</h2>
+            </div>
+            <button><i data-lucide="search" class="w-5 h-5 text-white/60"></i></button>
+          </div>
+        </div>
+
+        <div class="flex-1 overflow-hidden px-5 py-4 bg-white flex flex-col gap-2">
+          <p class="text-black text-xs font-semibold uppercase tracking-wider mb-1">Channels</p>
+
+          <div class="flex flex-col gap-1.5">
+            <div class="flex items-center gap-3 p-3.5 rounded-2xl bg-emerald-50 border-2 border-emerald-200">
+              <div class="em-bg rounded-xl p-2"><i data-lucide="megaphone" class="w-4 h-4 text-white"></i></div>
+              <div class="flex-1">
+                <div class="flex items-center justify-between">
+                  <p class="text-black font-bold text-sm">Announcements</p>
+                  <span class="bg-emerald-600 text-white text-[9px] font-bold px-2 py-0.5 rounded-full">2 new</span>
+                </div>
+                <p class="text-black/40 text-xs">Monthly meeting confirmed</p>
+              </div>
+              <i data-lucide="chevron-right" class="w-4 h-4 text-black/25"></i>
+            </div>
+
+            <div class="flex items-center gap-3 p-3.5 rounded-2xl bg-gray-50 border border-gray-100">
+              <div class="bg-amber-100 rounded-xl p-2"><i data-lucide="lightbulb" class="w-4 h-4 text-amber-700"></i></div>
+              <div class="flex-1">
+                <div class="flex items-center justify-between">
+                  <p class="text-black font-bold text-sm">Tips & Tricks</p>
+                  <span class="bg-gray-800 text-white text-[9px] font-bold px-2 py-0.5 rounded-full">5 new</span>
+                </div>
+                <p class="text-black/40 text-xs">High CYA fix from James R.</p>
+              </div>
+              <i data-lucide="chevron-right" class="w-4 h-4 text-black/25"></i>
+            </div>
+
+            <div class="flex items-center gap-3 p-3.5 rounded-2xl bg-gray-50 border border-gray-100">
+              <div class="bg-red-100 rounded-xl p-2"><i data-lucide="help-circle" class="w-4 h-4 text-red-600"></i></div>
+              <div class="flex-1">
+                <div class="flex items-center justify-between">
+                  <p class="text-black font-bold text-sm">Customer Issues</p>
+                  <span class="bg-gray-800 text-white text-[9px] font-bold px-2 py-0.5 rounded-full">1 new</span>
+                </div>
+                <p class="text-black/40 text-xs">Persistent algae · Sarah C.</p>
+              </div>
+              <i data-lucide="chevron-right" class="w-4 h-4 text-black/25"></i>
+            </div>
+
+            <div class="flex items-center gap-3 p-3.5 rounded-2xl bg-gray-50 border border-gray-100">
+              <div class="bg-blue-100 rounded-xl p-2"><i data-lucide="message-square" class="w-4 h-4 text-blue-600"></i></div>
+              <div class="flex-1">
+                <p class="text-black font-bold text-sm">General Chat</p>
+                <p class="text-black/40 text-xs">Welcome David P. · 2h ago</p>
+              </div>
+              <i data-lucide="chevron-right" class="w-4 h-4 text-black/25"></i>
+            </div>
+          </div>
+
+          <div class="mt-2">
+            <p class="text-black text-xs font-semibold uppercase tracking-wider mb-2">Upcoming Event</p>
+            <div class="rounded-2xl p-3.5 border border-gray-200 bg-white flex items-center gap-3">
+              <div class="w-12 h-12 em-bg rounded-2xl flex flex-col items-center justify-center flex-shrink-0">
+                <p class="text-white text-[9px] font-bold uppercase">APR</p>
+                <p class="text-white text-lg font-bold leading-none">30</p>
+              </div>
+              <div class="flex-1">
+                <p class="text-black font-bold text-sm">Monthly Chapter Meeting</p>
+                <p class="text-black/40 text-xs">Thu 7:00 PM · Handlebar Restaurant</p>
+              </div>
+              <button class="em-bg text-white text-[10px] font-bold px-3 py-1.5 rounded-xl">RSVP</button>
+            </div>
+          </div>
+
+          <div>
+            <p class="text-black text-xs font-semibold uppercase tracking-wider mb-2">Online Now</p>
+            <div class="flex gap-2.5">
+              <div class="flex flex-col items-center gap-1">
+                <div class="relative"><img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=40&h=40&fit=crop&crop=face" class="w-10 h-10 rounded-xl object-cover" alt="James"><div class="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-green-500 border-2 border-white rounded-full"></div></div>
+                <p class="text-black text-[9px] font-medium">James</p>
+              </div>
+              <div class="flex flex-col items-center gap-1">
+                <div class="relative"><img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=40&h=40&fit=crop&crop=face" class="w-10 h-10 rounded-xl object-cover" alt="Sarah"><div class="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-green-500 border-2 border-white rounded-full"></div></div>
+                <p class="text-black text-[9px] font-medium">Sarah</p>
+              </div>
+              <div class="flex flex-col items-center gap-1">
+                <div class="relative"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=40&h=40&fit=crop&crop=face" class="w-10 h-10 rounded-xl object-cover" alt="Mike"><div class="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-yellow-400 border-2 border-white rounded-full"></div></div>
+                <p class="text-black text-[9px] font-medium">Mike</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex items-center bg-white border-t border-gray-100 px-2" style="height:60px;">
+          <div class="nav-icon"><i data-lucide="home" class="w-5 h-5 text-black/25"></i><span class="text-[9px] text-black/40">Home</span></div>
+          <div class="nav-icon"><i data-lucide="shield" class="w-5 h-5 text-black/25"></i><span class="text-[9px] text-black/40">Coverage</span></div>
+          <div class="nav-icon"><i data-lucide="message-circle" class="w-5 h-5 text-emerald-600"></i><span class="text-[9px] font-bold text-emerald-600">Chapter</span></div>
+          <div class="nav-icon"><i data-lucide="user" class="w-5 h-5 text-black/25"></i><span class="text-[9px] text-black/40">Profile</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SCREEN 4: PREP LAB (CLEAN) ── -->
+    <div class="flex flex-col items-center gap-3 flex-shrink-0">
+      <span class="text-xs font-semibold text-gray-400 uppercase tracking-wider">4 — Prep Lab</span>
+      <div class="screen rounded-3xl border border-gray-200 shadow-xl">
+        <div class="em-bg px-5 pt-6 pb-5">
+          <div class="flex items-center gap-3 mb-4">
+            <button class="bg-white/15 rounded-xl p-2"><i data-lucide="arrow-left" class="w-4 h-4 text-white"></i></button>
+            <div class="flex-1">
+              <h2 class="text-white text-lg font-bold">Certification Prep Lab</h2>
+              <p class="text-white/60 text-xs">Practice mode · Official exams at IPSSA.com</p>
+            </div>
+          </div>
+          <div class="bg-white/15 rounded-2xl p-3 flex items-center gap-3">
+            <div>
+              <p class="text-white/60 text-[10px] font-semibold uppercase tracking-wide">Review Deck</p>
+              <p class="text-white font-bold text-sm">0 missed questions</p>
+            </div>
+            <p class="ml-auto text-white/50 text-xs">Start studying first ↓</p>
+          </div>
+        </div>
+
+        <div class="flex-1 overflow-hidden px-5 py-4 bg-white flex flex-col gap-3">
+          <p class="text-black text-xs font-semibold uppercase tracking-wider">Study Tracks</p>
+
+          <!-- Required track - highlighted -->
+          <div class="rounded-2xl p-4 border-2 border-emerald-500 bg-emerald-50">
+            <div class="flex items-center justify-between mb-2">
+              <div class="flex items-center gap-2.5">
+                <div class="em-bg rounded-xl p-2"><i data-lucide="droplets" class="w-4 h-4 text-white"></i></div>
+                <div>
+                  <p class="text-black font-bold text-sm">Water Chemistry</p>
+                  <p class="text-black/50 text-xs">Basic Training 1</p>
+                </div>
+              </div>
+              <span class="bg-emerald-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">Required</span>
+            </div>
+            <div class="flex items-center justify-between mb-1.5">
+              <p class="text-black/50 text-[11px]">Not started yet</p>
+              <p class="text-black font-bold text-xs">0%</p>
+            </div>
+            <div class="bg-emerald-200 rounded-full h-2 mb-3"><div class="bg-emerald-600 h-2 rounded-full" style="width:0%"></div></div>
+            <button class="w-full py-2.5 rounded-xl font-bold text-white text-xs em-bg transition-all duration-200">Start Practice →</button>
+          </div>
+
+          <!-- Other tracks - locked/dimmed for new member -->
+          <div class="rounded-2xl p-4 border border-dashed border-gray-200 bg-gray-50 flex items-center gap-3">
+            <div class="bg-gray-200 rounded-xl p-2"><i data-lucide="lock" class="w-4 h-4 text-black/25"></i></div>
+            <div>
+              <p class="text-black/40 font-bold text-sm">Equipment</p>
+              <p class="text-black/25 text-xs">Available after Water Chemistry</p>
+            </div>
+          </div>
+          <div class="rounded-2xl p-4 border border-dashed border-gray-200 bg-gray-50 flex items-center gap-3">
+            <div class="bg-gray-200 rounded-xl p-2"><i data-lucide="lock" class="w-4 h-4 text-black/25"></i></div>
+            <div>
+              <p class="text-black/40 font-bold text-sm">Pool Chlorination Facts</p>
+              <p class="text-black/25 text-xs">Available after Water Chemistry</p>
+            </div>
+          </div>
+
+          <!-- Info card -->
+          <div class="bg-amber-50 rounded-2xl p-3.5 border border-amber-100 flex items-start gap-3">
+            <i data-lucide="info" class="w-4 h-4 text-amber-600 flex-shrink-0 mt-0.5"></i>
+            <div>
+              <p class="text-black font-semibold text-xs">About the official exam</p>
+              <p class="text-black/50 text-xs mt-0.5 leading-relaxed">This prep tool uses original practice questions. The official Water Chemistry exam is taken at IPSSA.com. Study guides are available in the member webstore. 10 attempts allowed.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex items-center bg-white border-t border-gray-100 px-2" style="height:60px;">
+          <div class="nav-icon"><i data-lucide="home" class="w-5 h-5 text-black/25"></i><span class="text-[9px] text-black/40">Home</span></div>
+          <div class="nav-icon"><i data-lucide="shield" class="w-5 h-5 text-black/25"></i><span class="text-[9px] text-black/40">Coverage</span></div>
+          <div class="nav-icon"><i data-lucide="message-circle" class="w-5 h-5 text-black/25"></i><span class="text-[9px] text-black/40">Chapter</span></div>
+          <div class="nav-icon"><i data-lucide="user" class="w-5 h-5 text-black/25"></i><span class="text-[9px] text-black/40">Profile</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SCREEN 5: MY PROFILE (NEW MEMBER BUILDING) ── -->
+    <div class="flex flex-col items-center gap-3 flex-shrink-0">
+      <span class="text-xs font-semibold text-gray-400 uppercase tracking-wider">5 — My Profile</span>
+      <div class="screen rounded-3xl border border-gray-200 shadow-xl">
+        <div class="em-bg px-5 pt-6 pb-5">
+          <div class="flex justify-end mb-3">
+            <button class="bg-white/15 rounded-xl px-3 py-1.5 text-white text-xs font-semibold">Edit Profile</button>
+          </div>
+          <div class="flex items-center gap-4">
+            <div class="relative">
+              <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop&crop=face" class="w-16 h-16 rounded-2xl object-cover border-2 border-white/30" alt="David">
+              <div class="absolute -bottom-1 -right-1 bg-white rounded-lg p-1"><i data-lucide="camera" class="w-3 h-3 text-emerald-600"></i></div>
+            </div>
+            <div>
+              <h2 class="text-white font-bold text-lg">David Park</h2>
+              <p class="text-white/50 text-xs">Park Pool Pro · La Mesa, CA</p>
+              <div class="flex items-center gap-2 mt-1.5">
+                <span class="bg-white/15 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">Pool Rookie</span>
+                <span class="text-white/50 text-xs">Building score…</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex-1 overflow-hidden px-5 py-4 bg-white flex flex-col gap-4">
+
+          <!-- Score building -->
+          <div class="rounded-2xl p-3.5 border-2 border-dashed border-emerald-300 bg-emerald-50">
+            <p class="text-black font-semibold text-xs mb-1">Building Your CoverageScore</p>
+            <p class="text-black/50 text-xs leading-relaxed">Complete 3 rated coverage jobs to display your score. Your reputation is your most valuable asset in this network.</p>
+            <div class="flex items-center gap-2 mt-2">
+              <div class="flex gap-1">
+                <div class="w-4 h-4 rounded-full bg-emerald-200 border-2 border-emerald-400"></div>
+                <div class="w-4 h-4 rounded-full bg-gray-200 border-2 border-gray-300"></div>
+                <div class="w-4 h-4 rounded-full bg-gray-200 border-2 border-gray-300"></div>
+              </div>
+              <p class="text-black/50 text-xs">1 of 3 ratings needed</p>
+            </div>
+          </div>
+
+          <!-- Stats -->
+          <div class="grid grid-cols-3 gap-2">
+            <div class="bg-gray-50 rounded-2xl p-3 text-center border border-gray-100"><p class="text-black font-bold text-xl">1</p><p class="text-black/35 text-[10px]">Coverage<br>Job</p></div>
+            <div class="bg-gray-50 rounded-2xl p-3 text-center border border-gray-100"><p class="text-black font-bold text-xl">New</p><p class="text-black/35 text-[10px]">Member<br>Status</p></div>
+            <div class="bg-gray-50 rounded-2xl p-3 text-center border border-gray-100"><p class="text-black font-bold text-xl">0%</p><p class="text-black/35 text-[10px]">Cert<br>Progress</p></div>
+          </div>
+
+          <!-- Profile completeness -->
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <p class="text-black text-xs font-semibold uppercase tracking-wider">Profile Completeness</p>
+              <p class="text-black font-bold text-xs">40%</p>
+            </div>
+            <div class="bg-gray-100 rounded-full h-2 mb-3"><div class="bg-emerald-500 h-2 rounded-full" style="width:40%"></div></div>
+            <div class="flex flex-col gap-1.5">
+              <div class="flex items-center gap-2"><i data-lucide="check-circle" class="w-3.5 h-3.5 text-emerald-500"></i><p class="text-black text-xs">Name and business info</p></div>
+              <div class="flex items-center gap-2"><i data-lucide="check-circle" class="w-3.5 h-3.5 text-emerald-500"></i><p class="text-black text-xs">Chapter linked · La Mesa</p></div>
+              <div class="flex items-center gap-2"><i data-lucide="circle" class="w-3.5 h-3.5 text-black/20"></i><p class="text-black/40 text-xs">Add specialties</p></div>
+              <div class="flex items-center gap-2"><i data-lucide="circle" class="w-3.5 h-3.5 text-black/20"></i><p class="text-black/40 text-xs">Upload profile photo</p></div>
+              <div class="flex items-center gap-2"><i data-lucide="circle" class="w-3.5 h-3.5 text-black/20"></i><p class="text-black/40 text-xs">Complete Water Chemistry cert</p></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex items-center bg-white border-t border-gray-100 px-2" style="height:60px;">
+          <div class="nav-icon"><i data-lucide="home" class="w-5 h-5 text-black/25"></i><span class="text-[9px] text-black/40">Home</span></div>
+          <div class="nav-icon"><i data-lucide="shield" class="w-5 h-5 text-black/25"></i><span class="text-[9px] text-black/40">Coverage</span></div>
+          <div class="nav-icon"><i data-lucide="message-circle" class="w-5 h-5 text-black/25"></i><span class="text-[9px] text-black/40">Chapter</span></div>
+          <div class="nav-icon"><i data-lucide="user" class="w-5 h-5 text-emerald-600"></i><span class="text-[9px] font-bold text-emerald-600">Profile</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <script>lucide.createIcons();</script>
+</body>
+</html>
